@@ -15,11 +15,9 @@
 
 import click
 import fsspec
-import msgspec
 
+from nautilus_trader.backtest.api import parse_backtest_run_request
 from nautilus_trader.backtest.node import BacktestNode
-from nautilus_trader.config import BacktestRunConfig
-from nautilus_trader.config import msgspec_decoding_hook
 
 
 @click.command()
@@ -39,11 +37,7 @@ def main(
         assert raw is not None  # Type checking
         data = raw.encode()
 
-    configs = msgspec.json.decode(
-        data,
-        type=list[BacktestRunConfig],
-        dec_hook=msgspec_decoding_hook,
-    )
+    configs = parse_backtest_run_request(data)
     node = BacktestNode(configs=configs)
     node.run()
 
