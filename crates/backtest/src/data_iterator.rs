@@ -106,6 +106,59 @@ pub trait DataChunkSource: Debug {
     fn next_chunk(&mut self) -> Option<Vec<Data>>;
 }
 
+/// Lazily decodes [`Data`] chunks from an iterator of Arrow `RecordBatch` values
+/// (each paired with its decode metadata), one batch at a time.
+///
+/// This lets an org whose data already lives in Arrow/Parquet form (their own
+/// data lake, not the SDK's bundled catalog) hand batches straight to the
+/// engine for near zero-copy ingestion: each batch is decoded into [`Data`]
+/// only as it is consumed — via the same [`decode_batch_to_data`] dispatcher
+/// the catalog uses — rather than decoding the entire dataset up front.
+///
+/// [`decode_batch_to_data`]: nautilus_persistence::backend::custom::decode_batch_to_data
+#[cfg(feature = "streaming")]
+#[derive(Debug)]
+pub struct RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    batches: I,
+}
+
+#[cfg(feature = "streaming")]
+impl<I> RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    /// Creates a new [`RecordBatchChunkSource`] wrapping an iterator of
+    /// `(RecordBatch, metadata)` pairs, decoded lazily on each [`DataChunkSource::next_chunk`] call.
+    pub fn new(batches: I) -> Self {
+        Self { batches }
+    }
+}
+
+#[cfg(feature = "streaming")]
+impl<I> DataChunkSource for RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    fn next_chunk(&mut self) -> Option<Vec<Data>> {
+        let (batch, metadata) = self.batches.next()?;
+
+        match nautilus_persistence::backend::custom::decode_batch_to_data(&metadata, batch, false)
+        {
+            Ok(data) => Some(data),
+            Err(e) => {
+                log::error!("Failed to decode Arrow record batch into chunk data: {e}");
+                None
+            }
+        }
+    }
+}
+
 /// Multi-stream, time-ordered data iterator used by the backtest engine.
 #[derive(Debug, Default)]
 pub struct BacktestDataIterator {
@@ -1003,5 +1056,92 @@ mod tests {
 
         assert!(!it.sources.contains_key(&priority));
         assert_eq!(collect_ts(&mut it), vec![100]);
+    }
+
+    #[cfg(feature = "streaming")]
+    mod record_batch_chunk_source_tests {
+        use std::collections::HashMap;
+
+        use nautilus_serialization::arrow::EncodeToRecordBatch;
+
+        use super::*;
+
+        fn quote_record_batch(
+            id: &str,
+            timestamps: &[u64],
+        ) -> (arrow::record_batch::RecordBatch, HashMap<String, String>) {
+            let quotes: Vec<QuoteTick> = timestamps
+                .iter()
+                .map(|&ts| match quote(id, ts) {
+                    Data::Quote(q) => q,
+                    _ => unreachable!(),
+                })
+                .collect();
+
+            let mut metadata = QuoteTick::chunk_metadata(&quotes);
+            let batch = QuoteTick::encode_batch(&metadata, &quotes).unwrap();
+            metadata.insert("type_name".to_string(), "QuoteTick".to_string());
+
+            (batch, metadata)
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_decodes_lazily_in_order() {
+            let timestamps: Vec<u64> = (0..12).map(|k| k * 10).collect();
+            let batches: Vec<_> = timestamps
+                .chunks(4)
+                .map(|chunk| quote_record_batch("A.B", chunk))
+                .collect();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+
+            assert_eq!(collect_ts(&mut it), timestamps);
+            assert!(it.is_done());
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_merges_with_materialized_stream() {
+            let arrow_timestamps: Vec<u64> = vec![1, 4, 7, 10];
+            let batches: Vec<_> = arrow_timestamps
+                .chunks(2)
+                .map(|chunk| quote_record_batch("A.B", chunk))
+                .collect();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+            it.add_data(
+                "materialized",
+                vec![quote("C.D", 2), quote("C.D", 5), quote("C.D", 8)],
+                true,
+            );
+
+            assert_eq!(collect_ts(&mut it), vec![1, 2, 4, 5, 7, 8, 10]);
+            assert!(it.is_done());
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_empty_iterator_is_noop() {
+            let batches: Vec<(arrow::record_batch::RecordBatch, HashMap<String, String>)> =
+                Vec::new();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+
+            assert!(it.is_done());
+            assert!(it.next().is_none());
+        }
     }
 }

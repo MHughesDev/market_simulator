@@ -5380,6 +5380,7 @@ version = "0.58.0"
 dependencies = [
  "ahash 0.8.12",
  "anyhow",
+ "arrow 58.3.0",
  "async-trait",
  "bon",
  "cbindgen",
@@ -5398,6 +5399,7 @@ dependencies = [
  "nautilus-plugin",
  "nautilus-portfolio",
  "nautilus-risk",
+ "nautilus-serialization",
  "nautilus-system",
  "nautilus-testkit",
  "nautilus-trading",
