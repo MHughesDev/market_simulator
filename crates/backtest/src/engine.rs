@@ -64,7 +64,7 @@ use crate::{
     accumulator::TimeEventAccumulator,
     config::{BacktestEngineConfig, SimulatedVenueConfig},
     data_client::BacktestDataClient,
-    data_iterator::BacktestDataIterator,
+    data_iterator::{BacktestDataIterator, DataChunkSource},
     exchange::SimulatedExchange,
     execution_client::BacktestExecutionClient,
     result::BacktestResult,
@@ -481,6 +481,34 @@ impl BacktestEngine {
         );
 
         Ok(())
+    }
+
+    /// Registers a named, lazily-pulled data source for streaming arbitrarily
+    /// long time series without materializing them in memory up front.
+    ///
+    /// Pulls the first chunk from `source` to seed replay ordering, then stores
+    /// the source so the data iterator pulls subsequent chunks on demand as each
+    /// is exhausted — bounding peak memory to roughly one chunk's worth of data
+    /// regardless of total time series length. This mirrors the legacy Cython
+    /// engine's `add_data_iterator`/`init_data` streaming contract, giving an
+    /// embedding org an in-process, zero-HTTP/JSON path for "bring your own data"
+    /// at any scale, alongside the existing eager [`Self::add_data`] path.
+    ///
+    /// Unlike [`Self::add_data`], this method cannot eagerly validate instruments,
+    /// register market data clients, or track time bounds/`data_len` up front,
+    /// since the full dataset is never materialized — callers remain responsible
+    /// for ensuring referenced instruments and clients are registered ahead of
+    /// the backtest run (mirroring the Cython `add_data_iterator` contract).
+    pub fn add_data_source(
+        &mut self,
+        name: &str,
+        source: Box<dyn DataChunkSource>,
+        _client_id: Option<ClientId>,
+        append_data: bool,
+    ) {
+        self.data_iterator.init_data(name, source, append_data);
+
+        log::info!("Added '{name}' lazy data source stream to BacktestEngine");
     }
 
     /// Adds a strategy to the backtest engine.
