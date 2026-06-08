@@ -104,15 +104,15 @@ from decimal import Decimal
 
 import pandas as pd
 
-from nautilus_trader.model.currencies import BTC
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import OptionKind
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import CryptoOption
-from nautilus_trader.model.objects import Money
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import BTC
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import OptionKind
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import CryptoOption
+from market_simulator.model.objects import Money
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 btc_option = CryptoOption(
     instrument_id=InstrumentId.from_str("BTC-13JAN23-16000-P.DERIBIT"),

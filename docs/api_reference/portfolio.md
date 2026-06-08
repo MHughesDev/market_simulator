@@ -1,11 +1,11 @@
 # Portfolio
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.portfolio
+.. automodule:: market_simulator.portfolio
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.portfolio.portfolio
+.. automodule:: market_simulator.portfolio.portfolio
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.portfolio.base
+.. automodule:: market_simulator.portfolio.base
    :show-inheritance:
    :inherited-members:
    :members:

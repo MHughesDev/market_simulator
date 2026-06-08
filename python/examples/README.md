@@ -1,3 +1,3 @@
 # Examples
 
-The examples in this directory are specific to `nautilus_trader` v2.
+The examples in this directory are specific to `market_simulator` v2.

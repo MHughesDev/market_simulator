@@ -1,28 +1,28 @@
 # Security Policy
 
-Security is a priority for the NautilusTrader project, and we value the work of
+Security is a priority for the Market Simulator project, and we value the work of
 those who help identify and resolve vulnerabilities. If you have found a
 security issue, please follow the guidelines below.
 
-For our full security policies, see <https://nautilustrader.io/security/>.
+For our full security policies, see <https://market-simulator/security/>.
 
 ## Scope
 
 This policy covers:
 
-- NautilusTrader open-source software and official repositories.
-- Nautech Systems websites (nautilustrader.io).
+- Market Simulator open-source software and official repositories.
+- Nautech Systems websites (market-simulator).
 
 Third-party services, exchanges, and data providers are excluded.
 
 ## Reporting a Vulnerability
 
-**Preferred method:** [GitHub Security Advisories](https://github.com/nautechsystems/nautilus_trader/security/advisories/new)
+**Preferred method:** [GitHub Security Advisories](https://github.com/market-simulator-team/market_simulator/security/advisories/new)
 
 This allows private disclosure and coordination before public release. You'll
 receive credit in the security advisory and release notes.
 
-**Alternative:** Email <security@nautechsystems.io>
+**Alternative:** Email <security@market-simulator-team.io>
 
 For sensitive reports via email, you may request our PGP key for encrypted communication.
 
@@ -53,7 +53,7 @@ notes unless you prefer to remain anonymous.
 
 ## Supported Versions
 
-We only support the latest version of NautilusTrader. If you are using an older
+We only support the latest version of Market Simulator. If you are using an older
 version, it is possible that vulnerabilities may have been fixed in a later
 release.
 
@@ -65,7 +65,7 @@ do our best to properly recognize and credit your contributions.
 
 ## Security Infrastructure
 
-NautilusTrader employs multiple layers of security across the development and
+Market Simulator employs multiple layers of security across the development and
 release lifecycle:
 
 ### Public posture
@@ -129,7 +129,7 @@ release lifecycle:
   SBOM generation and Sigstore attestation for container images, and hardened CI runners with
   network egress blocked to an explicit allow-list.
 - **Release sequencing**: Stable releases create a draft GitHub release and attach wheel and sdist
-  assets before publishing to package indexes (`packages.nautechsystems.io`, PyPI, crates.io).
+  assets before publishing to package indexes (`packages.market-simulator-team.io`, PyPI, crates.io).
   CI verifies the registries, attaches final checksum and provenance assets, then publishes the
   GitHub release and verifies its release attestation. This keeps the GitHub release and checksum
   manifest as the anchor for downstream registry verification while staying compatible with GitHub
@@ -157,7 +157,7 @@ release lifecycle:
   ChaCha20-Poly1305) are identical in both modes; the FIPS module adds runtime self-tests and
   module boundary enforcement required for federal certification.
 
-For our full supply chain security policy, see <https://nautilustrader.io/security/supply-chain/>.
+For our full supply chain security policy, see <https://market-simulator/security/supply-chain/>.
 
 For detailed CI/CD security practices, see [.github/OVERVIEW.md](.github/OVERVIEW.md#security).
 
@@ -171,13 +171,13 @@ transitive, runtime vs. dev-time), and monitored for upstream resolution.
 When a new vulnerability is identified in a dependency:
 
 - The nightly security audit flags the advisory automatically.
-- The Core team assesses severity and exposure within the NautilusTrader context.
+- The Core team assesses severity and exposure within the Market Simulator context.
 - Critical vulnerabilities in direct dependencies are patched or mitigated within 30 days.
 - Users are notified through release notes and, where appropriate, security advisories.
 
-Users who build NautilusTrader from source or extend it with additional
+Users who build Market Simulator from source or extend it with additional
 dependencies are responsible for auditing their own dependency trees. The
-controls described in this policy apply to official NautilusTrader releases and
+controls described in this policy apply to official Market Simulator releases and
 the canonical repository.
 
 ## Advisories addressed
@@ -221,18 +221,18 @@ verification to the `build.yml` release workflow, not just the repository:
 
 ```sh
 ISSUER=https://token.actions.githubusercontent.com
-IDENTITY='^https://github\.com/nautechsystems/nautilus_trader/\.github/workflows/build\.yml@refs/heads/(master|nightly)$'
+IDENTITY='^https://github\.com/market-simulator-team/market_simulator/\.github/workflows/build\.yml@refs/heads/(master|nightly)$'
 
 # `gh attestation verify` takes one subject per call, so loop over wheels
-for whl in nautilus_trader-*.whl; do
+for whl in market_simulator-*.whl; do
   gh attestation verify "$whl" \
-    --repo nautechsystems/nautilus_trader \
+    --repo market-simulator-team/market_simulator \
     --cert-identity-regex "$IDENTITY" \
     --cert-oidc-issuer "$ISSUER"
 done
 
-gh attestation verify nautilus_trader-*.tar.gz \
-  --repo nautechsystems/nautilus_trader \
+gh attestation verify market_simulator-*.tar.gz \
+  --repo market-simulator-team/market_simulator \
   --cert-identity-regex "$IDENTITY" \
   --cert-oidc-issuer "$ISSUER"
 ```
@@ -244,14 +244,14 @@ subsequent `docker pull`, and the `docker run` operate on the same image:
 
 ```sh
 # Use crane (or `docker buildx imagetools inspect <ref> --format '{{.Manifest.Digest}}'`)
-DIGEST=$(crane digest ghcr.io/nautechsystems/nautilus_trader:latest)
-IMAGE=ghcr.io/nautechsystems/nautilus_trader@${DIGEST}
+DIGEST=$(crane digest ghcr.io/market-simulator-team/market_simulator:latest)
+IMAGE=ghcr.io/market-simulator-team/market_simulator@${DIGEST}
 ISSUER=https://token.actions.githubusercontent.com
-IDENTITY='^https://github\.com/nautechsystems/nautilus_trader/\.github/workflows/docker\.yml@refs/heads/(master|nightly)$'
+IDENTITY='^https://github\.com/market-simulator-team/market_simulator/\.github/workflows/docker\.yml@refs/heads/(master|nightly)$'
 ```
 
 Verify the cosign signature, which proves the image was produced by the
-NautilusTrader CI workflow:
+Market Simulator CI workflow:
 
 ```sh
 cosign verify "$IMAGE" \
@@ -272,7 +272,7 @@ cosign image signature, so use it in addition to `cosign verify` above:
 
 ```sh
 gh attestation verify "oci://${IMAGE}" \
-  --repo nautechsystems/nautilus_trader \
+  --repo market-simulator-team/market_simulator \
   --predicate-type https://spdx.dev/Document/v2.3 \
   --cert-identity-regex "$IDENTITY" \
   --cert-oidc-issuer "$ISSUER"

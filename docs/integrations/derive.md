@@ -14,7 +14,7 @@ moving funds.
 ## Examples
 
 Rust example testers live in
-[`crates/adapters/derive/examples/`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/derive/examples/).
+[`crates/adapters/derive/examples/`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/derive/examples/).
 
 ## Overview
 
@@ -454,16 +454,16 @@ and account identifiers with the underlying `DeriveExecClientConfig`.
 ```python
 from decimal import Decimal
 
-from nautilus_trader.adapters.derive import DeriveDataClientConfig
-from nautilus_trader.adapters.derive import DeriveDataClientFactory
-from nautilus_trader.adapters.derive import DeriveEnvironment
-from nautilus_trader.adapters.derive import DeriveExecClientConfig
-from nautilus_trader.adapters.derive import DeriveExecFactoryConfig
-from nautilus_trader.adapters.derive import DeriveExecutionClientFactory
-from nautilus_trader.common import Environment
-from nautilus_trader.live import LiveNode
-from nautilus_trader.model import AccountId
-from nautilus_trader.model import TraderId
+from market_simulator.adapters.derive import DeriveDataClientConfig
+from market_simulator.adapters.derive import DeriveDataClientFactory
+from market_simulator.adapters.derive import DeriveEnvironment
+from market_simulator.adapters.derive import DeriveExecClientConfig
+from market_simulator.adapters.derive import DeriveExecFactoryConfig
+from market_simulator.adapters.derive import DeriveExecutionClientFactory
+from market_simulator.common import Environment
+from market_simulator.live import LiveNode
+from market_simulator.model import AccountId
+from market_simulator.model import TraderId
 
 trader_id = TraderId("TESTER-001")
 

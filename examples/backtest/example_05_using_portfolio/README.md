@@ -1,6 +1,6 @@
 # Portfolio Example
 
-A simple strategy demonstrating how to use Portfolio in NautilusTrader.
+A simple strategy demonstrating how to use Portfolio in Market Simulator.
 
 The Portfolio is a central component that tracks the state of your trading account.
 It connects directly to the broker to get real-time positions, balances, and P&L.
@@ -38,7 +38,7 @@ Key differences between `Portfolio` and `Cache`:
 
 ## Additional Resources
 
-For more information about Portfolio in NautilusTrader, see:
+For more information about Portfolio in Market Simulator, see:
 
 - Portfolio API documentation - search the codebase for `Portfolio` class.
 - Portfolio concept guide - see the "Portfolio" section in the documentation for more details.

@@ -1,6 +1,6 @@
 # Scripts directory
 
-This directory contains assorted helper scripts used by NautilusTrader’s
+This directory contains assorted helper scripts used by Market Simulator’s
 developer tooling and CI pipeline. Only one of them (`curate-dataset.sh`)
 needs a brief explanation because it is meant to be executed manually when
 curating test-fixture datasets.
@@ -10,7 +10,7 @@ curating test-fixture datasets.
 ## `curate-dataset.sh` – package an external dataset for the test-data bucket
 
 `curate-dataset.sh` automates the small but repetitive tasks required when we
-bring a third-party file into the NautilusTrader *test-data* bucket:
+bring a third-party file into the Market Simulator *test-data* bucket:
 
 - download the raw file from its original URL (with retries)
 - create a versioned directory (`v1/<slug>/`)

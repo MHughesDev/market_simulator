@@ -15,7 +15,7 @@ requirements may change between releases.
 Nautilus has three implementations. Understanding where each stands helps
 you choose the right one for your use case.
 
-- **v1 legacy**: Cython/Python classes under `nautilus_trader/`. Fully
+- **v1 legacy**: Cython/Python classes under `market_simulator/`. Fully
   featured with the broadest component coverage.
 - **v2 Rust**: Pure Rust under `crates/`. Runs without Python.
 - **v2 PyO3**: Python user-components (actors, strategies) running on
@@ -109,11 +109,11 @@ same git source to avoid type mismatches between crates.io and git versions:
 
 ```toml
 [dependencies]
-nautilus-backtest = { git = "https://github.com/nautechsystems/nautilus_trader.git", branch = "develop" }
-nautilus-common = { git = "https://github.com/nautechsystems/nautilus_trader.git", branch = "develop" }
-nautilus-execution = { git = "https://github.com/nautechsystems/nautilus_trader.git", branch = "develop" }
-nautilus-model = { git = "https://github.com/nautechsystems/nautilus_trader.git", branch = "develop", features = ["stubs"] }
-nautilus-trading = { git = "https://github.com/nautechsystems/nautilus_trader.git", branch = "develop", features = ["examples"] }
+nautilus-backtest = { git = "https://github.com/market-simulator-team/market_simulator.git", branch = "develop" }
+nautilus-common = { git = "https://github.com/market-simulator-team/market_simulator.git", branch = "develop" }
+nautilus-execution = { git = "https://github.com/market-simulator-team/market_simulator.git", branch = "develop" }
+nautilus-model = { git = "https://github.com/market-simulator-team/market_simulator.git", branch = "develop", features = ["stubs"] }
+nautilus-trading = { git = "https://github.com/market-simulator-team/market_simulator.git", branch = "develop", features = ["examples"] }
 ```
 
 The minimum supported Rust version (MSRV) is **1.96.0**.
@@ -171,7 +171,7 @@ override what you need.
 For a step-by-step walkthrough, see the
 [Write an Actor (Rust)](../how_to/write_rust_actor.md) how-to guide.
 For a complete example, see
-[`BookImbalanceActor`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/actors/imbalance).
+[`BookImbalanceActor`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/actors/imbalance).
 
 ## Strategies
 
@@ -202,9 +202,9 @@ objects: `market`, `limit`, `stop_market`, `stop_limit`,
 For a step-by-step walkthrough, see the
 [Write a Strategy (Rust)](../how_to/write_rust_strategy.md) how-to guide.
 For complete examples, see
-[`EmaCross`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/ema_cross)
+[`EmaCross`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/ema_cross)
 and
-[`GridMarketMaker`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/grid_mm).
+[`GridMarketMaker`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/grid_mm).
 
 ### Running Rust components
 
@@ -234,7 +234,7 @@ and registers it with the engine. Python provides the configuration; all
 execution happens in Rust.
 
 ```python
-from nautilus_trader.core.nautilus_pyo3.trading import GridMarketMakerConfig
+from market_simulator.core.nautilus_pyo3.trading import GridMarketMakerConfig
 
 config = GridMarketMakerConfig(
     instrument_id=InstrumentId.from_str("BTC-USDT-SWAP.OKX"),
@@ -291,7 +291,7 @@ cargo run -p nautilus-backtest --features examples --example engine-ema-cross
 ```
 
 Source:
-[`crates/backtest/examples/engine_ema_cross.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/backtest/examples/engine_ema_cross.rs)
+[`crates/backtest/examples/engine_ema_cross.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/backtest/examples/engine_ema_cross.rs)
 
 ### `BacktestNode` (high-level API)
 
@@ -304,7 +304,7 @@ cargo run -p nautilus-backtest --features examples,streaming --example node-ema-
 ```
 
 Source:
-[`crates/backtest/examples/node_ema_cross.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/backtest/examples/node_ema_cross.rs)
+[`crates/backtest/examples/node_ema_cross.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/backtest/examples/node_ema_cross.rs)
 
 ## Live trading
 

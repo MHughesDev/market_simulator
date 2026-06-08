@@ -57,14 +57,14 @@ let order = self.core.order_factory().trailing_stop_limit(
 ```python tab="Python"
 import pandas as pd
 from decimal import Decimal
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model.enums import TriggerType
-from nautilus_trader.model.enums import TrailingOffsetType
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Price
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import TrailingStopLimitOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model.enums import TriggerType
+from market_simulator.model.enums import TrailingOffsetType
+from market_simulator.model import InstrumentId
+from market_simulator.model import Price
+from market_simulator.model import Quantity
+from market_simulator.model.orders import TrailingStopLimitOrder
 
 order: TrailingStopLimitOrder = self.order_factory.trailing_stop_limit(
     instrument_id=InstrumentId.from_str("AUD/USD.CURRENEX"),
@@ -83,7 +83,7 @@ order: TrailingStopLimitOrder = self.order_factory.trailing_stop_limit(
 )
 ```
 
-See the [`TrailingStopLimitOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.trailing_stop_limit.TrailingStopLimitOrder) for further details.
+See the [`TrailingStopLimitOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.trailing_stop_limit.TrailingStopLimitOrder) for further details.
 
 ## Related guides
 

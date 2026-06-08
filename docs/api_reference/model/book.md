@@ -1,7 +1,7 @@
 # Order Book
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.book
+.. automodule:: market_simulator.model.book
    :show-inheritance:
    :inherited-members:
    :members:

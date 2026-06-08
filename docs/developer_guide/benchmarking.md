@@ -1,7 +1,7 @@
 # Benchmarking
 
 This document is the practitioner reference for writing and running
-NautilusTrader benchmarks. It covers tooling specifics, directory layout,
+Market Simulator benchmarks. It covers tooling specifics, directory layout,
 example code, local execution, and flamegraph profiling.
 
 For policy (what we benchmark, when, with what rigor, how it ties into CI),
@@ -11,7 +11,7 @@ see [`/BENCHMARKING.md`](../../BENCHMARKING.md) at the repository root.
 
 ## Tooling overview
 
-NautilusTrader uses two complementary Rust benchmarking frameworks:
+Market Simulator uses two complementary Rust benchmarking frameworks:
 
 | Framework                                                    | What it measures                          | When to prefer it                                    |
 |--------------------------------------------------------------|-------------------------------------------|------------------------------------------------------|

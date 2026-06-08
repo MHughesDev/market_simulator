@@ -1,7 +1,7 @@
 # Adapters
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters
+.. automodule:: market_simulator.adapters
 ```
 
 ```{eval-rst}

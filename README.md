@@ -1,18 +1,13 @@
-# <img src="https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-trader-logo.png" width="500">
+# Market Simulator
 
-[![codecov](https://codecov.io/gh/nautechsystems/nautilus_trader/branch/master/graph/badge.svg?token=DXO9QQI40H)](https://codecov.io/gh/nautechsystems/nautilus_trader)
-[![codspeed](https://img.shields.io/endpoint?url=https://codspeed.io/badge.json)](https://codspeed.io/nautechsystems/nautilus_trader)
-![pythons](https://img.shields.io/pypi/pyversions/nautilus_trader)
-![pypi-version](https://img.shields.io/pypi/v/nautilus_trader)
-![pypi-format](https://img.shields.io/pypi/format/nautilus_trader?color=blue)
-[![Downloads](https://img.shields.io/pepy/dt/nautilus-trader?color=blue)](https://pepy.tech/projects/nautilus-trader)
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/NautilusTrader)
+[![Build Status](https://img.shields.io/badge/Build-Passing-green)]()
+![pythons](https://img.shields.io/badge/Python-3.12--3.14-blue)
+![Release](https://img.shields.io/badge/Release-Latest-blue)
 
-| Branch    | Version                                                                                                                                                                                                                     | Status                                                                                                                                                                                            |
-| :-------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `master`  | [![version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnautechsystems%2Fnautilus_trader%2Fmaster%2Fversion.json)](https://packages.nautechsystems.io/simple/nautilus-trader/index.html)  | [![build](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml/badge.svg?branch=nightly)](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml) |
-| `nightly` | [![version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnautechsystems%2Fnautilus_trader%2Fnightly%2Fversion.json)](https://packages.nautechsystems.io/simple/nautilus-trader/index.html) | [![build](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml/badge.svg?branch=nightly)](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml) |
-| `develop` | [![version](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2Fnautechsystems%2Fnautilus_trader%2Fdevelop%2Fversion.json)](https://packages.nautechsystems.io/simple/nautilus-trader/index.html) | [![build](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml/badge.svg?branch=develop)](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml) |
+| Branch    | Status      |
+| :-------- | :---------- |
+| `master`  | ✅ Active   |
+| `develop` | ✅ Active   |
 
 | Platform           | Rust   | Python    |
 | :----------------- | :----- | :-------- |
@@ -21,13 +16,12 @@
 | `macOS (ARM64)`    | 1.96.0 | 3.12-3.14 |
 | `Windows (x86_64)` | 1.96.0 | 3.12-3.14 |
 
-- **Docs**: <https://nautilustrader.io/docs/>
-- **Website**: <https://nautilustrader.io>
-- **Support**: [support@nautilustrader.io](mailto:support@nautilustrader.io)
+- **Docs**: Documentation available in `/docs`
+- **Support**: Open an issue on GitHub for support
 
 ## Introduction
 
-NautilusTrader is an open-source, production-grade, Rust-native engine for multi-asset,
+Market Simulator is an open-source, production-grade, Rust-native engine for multi-asset,
 multi-venue trading systems.
 
 The system spans research, deterministic simulation, and live execution within a single
@@ -43,11 +37,11 @@ live systems. Strategies deploy from research to production with no code changes
 providing research-to-live parity and reducing the divergence that typically introduces
 deployment risk.
 
-NautilusTrader is asset-class-agnostic. Any venue with a REST API or WebSocket feed can be
+Market Simulator is asset-class-agnostic. Any venue with a REST API or WebSocket feed can be
 integrated through modular adapters. Current integrations span crypto exchanges (CEX and
 DEX), traditional markets (FX, equities, futures, options), and betting exchanges.
 
-![nautilus-trader](https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-trader.png "nautilus-trader")
+Market Simulator provides a unified framework for researching and executing trading strategies.
 
 ## Features
 
@@ -56,26 +50,26 @@ DEX), traditional markets (FX, equities, futures, options), and betting exchange
 - **Portable**: Runs on Linux, macOS, and Windows. Deploy using Docker.
 - **Flexible**: Modular adapters integrate any REST API or WebSocket feed.
 - **Advanced**: Time in force `IOC`, `FOK`, `GTC`, `GTD`, `DAY`, `AT_THE_OPEN`, `AT_THE_CLOSE`, advanced order types and conditional triggers. Execution instructions `post-only`, `reduce-only`, and icebergs. Contingency orders including `OCO`, `OUO`, `OTO`.
-- **Customizable**: User-defined components, or assemble entire systems from scratch using the [cache](https://nautilustrader.io/docs/latest/concepts/cache) and [message bus](https://nautilustrader.io/docs/latest/concepts/message_bus).
+- **Customizable**: User-defined components, or assemble entire systems from scratch using the [cache](docs/concepts/cache.md) and [message bus](docs/concepts/message_bus.md).
 - **Backtesting**: Multiple venues, instruments, and strategies simultaneously using historical quote tick, trade tick, bar, order book, and custom data with nanosecond resolution.
 - **Live**: Identical strategy implementations between research and live deployment.
 - **Multi-venue**: Run market-making and cross-venue strategies across multiple venues simultaneously.
 - **AI Training**: Engine fast enough to train AI trading agents (RL/ES).
 
-![nautilus](https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-art.png "nautilus")
+![market-simulator](./assets/market-simulator.png "market-simulator")
 
 > *nautilus - from ancient Greek 'sailor' and naus 'ship'.*
 >
 > *The nautilus shell consists of modular chambers with a growth factor which approximates a logarithmic spiral.
 > The idea is that this can be translated to the aesthetics of design and architecture.*
 
-## Why NautilusTrader?
+## Why Market Simulator?
 
 Trading strategy research is often conducted in Python using vectorized approaches, while
 production trading systems are implemented separately using event-driven architectures in
 compiled languages.
 
-NautilusTrader removes this separation.
+Market Simulator removes this separation.
 
 A Rust-native core provides a deterministic event-driven runtime for both research and live
 execution, while Python serves as the control plane. The same architecture, execution
@@ -92,15 +86,15 @@ This project makes the [Soundness Pledge](https://raphlinus.github.io/rust/2020/
 
 > [!NOTE]
 >
-> **MSRV:** NautilusTrader relies heavily on improvements in the Rust language and compiler.
+> **MSRV:** Market Simulator relies heavily on improvements in the Rust language and compiler.
 > As a result, the Minimum Supported Rust Version (MSRV) is generally equal to the latest stable release of Rust.
 
 ## Integrations
 
-NautilusTrader is modularly designed to work with *adapters*, enabling connectivity to trading venues
+Market Simulator is modularly designed to work with *adapters*, enabling connectivity to trading venues
 and data providers by translating their raw APIs into a unified interface and normalized domain model.
 
-The following integrations are currently supported; see [docs/integrations/](https://nautilustrader.io/docs/latest/integrations/) for details:
+The following integrations are currently supported; see [docs/integrations/](docs/integrations/) for details:
 
 | Name                                                                         | ID                    | Type                    | Status                                                  | Docs                                       |
 | :--------------------------------------------------------------------------- | :-------------------- | :---------------------- | :-------------------------------------------------------| :----------------------------------------- |
@@ -132,11 +126,11 @@ The following integrations are currently supported; see [docs/integrations/](htt
 - `beta`: Completed to a minimally working state and in a beta testing phase.
 - `stable`: Stabilized feature set and API, the integration has been tested by both developers and users to a reasonable level (some bugs may still remain).
 
-See the [Integrations](https://nautilustrader.io/docs/latest/integrations/) documentation for further details.
+See the [Integrations](docs/integrations/) documentation for further details.
 
 ## Roadmap
 
-The [Roadmap](/ROADMAP.md) outlines NautilusTrader's strategic direction.
+The [Roadmap](/ROADMAP.md) outlines Market Simulator's strategic direction.
 Current priorities include completing the Rust-native core, improving documentation, and enhancing code ergonomics.
 
 The open-source project focuses on single-node backtesting and live trading for individual and small-team quantitative traders.
@@ -149,7 +143,7 @@ See [Community-contributed integrations](/ROADMAP.md#community-contributed-integ
 
 > [!WARNING]
 >
-> **NautilusTrader is still under active development**. Some features may be incomplete, and while
+> **Market Simulator is still under active development**. Some features may be incomplete, and while
 > the API is becoming more stable, breaking changes can occur between releases.
 > We strive to document these changes in the release notes on a **best-effort basis**.
 
@@ -171,7 +165,7 @@ We aim to maintain a stable, passing build across all branches.
 
 ## Precision mode
 
-NautilusTrader supports two precision modes for its core value types (`Price`, `Quantity`, `Money`),
+Market Simulator supports two precision modes for its core value types (`Price`, `Quantity`, `Money`),
 which differ in their internal bit-width and maximum decimal precision.
 
 - **High-precision**: 128-bit integers with up to 16 decimals of precision, and a larger value range.
@@ -187,7 +181,7 @@ which differ in their internal bit-width and maximum decimal precision.
 > `i128`/`u128` via software emulation. The default is standard-precision unless you explicitly enable
 > the `high-precision` feature flag.
 
-See the [Installation Guide](https://nautilustrader.io/docs/latest/getting_started/installation) for further details.
+See the [Installation Guide](docs/getting_started/installation.md) for further details.
 
 **Rust feature flag**: To enable high-precision mode in Rust, add the `high-precision` feature to your Cargo.toml:
 
@@ -198,7 +192,7 @@ nautilus_model = { version = "*", features = ["high-precision"] }
 
 ## Installation
 
-We recommend using the latest supported version of Python and installing [nautilus_trader](https://pypi.org/project/nautilus_trader/) inside a virtual environment to isolate dependencies.
+We recommend using the latest supported version of Python and installing [market_simulator](https://pypi.org/project/market_simulator/) inside a virtual environment to isolate dependencies.
 
 **There are two supported ways to install**:
 
@@ -216,30 +210,30 @@ We recommend using the latest supported version of Python and installing [nautil
 To install the latest binary wheel (or sdist package) from PyPI using Python's pip package manager:
 
 ```bash
-pip install -U nautilus_trader
+pip install -U market_simulator
 ```
 
 Install optional dependencies as 'extras' for specific integrations (e.g., `betfair`, `docker`, `dydx`, `ib`, `polymarket`, `visualization`):
 
 ```bash
-pip install -U "nautilus_trader[docker,ib]"
+pip install -U "market_simulator[docker,ib]"
 ```
 
-See the [Installation Guide](https://nautilustrader.io/docs/latest/getting_started/installation#extras) for the full list of available extras.
+See the [Installation Guide](docs/getting_started/installation#extras) for the full list of available extras.
 
 ### From the Nautech Systems package index
 
-The Nautech Systems package index (`packages.nautechsystems.io`) complies with [PEP-503](https://peps.python.org/pep-0503/) and hosts both stable and development binary wheels for `nautilus_trader`.
+The Nautech Systems package index (`packages.market-simulator-team.io`) complies with [PEP-503](https://peps.python.org/pep-0503/) and hosts both stable and development binary wheels for `market_simulator`.
 This enables users to install either the latest stable release or pre-release versions for testing.
 
 #### Stable wheels
 
-Stable wheels correspond to official releases of `nautilus_trader` on PyPI, and use standard versioning.
+Stable wheels correspond to official releases of `market_simulator` on PyPI, and use standard versioning.
 
 To install the latest stable release:
 
 ```bash
-pip install -U nautilus_trader --index-url=https://packages.nautechsystems.io/simple
+pip install -U market_simulator --index-url=https://packages.market-simulator-team.io/simple
 ```
 
 > [!TIP]
@@ -278,23 +272,23 @@ By default, pip will install the latest stable release. Adding the `--pre` flag 
 To install the latest available pre-release (including development wheels):
 
 ```bash
-pip install -U nautilus_trader --pre --index-url=https://packages.nautechsystems.io/simple
+pip install -U market_simulator --pre --index-url=https://packages.market-simulator-team.io/simple
 ```
 
 To install a specific development wheel (e.g., `1.221.0a20251026` for October 26, 2025):
 
 ```bash
-pip install nautilus_trader==1.221.0a20251026 --index-url=https://packages.nautechsystems.io/simple
+pip install market_simulator==1.221.0a20251026 --index-url=https://packages.market-simulator-team.io/simple
 ```
 
 #### Available versions
 
-You can view all available versions of `nautilus_trader` on the [package index](https://packages.nautechsystems.io/simple/nautilus-trader/index.html).
+You can view all available versions of `market_simulator` on the [package index](https://packages.market-simulator-team.io/simple/market-simulator/index.html).
 
 To programmatically fetch and list available versions:
 
 ```bash
-curl -s https://packages.nautechsystems.io/simple/nautilus-trader/index.html | sed -n 's/.*<a href="\([^"]*\)".*/\1/p' | awk -F'#' '{print $1}' | sort
+curl -s https://packages.market-simulator-team.io/simple/market-simulator/index.html | sed -n 's/.*<a href="\([^"]*\)".*/\1/p' | awk -F'#' '{print $1}' | sort
 ```
 
 > [!NOTE]
@@ -317,11 +311,11 @@ All release artifacts published by the project carry cryptographic attestations
 generated by the CI/CD pipeline:
 
 - Python wheels and source distribution (PyPI, GitHub Releases, Nautech Systems package index): [SLSA](https://slsa.dev/) build provenance.
-- Docker images (`ghcr.io/nautechsystems/nautilus_trader`, `ghcr.io/nautechsystems/jupyterlab`): keyless [cosign](https://github.com/sigstore/cosign) signatures plus SPDX SBOM attestations.
+- Docker images (`ghcr.io/market-simulator-team/market_simulator`, `ghcr.io/market-simulator-team/jupyterlab`): keyless [cosign](https://github.com/sigstore/cosign) signatures plus SPDX SBOM attestations.
 
 Both are issued via [Sigstore](https://www.sigstore.dev/) and bound to a specific
 commit SHA, so verification ensures the artifact was produced by the official
-NautilusTrader GitHub Actions workflow and has not been tampered with since.
+Market Simulator GitHub Actions workflow and has not been tampered with since.
 
 For step-by-step verification commands, see [Verifying releases](SECURITY.md#verifying-releases) in `SECURITY.md`.
 
@@ -400,8 +394,8 @@ It's possible to install from source using pip if you first install the build de
 5. Clone the source with `git`, and install from the project's root directory:
 
     ```bash
-    git clone --branch develop --depth 1 https://github.com/nautechsystems/nautilus_trader
-    cd nautilus_trader
+    git clone --branch develop --depth 1 https://github.com/market-simulator-team/market_simulator
+    cd market_simulator
     uv sync --all-extras
     ```
 
@@ -431,13 +425,13 @@ It's possible to install from source using pip if you first install the build de
 > The `PYTHONHOME` variable is required when running `make cargo-test` with a `uv`-installed Python.
 > Without it, tests that depend on PyO3 may fail to locate the Python runtime.
 
-See the [Installation Guide](https://nautilustrader.io/docs/latest/getting_started/installation) for other options and further details.
+See the [Installation Guide](docs/getting_started/installation) for other options and further details.
 
 ## Redis
 
-Using [Redis](https://redis.io) with NautilusTrader is **optional** and only required if configured as the backend for a
-[cache](https://nautilustrader.io/docs/latest/concepts/cache) database or [message bus](https://nautilustrader.io/docs/latest/concepts/message_bus).
-See the **Redis** section of the [Installation Guide](https://nautilustrader.io/docs/latest/getting_started/installation#redis) for further details.
+Using [Redis](https://redis.io) with Market Simulator is **optional** and only required if configured as the backend for a
+[cache](docs/concepts/cache) database or [message bus](docs/concepts/message_bus).
+See the **Redis** section of the [Installation Guide](docs/getting_started/installation#redis) for further details.
 
 ## Makefile
 
@@ -465,24 +459,24 @@ A `Makefile` is provided to automate most installation and build tasks for devel
 
 > [!TIP]
 >
-> See the [crates/infrastructure/TESTS.md](https://github.com/nautechsystems/nautilus_trader/blob/develop/crates/infrastructure/TESTS.md) file for running the infrastructure integration tests.
+> See the [crates/infrastructure/TESTS.md](https://github.com/market-simulator-team/market_simulator/blob/develop/crates/infrastructure/TESTS.md) file for running the infrastructure integration tests.
 
 ## Examples
 
 Indicators and strategies can be developed in Python, Cython, or Rust. For performance and
 latency-sensitive applications, we recommend Rust. Below are some examples:
 
-- [indicator](/nautilus_trader/examples/indicators/ema_python.py) example written in Python.
-- [indicator](/nautilus_trader/indicators/) implementations written in Cython.
-- [strategy](/nautilus_trader/examples/strategies/) examples written in Python.
+- [indicator](/market_simulator/examples/indicators/ema_python.py) example written in Python.
+- [indicator](/market_simulator/indicators/) implementations written in Cython.
+- [strategy](/market_simulator/examples/strategies/) examples written in Python.
 - [backtest](/examples/backtest/) examples using a `BacktestEngine` directly.
 
 ## Docker
 
 Docker containers are built with the following variant tags:
 
-- `nautilus_trader:latest` has the latest release version installed.
-- `nautilus_trader:nightly` has the head of the `nightly` branch installed.
+- `market_simulator:latest` has the latest release version installed.
+- `market_simulator:nightly` has the head of the `nightly` branch installed.
 - `jupyterlab:latest` has the latest release version installed along with `jupyterlab` and an
   example backtest notebook with accompanying data.
 - `jupyterlab:nightly` has the head of the `nightly` branch installed along with `jupyterlab` and an
@@ -491,14 +485,14 @@ Docker containers are built with the following variant tags:
 You can pull the container images as follows:
 
 ```bash
-docker pull ghcr.io/nautechsystems/<image_variant_tag> --platform linux/amd64
+docker pull ghcr.io/market-simulator-team/<image_variant_tag> --platform linux/amd64
 ```
 
 You can launch the backtest example container by running:
 
 ```bash
-docker pull ghcr.io/nautechsystems/jupyterlab:nightly --platform linux/amd64
-docker run -p 8888:8888 ghcr.io/nautechsystems/jupyterlab:nightly
+docker pull ghcr.io/market-simulator-team/jupyterlab:nightly --platform linux/amd64
+docker run -p 8888:8888 ghcr.io/market-simulator-team/jupyterlab:nightly
 ```
 
 Then open your browser at the following address:
@@ -515,7 +509,7 @@ http://127.0.0.1:8888/lab
 ## Development
 
 We aim to provide the most pleasant developer experience possible for this hybrid codebase of Rust, Python, and Cython.
-See the [Developer Guide](https://nautilustrader.io/docs/latest/developer_guide/) for helpful information.
+See the [Developer Guide](docs/developer_guide/) for helpful information.
 
 > [!TIP]
 >
@@ -523,7 +517,7 @@ See the [Developer Guide](https://nautilustrader.io/docs/latest/developer_guide/
 
 ### Testing with Rust
 
-[cargo-nextest](https://nexte.st) is the standard Rust test runner for NautilusTrader.
+[cargo-nextest](https://nexte.st) is the standard Rust test runner for Market Simulator.
 Its key benefit is isolating each test in its own process, ensuring test reliability
 by avoiding interference.
 
@@ -539,65 +533,65 @@ cargo install cargo-nextest
 
 ## Contributing
 
-Thank you for considering contributing to NautilusTrader! We welcome any and all help to improve
-the project. If you have an idea for an enhancement or a bug fix, the first step is to open an [issue](https://github.com/nautechsystems/nautilus_trader/issues)
+Thank you for considering contributing to Market Simulator! We welcome any and all help to improve
+the project. If you have an idea for an enhancement or a bug fix, the first step is to open an [issue](https://github.com/market-simulator-team/market_simulator/issues)
 on GitHub to discuss it with the team. This helps to ensure that your contribution will be
 well-aligned with the goals of the project and avoids duplication of effort.
 
 Before getting started, be sure to review the [open-source scope](/ROADMAP.md#open-source-scope) outlined in the project’s roadmap to understand what’s in and out of scope.
 
 Once you're ready to start working on your contribution, make sure to follow the guidelines
-outlined in the [CONTRIBUTING.md](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md) file. This includes signing a Contributor License Agreement (CLA)
+outlined in the [CONTRIBUTING.md](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md) file. This includes signing a Contributor License Agreement (CLA)
 to ensure that your contributions can be included in the project.
 
 > [!NOTE]
 >
 > Pull requests should target the `develop` branch (the default branch). This is where new features and improvements are integrated before release.
 
-Thank you again for your interest in NautilusTrader! We look forward to reviewing your contributions and working with you to improve the project.
+Thank you again for your interest in Market Simulator! We look forward to reviewing your contributions and working with you to improve the project.
 
 ## Community
 
-Join our community of users and contributors on [Discord](https://discord.gg/NautilusTrader) to chat
-and stay up-to-date with the latest announcements and features of NautilusTrader. Whether you're a
+Join our community of users and contributors on [Discord](https://discord.gg/Market Simulator) to chat
+and stay up-to-date with the latest announcements and features of Market Simulator. Whether you're a
 developer looking to contribute or just want to learn more about the platform, all are welcome on our Discord server.
 
 > [!WARNING]
 >
-> NautilusTrader does not issue, promote, or endorse any cryptocurrency tokens. Any claims or communications suggesting otherwise are unauthorized and false.
+> Market Simulator does not issue, promote, or endorse any cryptocurrency tokens. Any claims or communications suggesting otherwise are unauthorized and false.
 >
-> All official updates and communications from NautilusTrader will be shared exclusively through <https://nautilustrader.io>, our [GitHub](https://github.com/nautechsystems), our [Discord server](https://discord.gg/NautilusTrader), or our verified X (Twitter) account: [@NautilusTrader](https://x.com/NautilusTrader).
+> All official updates and communications from Market Simulator will be shared exclusively through <https://market-simulator>, our [GitHub](https://github.com/market-simulator-team), our [Discord server](https://discord.gg/Market Simulator), or our verified X (Twitter) account: [@Market Simulator](https://x.com/Market Simulator).
 >
-> If you encounter any suspicious activity, please report it to the appropriate platform and contact us at <info@nautechsystems.io>.
+> If you encounter any suspicious activity, please report it to the appropriate platform and contact us at <info@market-simulator-team.io>.
 
 ## Security
 
-[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/nautechsystems/nautilus_trader/badge)](https://scorecard.dev/viewer/?uri=github.com/nautechsystems/nautilus_trader)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/market-simulator-team/market_simulator/badge)](https://scorecard.dev/viewer/?uri=github.com/market-simulator-team/market_simulator)
 
 The OpenSSF Scorecard badge tracks automated repository-health signals. It complements manual
 review, CI hardening, and security audits rather than replacing them.
 
-NautilusTrader uses layered supply-chain and code-security controls, including CodeQL static
+Market Simulator uses layered supply-chain and code-security controls, including CodeQL static
 analysis, pinned GitHub Actions, dependency auditing, cargo-vet, OSV scanning, fuzzing for
 selected adapter and signing surfaces, and signed release provenance for official artifacts.
 
 To report a vulnerability, see our [Security Policy](SECURITY.md). For full security policies
-including supply chain security, see <https://nautilustrader.io/security/>.
+including supply chain security, see <https://market-simulator/security/>.
 
 ## License
 
-The source code for NautilusTrader is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
-Contributions to the project are welcome and require the completion of a standard [Contributor License Agreement (CLA)](https://github.com/nautechsystems/nautilus_trader/blob/develop/CLA.md).
+The source code for Market Simulator is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
+Contributions to the project are welcome and require the completion of a standard [Contributor License Agreement (CLA)](https://github.com/market-simulator-team/market_simulator/blob/develop/CLA.md).
 
 ---
 
-NautilusTrader™ is developed and maintained by Nautech Systems, a technology
+Market Simulator™ is developed and maintained by Nautech Systems, a technology
 company specializing in the development of high-performance trading systems.
-For more information, visit <https://nautilustrader.io>.
+For more information, visit <https://market-simulator>.
 
-Use of this software is subject to the [Disclaimer](https://nautilustrader.io/legal/disclaimer/).
+Use of this software is subject to the [Disclaimer](https://market-simulator/legal/disclaimer/).
 
 © 2015-2026 Nautech Systems Pty Ltd. All rights reserved.
 
-![nautechsystems](https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/ns-logo.png "nautechsystems")
-<img src="https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/ferris.png" width="128">
+![market-simulator-team](https://github.com/market-simulator-team/market_simulator/raw/develop/assets/ns-logo.png "market-simulator-team")
+<img src="https://github.com/market-simulator-team/market_simulator/raw/develop/assets/ferris.png" width="128">

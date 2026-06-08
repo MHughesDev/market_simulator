@@ -1,11 +1,11 @@
 # Risk
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.risk
+.. automodule:: market_simulator.risk
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.risk.engine
+.. automodule:: market_simulator.risk.engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.risk.sizing
+.. automodule:: market_simulator.risk.sizing
    :show-inheritance:
    :inherited-members:
    :members:

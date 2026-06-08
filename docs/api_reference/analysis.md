@@ -1,11 +1,11 @@
 # Analysis
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.analysis
+.. automodule:: market_simulator.analysis
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.analysis.analyzer
+.. automodule:: market_simulator.analysis.analyzer
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.analysis.reporter
+.. automodule:: market_simulator.analysis.reporter
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.analysis.statistic
+.. automodule:: market_simulator.analysis.statistic
    :show-inheritance:
    :inherited-members:
    :members:

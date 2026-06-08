@@ -65,7 +65,7 @@ Databento's
 ## Prerequisites
 
 - Python 3.12+
-- [NautilusTrader](https://pypi.org/project/nautilus_trader/) installed.
+- [Market Simulator](https://pypi.org/project/market_simulator/) installed.
 - A Databento API key:
 
 ```bash
@@ -106,8 +106,8 @@ emits `QuoteTick` objects. The `instrument_id` argument overrides the
 Databento symbology so every tick appears to come from `XAU-PERP.AX`.
 
 ```python
-from nautilus_trader.adapters.databento import DatabentoDataLoader
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.adapters.databento import DatabentoDataLoader
+from market_simulator.model.identifiers import InstrumentId
 
 instrument_id = InstrumentId.from_str("XAU-PERP.AX")
 
@@ -127,12 +127,12 @@ conditions.
 ```python
 from decimal import Decimal
 
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import PerpetualContract
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import PerpetualContract
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 XAU_PERP = PerpetualContract(
     instrument_id=instrument_id,
@@ -176,8 +176,8 @@ subscribing to L2 deltas.
 | `use_quote_ticks`              | `True`    | Drive the strategy from quote ticks.          |
 
 ```python
-from nautilus_trader.examples.strategies.orderbook_imbalance import OrderBookImbalance
-from nautilus_trader.examples.strategies.orderbook_imbalance import OrderBookImbalanceConfig
+from market_simulator.examples.strategies.orderbook_imbalance import OrderBookImbalance
+from market_simulator.examples.strategies.orderbook_imbalance import OrderBookImbalanceConfig
 
 strategy = OrderBookImbalance(
     OrderBookImbalanceConfig(
@@ -195,14 +195,14 @@ strategy = OrderBookImbalance(
 ## Backtest setup
 
 ```python
-from nautilus_trader.backtest.config import BacktestEngineConfig
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.model.enums import AccountType
-from nautilus_trader.model.enums import OmsType
-from nautilus_trader.model.identifiers import TraderId
-from nautilus_trader.model.identifiers import Venue
-from nautilus_trader.model.objects import Money
+from market_simulator.backtest.config import BacktestEngineConfig
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.config import LoggingConfig
+from market_simulator.model.enums import AccountType
+from market_simulator.model.enums import OmsType
+from market_simulator.model.identifiers import TraderId
+from market_simulator.model.identifiers import Venue
+from market_simulator.model.objects import Money
 
 engine = BacktestEngine(
     BacktestEngineConfig(
@@ -238,7 +238,7 @@ engine.dispose()
 ```
 
 The runnable example is at
-[`architect_ax_book_imbalance.py`](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/architect_ax_book_imbalance.py).
+[`architect_ax_book_imbalance.py`](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/architect_ax_book_imbalance.py).
 
 ## What the run produces
 
@@ -303,14 +303,14 @@ GC_DBN=tests/test_data/local/Databento/gc_gold_quotes.dbn.zst \
 The same `OrderBookImbalance` strategy runs live against AX Exchange. The
 launch script swaps the `BacktestEngine` for a `TradingNode` with the AX
 data and execution clients configured. See the live example:
-[`ax_book_imbalance.py`](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/architect_ax/ax_book_imbalance.py).
+[`ax_book_imbalance.py`](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/architect_ax/ax_book_imbalance.py).
 
 For connection setup and API key configuration, see the
 [AX Exchange integration guide](../integrations/architect_ax.md).
 
 ## Further reading
 
-- [`OrderBookImbalance` strategy source](https://github.com/nautechsystems/nautilus_trader/tree/develop/nautilus_trader/examples/strategies/orderbook_imbalance.py)
+- [`OrderBookImbalance` strategy source](https://github.com/market-simulator-team/market_simulator/tree/develop/market_simulator/examples/strategies/orderbook_imbalance.py)
 - [Mean Reversion with Proxy FX Data tutorial](fx_mean_reversion_ax.md)
 - [Architect Exchange documentation](https://docs.architect.exchange/)
 - [Databento: HFT signals with sklearn](https://databento.com/blog/hft-sklearn-python)

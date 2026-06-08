@@ -219,7 +219,7 @@ for ccy, margin_balance in margin_account.account_margins().items():
 
 ## Margin models
 
-NautilusTrader provides flexible margin calculation models for the calculated
+Market Simulator provides flexible margin calculation models for the calculated
 path (backtests, and live strategies running with `calculate_account_state=True`
 for reconciliation). Reported margins from a venue flow straight into
 `_account_margins` or `_margins` without going through a model.
@@ -295,9 +295,9 @@ leverage affects margin requirements.
 `MarginAccount` uses `LeveragedMarginModel` by default. Override programmatically:
 
 ```python
-from nautilus_trader.backtest.models import LeveragedMarginModel
-from nautilus_trader.backtest.models import StandardMarginModel
-from nautilus_trader.test_kit.stubs.execution import TestExecStubs
+from market_simulator.backtest.models import LeveragedMarginModel
+from market_simulator.backtest.models import StandardMarginModel
+from market_simulator.test_kit.stubs.execution import TestExecStubs
 
 account = TestExecStubs.margin_account()
 
@@ -332,9 +332,9 @@ Subclass `MarginModel` and receive configuration through `MarginModelConfig`:
 ```python
 from decimal import Decimal
 
-from nautilus_trader.backtest.config import MarginModelConfig
-from nautilus_trader.backtest.models import MarginModel
-from nautilus_trader.model.objects import Money
+from market_simulator.backtest.config import MarginModelConfig
+from market_simulator.backtest.models import MarginModel
+from market_simulator.model.objects import Money
 
 
 class RiskAdjustedMarginModel(MarginModel):

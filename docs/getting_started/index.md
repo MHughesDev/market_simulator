@@ -5,7 +5,7 @@
 Set up a Python 3.12-3.14 environment and install the package:
 
 ```bash
-pip install -U nautilus_trader
+pip install -U market_simulator
 ```
 
 See the [Installation](installation) guide for platform support, source builds, and
@@ -35,7 +35,7 @@ order book imbalance, grid market making) once the engine mechanics are clear.
 
 ## Backtesting API levels
 
-NautilusTrader provides two API levels for backtesting:
+Market Simulator provides two API levels for backtesting:
 
 | API level                                      | Entry point     | Best for                                                          |
 |:-----------------------------------------------|:----------------|:------------------------------------------------------------------|
@@ -64,23 +64,23 @@ repository on GitHub:
 
 | Directory                                                                                                | Contains                                                      |
 |:---------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------|
-| [examples/](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples)                     | Fully runnable, self‑contained Python examples                |
+| [examples/](https://github.com/market-simulator-team/market_simulator/tree/develop/examples)                     | Fully runnable, self‑contained Python examples                |
 | [docs/tutorials/](../tutorials/)                                                                         | Tutorials demonstrating common workflows                      |
 | [docs/concepts/](../concepts/)                                                                           | Concept guides with code snippets illustrating key features   |
-| [nautilus_trader/examples/](../../nautilus_trader/examples/)                                              | Pure‑Python examples of strategies, indicators, and exec algos|
+| [market_simulator/examples/](../../market_simulator/examples/)                                              | Pure‑Python examples of strategies, indicators, and exec algos|
 | [tests/unit_tests/](../../tests/unit_tests/)                                                             | Unit tests covering core functionality and edge cases         |
 
 ## Running in Docker
 
 A self-contained dockerized Jupyter notebook server provides the fastest way to try
-NautilusTrader with no local setup. Deleting the container deletes any data.
+Market Simulator with no local setup. Deleting the container deletes any data.
 
 ```bash
 # Pull the latest image
-docker pull ghcr.io/nautechsystems/jupyterlab:nightly --platform linux/amd64
+docker pull ghcr.io/market-simulator-team/jupyterlab:nightly --platform linux/amd64
 
 # Run the container
-docker run -p 8888:8888 ghcr.io/nautechsystems/jupyterlab:nightly
+docker run -p 8888:8888 ghcr.io/market-simulator-team/jupyterlab:nightly
 ```
 
 Then open <http://localhost:8888> in your browser.

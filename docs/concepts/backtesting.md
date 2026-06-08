@@ -6,7 +6,7 @@ built-in engines, `Cache`, [MessageBus](message_bus.md), `Portfolio`, [Actors](a
 A `BacktestEngine` processes a stream of historical data. When the stream is exhausted, the
 engine produces results and performance metrics for analysis.
 
-NautilusTrader offers two API levels for backtesting:
+Market Simulator offers two API levels for backtesting:
 
 - **High-level API**: Uses a `BacktestNode` and configuration objects (`BacktestEngine`s are used internally).
 - **Low-level API**: Uses a `BacktestEngine` directly with more "manual" setup.
@@ -61,7 +61,7 @@ data for multiple instruments.
 **Strategy 1: Defer sorting until the end (recommended for multiple instruments)**
 
 ```python
-from nautilus_trader.backtest.engine import BacktestEngine
+from market_simulator.backtest.engine import BacktestEngine
 
 engine = BacktestEngine()
 
@@ -218,7 +218,7 @@ engines, then returns the backtest results collected up to the shutdown point. I
 abort the process.
 
 ```python
-from nautilus_trader.backtest import BacktestEngineConfig
+from market_simulator.backtest import BacktestEngineConfig
 
 config = BacktestEngineConfig(shutdown_on_error=True)
 ```
@@ -264,8 +264,8 @@ There are two main approaches for running multiple backtests:
 The high-level API is designed for multiple backtest runs with different configurations:
 
 ```python
-from nautilus_trader.backtest.node import BacktestNode
-from nautilus_trader.config import BacktestRunConfig
+from market_simulator.backtest.node import BacktestNode
+from market_simulator.config import BacktestRunConfig
 
 # Define multiple run configurations
 configs = [
@@ -286,7 +286,7 @@ Each run gets a fresh engine with clean state - no reset() needed.
 For fine-grained control with the low-level API:
 
 ```python
-from nautilus_trader.backtest.engine import BacktestEngine
+from market_simulator.backtest.engine import BacktestEngine
 
 engine = BacktestEngine()
 
@@ -329,7 +329,7 @@ Data provided for backtesting drives the execution flow. Since a variety of data
 it's crucial that your venue configurations align with the data being provided for backtesting.
 Mismatches between data and configuration can lead to unexpected behavior during execution.
 
-NautilusTrader is primarily designed and optimized for order book data, which provides
+Market Simulator is primarily designed and optimized for order book data, which provides
 a complete representation of every price level or order in the market, reflecting the real-time behavior of a trading venue.
 This provides the greatest execution granularity and realism. However, if granular order book data is either not
 available or necessary, then the platform has the capability of processing market data in the following descending order of detail:
@@ -517,7 +517,7 @@ it emits (e.g. `close_all_positions`, `cancel_all_orders`), then stops the engin
 
 ### Fill modeling philosophy
 
-NautilusTrader treats historical order book and trade data as **immutable** during backtesting. What happened in the market is preserved exactly as recorded. Fills never modify the underlying book state.
+Market Simulator treats historical order book and trade data as **immutable** during backtesting. What happened in the market is preserved exactly as recorded. Fills never modify the underlying book state.
 
 This addresses a gap in academic literature: most research focuses on live market dynamics where the book actually evolves. Historical backtesting with frozen snapshots is a distinct engineering problem: how do we simulate realistic fills against data that doesn't change in response to our orders?
 
@@ -613,7 +613,7 @@ protection mechanisms for market and stop-market orders.
 **Configuration:**
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import BacktestVenueConfig
 
 venue_config = BacktestVenueConfig(
     name="BINANCE",
@@ -734,7 +734,7 @@ configuration option.
 **Configuration:**
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import BacktestVenueConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",
@@ -958,7 +958,7 @@ orders are "ahead" of your order at a given price level.
 **Configuration:**
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import BacktestVenueConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",
@@ -1132,9 +1132,9 @@ Nautilus supports two modes of bar processing:
 Here's how to configure adaptive bar ordering for a venue, including account setup:
 
 ```python
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.model.enums import OmsType, AccountType
-from nautilus_trader.model import Money, Currency
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.model.enums import OmsType, AccountType
+from market_simulator.model import Money, Currency
 
 # Initialize the backtest engine
 engine = BacktestEngine()
@@ -1163,7 +1163,7 @@ settlement between bars can drain the order earlier, against the book as it stan
 that point:
 
 ```python
-from nautilus_trader.backtest.models import LatencyModel
+from market_simulator.backtest.models import LatencyModel
 
 engine.add_venue(
     venue=venue,
@@ -1189,8 +1189,8 @@ timer may fire before processing boundary data.
 Configure `time_bars_build_delay` in `DataEngineConfig` to delay bar close timers:
 
 ```python
-from nautilus_trader.config import BacktestEngineConfig
-from nautilus_trader.data.config import DataEngineConfig
+from market_simulator.config import BacktestEngineConfig
+from market_simulator.data.config import DataEngineConfig
 
 config = BacktestEngineConfig(
     data_engine=DataEngineConfig(
@@ -1251,8 +1251,8 @@ for more sophisticated liquidity modeling.
 **Using the base FillModel with probabilistic parameters:**
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
-from nautilus_trader.backtest.config import ImportableFillModelConfig
+from market_simulator.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import ImportableFillModelConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",
@@ -1260,8 +1260,8 @@ venue_config = BacktestVenueConfig(
     account_type="CASH",
     starting_balances=["100_000 USD"],
     fill_model=ImportableFillModelConfig(
-        fill_model_path="nautilus_trader.backtest.models:FillModel",
-        config_path="nautilus_trader.backtest.config:FillModelConfig",
+        fill_model_path="market_simulator.backtest.models:FillModel",
+        config_path="market_simulator.backtest.config:FillModelConfig",
         config={
             "prob_fill_on_limit": 0.2,    # Chance a limit order fills when price matches
             "prob_slippage": 0.5,         # Chance of 1-tick slippage (L1 data only)
@@ -1274,8 +1274,8 @@ venue_config = BacktestVenueConfig(
 **Using an order book simulation model:**
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
-from nautilus_trader.backtest.config import ImportableFillModelConfig
+from market_simulator.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import ImportableFillModelConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",
@@ -1283,7 +1283,7 @@ venue_config = BacktestVenueConfig(
     account_type="CASH",
     starting_balances=["100_000 USD"],
     fill_model=ImportableFillModelConfig(
-        fill_model_path="nautilus_trader.backtest.models:ThreeTierFillModel",
+        fill_model_path="market_simulator.backtest.models:ThreeTierFillModel",
     ),
 )
 ```
@@ -1336,10 +1336,10 @@ A 100-contract market order would fill partially at each level, experiencing rea
 **Creating custom fill models:**
 
 ```python
-from nautilus_trader.backtest.models import FillModel
-from nautilus_trader.model.book import OrderBook, BookOrder
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.core.rust.model import BookType
+from market_simulator.backtest.models import FillModel
+from market_simulator.model.book import OrderBook, BookOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.core.rust.model import BookType
 
 class MyCustomFillModel(FillModel):
     def get_orderbook_for_fill_simulation(
@@ -1416,11 +1416,11 @@ model reference, see [Accounting](accounting.md).
 Example of adding a `CASH` account for a backtest venue:
 
 ```python
-from nautilus_trader.adapters.binance import BINANCE_VENUE
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.model.currencies import USDT
-from nautilus_trader.model.enums import OmsType, AccountType
-from nautilus_trader.model import Money, Currency
+from market_simulator.adapters.binance import BINANCE_VENUE
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.model.currencies import USDT
+from market_simulator.model.enums import OmsType, AccountType
+from market_simulator.model import Money, Currency
 
 # Initialize the backtest engine
 engine = BacktestEngine()
@@ -1449,8 +1449,8 @@ This section covers only the backtest-specific configuration.
 Specify the margin model on `BacktestVenueConfig` via `MarginModelConfig`:
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
-from nautilus_trader.backtest.config import MarginModelConfig
+from market_simulator.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import MarginModelConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",
@@ -1473,9 +1473,9 @@ Available `model_type` values:
 When using the high-level API, attach the margin model in the same way:
 
 ```python
-from nautilus_trader.backtest.config import BacktestVenueConfig
-from nautilus_trader.backtest.config import MarginModelConfig
-from nautilus_trader.config import BacktestRunConfig
+from market_simulator.backtest.config import BacktestVenueConfig
+from market_simulator.backtest.config import MarginModelConfig
+from market_simulator.config import BacktestRunConfig
 
 venue_config = BacktestVenueConfig(
     name="SIM",

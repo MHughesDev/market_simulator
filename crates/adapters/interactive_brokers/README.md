@@ -1,11 +1,11 @@
 # Interactive Brokers Adapter
 
-`nautilus-interactive-brokers` is the Rust adapter that connects NautilusTrader
+`nautilus-interactive-brokers` is the Rust adapter that connects Market Simulator
 to Interactive Brokers TWS and IB Gateway.
 
-The crate wraps the `ibapi` client and feeds NautilusTrader's live data,
+The crate wraps the `ibapi` client and feeds Market Simulator's live data,
 execution, historical data, and instrument loading infrastructure. Optional
-PyO3 bindings expose the same implementation through `nautilus_trader`.
+PyO3 bindings expose the same implementation through `market_simulator`.
 
 ## What this crate provides
 
@@ -22,7 +22,7 @@ PyO3 bindings expose the same implementation through `nautilus_trader`.
   the instrument provider, and the Dockerized gateway helper.
 - `gateway`: Enables Dockerized IB Gateway support via `bollard`.
 - `extension-module`: Builds the crate as a Python extension module. This is
-  the feature used by the `nautilus_trader` package and includes `python` and
+  the feature used by the `market_simulator` package and includes `python` and
   `gateway`.
 
 ## Documentation and examples
@@ -54,11 +54,11 @@ live Gateway session, set the port explicitly in your config.
 This adapter only supports UTC timestamps.
 
 Configure TWS or IB Gateway to return timestamps in UTC before connecting
-NautilusTrader. This is a user-managed setting in TWS / IB Gateway, not
+Market Simulator. This is a user-managed setting in TWS / IB Gateway, not
 something the adapter converts automatically at runtime.
 
 ## Status
 
-This crate is the Rust implementation of NautilusTrader's Interactive Brokers
+This crate is the Rust implementation of Market Simulator's Interactive Brokers
 integration. The core adapter surface is in place, but APIs may evolve as the
 migration from the legacy Python/Cython adapter completes.

@@ -124,6 +124,6 @@ the full threading and registry model.
 ## Full example
 
 See
-[`BookImbalanceActor`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/actors/imbalance)
+[`BookImbalanceActor`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/actors/imbalance)
 for a more complete actor that tracks per-instrument state and prints a
 summary on stop.

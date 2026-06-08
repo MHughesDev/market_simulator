@@ -1,6 +1,6 @@
 # Execution
 
-NautilusTrader can handle trade execution and order management for multiple strategies and venues
+Market Simulator can handle trade execution and order management for multiple strategies and venues
 simultaneously (per instance). Several interacting components are involved in execution, making it
 important to understand the possible flows of execution messages (commands and events).
 
@@ -181,7 +181,7 @@ The `TradingState` enum has three variants:
 - `REDUCING`: Cancels are allowed, and only submit or modify commands that do not increase
   exposure are accepted.
 
-See the [`RiskEngineConfig` API Reference](/docs/python-api-latest/config.html#nautilus_trader.risk.config.RiskEngineConfig) for further details.
+See the [`RiskEngineConfig` API Reference](/docs/python-api-latest/config.html#market_simulator.risk.config.RiskEngineConfig) for further details.
 
 ## Execution algorithms
 
@@ -200,12 +200,12 @@ The algorithm will immediately submit the first order, with the final order subm
 primary order at the end of the horizon period.
 
 Using the TWAP algorithm as an example (found in
-`nautilus_trader/examples/algorithms/twap.py`), this example demonstrates how to initialize and
+`market_simulator/examples/algorithms/twap.py`), this example demonstrates how to initialize and
 register a TWAP execution algorithm directly with a `BacktestEngine` (assuming an engine is
 already initialized):
 
 ```python
-from nautilus_trader.examples.algorithms.twap import TWAPExecAlgorithm
+from market_simulator.examples.algorithms.twap import TWAPExecAlgorithm
 
 # `engine` is an initialized BacktestEngine instance
 exec_algorithm = TWAPExecAlgorithm()
@@ -223,9 +223,9 @@ determine how a primary order is split into a series of spawned orders.
 
 ```python
 from decimal import Decimal
-from nautilus_trader.model.data import BarType
-from nautilus_trader.test_kit.providers import TestInstrumentProvider
-from nautilus_trader.examples.strategies.ema_cross_twap import EMACrossTWAP, EMACrossTWAPConfig
+from market_simulator.model.data import BarType
+from market_simulator.test_kit.providers import TestInstrumentProvider
+from market_simulator.examples.strategies.ema_cross_twap import EMACrossTWAP, EMACrossTWAPConfig
 
 # Configure your strategy
 config = EMACrossTWAPConfig(
@@ -281,7 +281,7 @@ Received orders will arrive via the following `on_order(...)` method. These rece
 known as "primary" (original) orders when being handled by an execution algorithm.
 
 ```python
-from nautilus_trader.model.orders.base import Order
+from market_simulator.model.orders.base import Order
 
 def on_order(self, order: Order) -> None:
     # Handle the order here
@@ -539,7 +539,7 @@ this sanitizer rather than being treated as a new fill.
 For live trading, enable overfill tolerance in the `LiveExecEngineConfig`:
 
 ```python
-from nautilus_trader.live.config import LiveExecEngineConfig
+from market_simulator.live.config import LiveExecEngineConfig
 
 config = LiveExecEngineConfig(
     allow_overfills=True,  # Log warning instead of rejecting

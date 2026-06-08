@@ -1,7 +1,7 @@
 # Bybit
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit
+.. automodule:: market_simulator.adapters.bybit
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.config
+.. automodule:: market_simulator.adapters.bybit.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.factories
+.. automodule:: market_simulator.adapters.bybit.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.common.enums
+.. automodule:: market_simulator.adapters.bybit.common.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.providers
+.. automodule:: market_simulator.adapters.bybit.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.data
+.. automodule:: market_simulator.adapters.bybit.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -61,7 +61,7 @@
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.bybit.execution
+.. automodule:: market_simulator.adapters.bybit.execution
    :show-inheritance:
    :inherited-members:
    :members:

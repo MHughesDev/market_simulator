@@ -106,7 +106,7 @@ back toward zero.
 ## Configuration
 
 The example file at
-[`crates/adapters/bybit/examples/node_delta_neutral.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/bybit/examples/node_delta_neutral.rs)
+[`crates/adapters/bybit/examples/node_delta_neutral.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/bybit/examples/node_delta_neutral.rs)
 configures the strategy:
 
 ```rust
@@ -347,9 +347,9 @@ before shutdown.
 
 ## Complete source
 
-- Example runner: [`crates/adapters/bybit/examples/node_delta_neutral.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/bybit/examples/node_delta_neutral.rs)
-- Strategy implementation: [`crates/trading/src/examples/strategies/delta_neutral_vol/`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/delta_neutral_vol/)
-- Strategy README with full config reference: [`crates/trading/src/examples/strategies/delta_neutral_vol/README.md`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/delta_neutral_vol/README.md)
+- Example runner: [`crates/adapters/bybit/examples/node_delta_neutral.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/bybit/examples/node_delta_neutral.rs)
+- Strategy implementation: [`crates/trading/src/examples/strategies/delta_neutral_vol/`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/delta_neutral_vol/)
+- Strategy README with full config reference: [`crates/trading/src/examples/strategies/delta_neutral_vol/README.md`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/delta_neutral_vol/README.md)
 
 ## See also
 

@@ -178,7 +178,7 @@ survive.
 
 ## Portfolio statistics
 
-There are a variety of [built-in portfolio statistics](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/analysis/src/statistics)
+There are a variety of [built-in portfolio statistics](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/analysis/src/statistics)
 which analyse a trading portfolio's performance for both backtests and live trading.
 
 The statistics are generally categorized as follows.
@@ -201,7 +201,7 @@ For example, the following is the implementation for the built-in `WinRate` stat
 ```python
 import pandas as pd
 from typing import Any
-from nautilus_trader.analysis.statistic import PortfolioStatistic
+from market_simulator.analysis.statistic import PortfolioStatistic
 
 
 class WinRate(PortfolioStatistic):
@@ -230,7 +230,7 @@ stat = WinRate()
 engine.portfolio.analyzer.register_statistic(stat)
 ```
 
-See the [`PortfolioAnalyzer` API Reference](/docs/python-api-latest/analysis.html#nautilus_trader.analysis.analyzer.PortfolioAnalyzer) for all available methods.
+See the [`PortfolioAnalyzer` API Reference](/docs/python-api-latest/analysis.html#market_simulator.analysis.analyzer.PortfolioAnalyzer) for all available methods.
 
 :::tip
 Your statistic should handle degenerate inputs such as `None`, empty series, or insufficient data.

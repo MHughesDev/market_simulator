@@ -154,7 +154,7 @@ Pass the config to `add_native_strategy` on a `LiveNode` or
 runs entirely in Rust.
 
 ```python
-from nautilus_trader.core.nautilus_pyo3.trading import DeltaNeutralVolConfig
+from market_simulator.core.nautilus_pyo3.trading import DeltaNeutralVolConfig
 
 config = DeltaNeutralVolConfig(
     option_family="BTC-USD",

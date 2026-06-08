@@ -1,6 +1,6 @@
 # Pull Request
 
-**NautilusTrader prioritizes correctness and reliability, please follow existing patterns for validation and testing.**
+**Market Simulator prioritizes correctness and reliability, please follow existing patterns for validation and testing.**
 
 - [ ] I have reviewed the `CONTRIBUTING.md` and followed the established practices
 

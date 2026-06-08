@@ -1,6 +1,6 @@
 # Configuration
 
-NautilusTrader uses typed configuration structs throughout the platform.
+Market Simulator uses typed configuration structs throughout the platform.
 Each component (data clients, execution clients, engines, strategies) has a
 dedicated config struct that controls its behavior.
 
@@ -47,7 +47,7 @@ All Python config classes inherit from `NautilusConfig`, which sets
 `msgspec.ValidationError` during decoding.
 
 ```python
-from nautilus_trader.adapters.bybit.config import BybitDataClientConfig
+from market_simulator.adapters.bybit.config import BybitDataClientConfig
 
 # All defaults: 60s timeout, 3 retries, etc.
 config = BybitDataClientConfig()
@@ -113,7 +113,7 @@ pattern. Fields like `reconciliation`, `inflight_check_interval_ms`, and
 features use `Option<T>`:
 
 ```python
-from nautilus_trader.config import LiveExecEngineConfig
+from market_simulator.config import LiveExecEngineConfig
 
 config = LiveExecEngineConfig(
     reconciliation=True,

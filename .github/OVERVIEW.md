@@ -4,7 +4,7 @@
 # GitHub Actions Overview
 
 This directory contains reusable composite actions and workflow definitions for
-CI/CD, testing, publishing, and automation within the NautilusTrader repository.
+CI/CD, testing, publishing, and automation within the Market Simulator repository.
 
 ## Composite actions (`.github/actions`)
 
@@ -32,7 +32,7 @@ CI/CD, testing, publishing, and automation within the NautilusTrader repository.
   `nightly`, and manual dispatch.
 - **copilot-setup-steps.yml**: environment setup for GitHub Copilot coding agent.
 - **coverage.yml**: coverage report generation, currently paused and runs only on `workflow_dispatch`.
-- **docker.yml**: builds and pushes multi-platform Docker images (`nautilus_trader`, `jupyterlab`)
+- **docker.yml**: builds and pushes multi-platform Docker images (`market_simulator`, `jupyterlab`)
   using Buildx and native ARM runners.
 - **nightly-docs-features-check.yml**: nightly docs.rs build checks and crate feature compatibility verification.
 - **nightly-merge.yml**: auto-merges `develop` into `nightly` when CI succeeds.
@@ -88,7 +88,7 @@ CI/CD, testing, publishing, and automation within the NautilusTrader repository.
   publish attestations. Docker images receive cosign signatures and SPDX SBOM attestations. Verify
   Python artifacts via `gh attestation verify` and container images via `cosign verify`.
 - **Release sequencing**: Stable releases create a draft GitHub release first, attach wheel and
-  sdist assets, publish to package indexes (`packages.nautechsystems.io`, PyPI, crates.io), verify
+  sdist assets, publish to package indexes (`packages.market-simulator-team.io`, PyPI, crates.io), verify
   registries, attach final integrity assets, then publish the GitHub release. This keeps the GitHub
   release as the anchor for downstream registry publishing while staying compatible with GitHub
   release immutability.
@@ -98,12 +98,12 @@ CI/CD, testing, publishing, and automation within the NautilusTrader repository.
   provenance verification command.
 - **PyPI Trusted Publishing**: `publish-wheels-pypi` and `publish-sdist-pypi` upload to PyPI via
   OIDC trusted publishing rather than a long-lived API token. The trusted publisher on PyPI is
-  bound to repo `nautechsystems/nautilus_trader`, workflow `build.yml`, and environment `release`;
+  bound to repo `market-simulator-team/market_simulator`, workflow `build.yml`, and environment `release`;
   `uv publish --trusted-publishing automatic` mints a short-lived token at publish time. No
   `PYPI_*` secret is required.
 - **crates.io Trusted Publishing**: `publish-cargo-crates` publishes Cargo crates via crates.io
   OIDC trusted publishing. The trusted publisher on crates.io must be configured per crate for
-  repo `nautechsystems/nautilus_trader`, workflow `build.yml`, and environment `release`; the
+  repo `market-simulator-team/market_simulator`, workflow `build.yml`, and environment `release`; the
   job uses a short-lived token from `rust-lang/crates-io-auth-action` and no long-lived cargo token.
 - **Post-publish verification**: `publish-release-integrity` verifies PyPI files against
   `dist-manifest.json`, verifies PyPI provenance publisher metadata, verifies crates.io entries
@@ -232,8 +232,8 @@ static.crates.io:443                                         # Rust crate downlo
 pypi.org:443                                                 # Python packages
 files.pythonhosted.org:443                                   # Python package files
 capnproto.org:443                                            # Cap'n Proto compiler
-packages.nautechsystems.io:443                               # Nautech packages
-test-data.nautechsystems.io:443                              # Nautech test data
+packages.market-simulator-team.io:443                               # Nautech packages
+test-data.market-simulator-team.io:443                              # Nautech test data
 formulae.brew.sh:443                                         # Homebrew formulae
 community.chocolatey.org:443                                 # Chocolatey community
 chocolatey.org:443                                           # Chocolatey packages

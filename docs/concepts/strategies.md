@@ -49,7 +49,7 @@ A trading strategy inherits from `Strategy`, so you must define a constructor.
 At minimum, initialize the base class:
 
 ```python
-from nautilus_trader.trading.strategy import Strategy
+from market_simulator.trading.strategy import Strategy
 
 class MyStrategy(Strategy):
     def __init__(self) -> None:
@@ -98,17 +98,17 @@ def on_load(self, state: dict[str, bytes]) -> None:
 These handlers receive data updates, including built-in market data and custom user-defined data.
 
 ```python
-from nautilus_trader.core import Data
-from nautilus_trader.model import OrderBook
-from nautilus_trader.model import Bar
-from nautilus_trader.model import QuoteTick
-from nautilus_trader.model import TradeTick
-from nautilus_trader.model import OrderBookDeltas
-from nautilus_trader.model import InstrumentClose
-from nautilus_trader.model import InstrumentStatus
-from nautilus_trader.model import OptionChainSlice
-from nautilus_trader.model import OptionGreeks
-from nautilus_trader.model.instruments import Instrument
+from market_simulator.core import Data
+from market_simulator.model import OrderBook
+from market_simulator.model import Bar
+from market_simulator.model import QuoteTick
+from market_simulator.model import TradeTick
+from market_simulator.model import OrderBookDeltas
+from market_simulator.model import InstrumentClose
+from market_simulator.model import InstrumentStatus
+from market_simulator.model import OptionChainSlice
+from market_simulator.model import OptionGreeks
+from market_simulator.model.instruments import Instrument
 
 def on_order_book_deltas(self, deltas: OrderBookDeltas) -> None:
 def on_order_book(self, order_book: OrderBook) -> None:
@@ -135,23 +135,23 @@ These handlers receive events related to orders.
 3. `on_event(...)`
 
 ```python
-from nautilus_trader.model.events import OrderAccepted
-from nautilus_trader.model.events import OrderCanceled
-from nautilus_trader.model.events import OrderCancelRejected
-from nautilus_trader.model.events import OrderDenied
-from nautilus_trader.model.events import OrderEmulated
-from nautilus_trader.model.events import OrderEvent
-from nautilus_trader.model.events import OrderExpired
-from nautilus_trader.model.events import OrderFilled
-from nautilus_trader.model.events import OrderInitialized
-from nautilus_trader.model.events import OrderModifyRejected
-from nautilus_trader.model.events import OrderPendingCancel
-from nautilus_trader.model.events import OrderPendingUpdate
-from nautilus_trader.model.events import OrderRejected
-from nautilus_trader.model.events import OrderReleased
-from nautilus_trader.model.events import OrderSubmitted
-from nautilus_trader.model.events import OrderTriggered
-from nautilus_trader.model.events import OrderUpdated
+from market_simulator.model.events import OrderAccepted
+from market_simulator.model.events import OrderCanceled
+from market_simulator.model.events import OrderCancelRejected
+from market_simulator.model.events import OrderDenied
+from market_simulator.model.events import OrderEmulated
+from market_simulator.model.events import OrderEvent
+from market_simulator.model.events import OrderExpired
+from market_simulator.model.events import OrderFilled
+from market_simulator.model.events import OrderInitialized
+from market_simulator.model.events import OrderModifyRejected
+from market_simulator.model.events import OrderPendingCancel
+from market_simulator.model.events import OrderPendingUpdate
+from market_simulator.model.events import OrderRejected
+from market_simulator.model.events import OrderReleased
+from market_simulator.model.events import OrderSubmitted
+from market_simulator.model.events import OrderTriggered
+from market_simulator.model.events import OrderUpdated
 
 def on_order_initialized(self, event: OrderInitialized) -> None:
 def on_order_denied(self, event: OrderDenied) -> None:
@@ -182,10 +182,10 @@ These handlers receive events related to positions.
 3. `on_event(...)`
 
 ```python
-from nautilus_trader.model.events import PositionChanged
-from nautilus_trader.model.events import PositionClosed
-from nautilus_trader.model.events import PositionEvent
-from nautilus_trader.model.events import PositionOpened
+from market_simulator.model.events import PositionChanged
+from market_simulator.model.events import PositionClosed
+from market_simulator.model.events import PositionEvent
+from market_simulator.model.events import PositionOpened
 
 def on_position_opened(self, event: PositionOpened) -> None:
 def on_position_changed(self, event: PositionChanged) -> None:
@@ -199,7 +199,7 @@ This handler will eventually receive all event messages which arrive at the stra
 which no other specific handler exists.
 
 ```python
-from nautilus_trader.core.message import Event
+from market_simulator.core.message import Event
 
 def on_event(self, event: Event) -> None:
 ```
@@ -336,11 +336,11 @@ The following shows a general outline of available methods.
 ```python
 import decimal
 
-from nautilus_trader.accounting.accounts.base import Account
-from nautilus_trader.model import Venue
-from nautilus_trader.model import Currency
-from nautilus_trader.model import Money
-from nautilus_trader.model import InstrumentId
+from market_simulator.accounting.accounts.base import Account
+from market_simulator.model import Venue
+from market_simulator.model import Currency
+from market_simulator.model import Money
+from market_simulator.model import InstrumentId
 
 def account(self, venue: Venue) -> Account
 
@@ -392,9 +392,9 @@ The component a `SubmitOrder` or `SubmitOrderList` command will flow to for exec
 This example submits a `LIMIT` BUY order for emulation (see [Emulated Orders](orders/emulated.md)):
 
 ```python
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TriggerType
-from nautilus_trader.model.orders import LimitOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TriggerType
+from market_simulator.model.orders import LimitOrder
 
 
 def buy(self) -> None:
@@ -420,9 +420,9 @@ first sent to the `OrderEmulator`, and upon release is then routed to the `ExecA
 This example submits a `MARKET` BUY order to a TWAP execution algorithm:
 
 ```python
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model import ExecAlgorithmId
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model import ExecAlgorithmId
 
 
 def buy(self) -> None:
@@ -468,7 +468,7 @@ self.cancel_order(order)
 The following shows how to cancel a batch of orders:
 
 ```python
-from nautilus_trader.model.orders import Order
+from market_simulator.model.orders import Order
 
 
 my_order_list: list[Order] = [order1, order2, order3]
@@ -504,7 +504,7 @@ Once an order is under the control of an execution algorithm, it cannot be direc
 The following shows how to modify the size of `LIMIT` BUY order currently *open* on a venue:
 
 ```python
-from nautilus_trader.model import Quantity
+from market_simulator.model import Quantity
 
 
 new_quantity: Quantity = Quantity.from_int(5)
@@ -590,10 +590,10 @@ Here is an example configuration:
 
 ```python
 from decimal import Decimal
-from nautilus_trader.config import StrategyConfig
-from nautilus_trader.model import Bar, BarType
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.trading.strategy import Strategy
+from market_simulator.config import StrategyConfig
+from market_simulator.model import Bar, BarType
+from market_simulator.model import InstrumentId
+from market_simulator.trading.strategy import Strategy
 
 
 # Configuration definition

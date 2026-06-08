@@ -44,7 +44,7 @@ For background on how config structs handle defaults and `Option<T>` semantics, 
 the [Configuration](../concepts/configuration.md) concept guide.
 
 ```python
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.config import TradingNodeConfig
 
 config = TradingNodeConfig(
     trader_id="MyTrader-001",
@@ -82,8 +82,8 @@ config = TradingNodeConfig(
 ### Cache database configuration
 
 ```python
-from nautilus_trader.config import CacheConfig
-from nautilus_trader.config import DatabaseConfig
+from market_simulator.config import CacheConfig
+from market_simulator.config import DatabaseConfig
 
 cache_config = CacheConfig(
     database=DatabaseConfig(
@@ -104,8 +104,8 @@ cache_config = CacheConfig(
 ### MessageBus configuration
 
 ```python
-from nautilus_trader.config import MessageBusConfig
-from nautilus_trader.config import DatabaseConfig
+from market_simulator.config import MessageBusConfig
+from market_simulator.config import DatabaseConfig
 
 message_bus_config = MessageBusConfig(
     database=DatabaseConfig(
@@ -160,7 +160,7 @@ config = TradingNodeConfig(
 
 `LiveExecEngineConfig` controls order processing, execution events, and
 venue reconciliation. For full details see the
-[API Reference](/docs/python-api-latest/config.html#nautilus_trader.live.config.LiveExecEngineConfig).
+[API Reference](/docs/python-api-latest/config.html#market_simulator.live.config.LiveExecEngineConfig).
 
 ### Reconciliation
 
@@ -274,7 +274,7 @@ loop delegates to the cache APIs described in
 ## Strategy configuration
 
 For a complete parameter list see the `StrategyConfig`
-[API Reference](/docs/python-api-latest/config.html#nautilus_trader.trading.config.StrategyConfig).
+[API Reference](/docs/python-api-latest/config.html#market_simulator.trading.config.StrategyConfig).
 
 ### Identification
 
@@ -314,7 +314,7 @@ Recommended approaches:
 
 The "inflight check loop task still pending" message appears because the normal graceful
 shutdown path is not triggered. This is tracked as
-[#2785](https://github.com/nautechsystems/nautilus_trader/issues/2785).
+[#2785](https://github.com/market-simulator-team/market_simulator/issues/2785).
 
 The v2 `LiveNode` already handles Ctrl+C via `tokio::signal::ctrl_c()` and a Python SIGINT
 bridge, so runner and tasks shut down cleanly.

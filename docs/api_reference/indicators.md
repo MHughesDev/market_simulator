@@ -1,11 +1,11 @@
 # Indicators
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators
+.. automodule:: market_simulator.indicators
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.averages
+.. automodule:: market_simulator.indicators.averages
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.fuzzy_candlesticks
+.. automodule:: market_simulator.indicators.fuzzy_candlesticks
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.momentum
+.. automodule:: market_simulator.indicators.momentum
    :show-inheritance:
    :inherited-members:
    :members:
@@ -29,7 +29,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.spread_analyzer
+.. automodule:: market_simulator.indicators.spread_analyzer
    :show-inheritance:
    :inherited-members:
    :members:
@@ -37,7 +37,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.trend
+.. automodule:: market_simulator.indicators.trend
    :show-inheritance:
    :inherited-members:
    :members:
@@ -45,7 +45,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.volatility
+.. automodule:: market_simulator.indicators.volatility
    :show-inheritance:
    :inherited-members:
    :members:
@@ -53,7 +53,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.indicators.volume
+.. automodule:: market_simulator.indicators.volume
    :show-inheritance:
    :inherited-members:
    :members:

@@ -14,7 +14,7 @@ chain snapshots with ATM-relative strike filtering.
 ## Introduction
 
 Bybit publishes Greeks (delta, gamma, vega, theta) and implied volatility
-alongside every option ticker update. NautilusTrader exposes this data at
+alongside every option ticker update. Market Simulator exposes this data at
 two levels:
 
 - **Per-instrument Greeks**: subscribe to a single option contract and
@@ -52,7 +52,7 @@ flowchart LR
 ## Prerequisites
 
 - A working Rust toolchain ([rustup.rs](https://rustup.rs)).
-- The NautilusTrader repository cloned and building.
+- The Market Simulator repository cloned and building.
 - A Bybit API key with read permissions. No trading permissions are
   needed for data-only use. Create keys at
   [bybit.com](https://www.bybit.com/app/user/api-management).
@@ -257,7 +257,7 @@ across strikes. An option chain subscription handles this: the
 `DataEngine` aggregates quotes and Greeks across all strikes in a series
 and publishes a single `OptionChainSlice` on a timer.
 
-This aggregation happens inside NautilusTrader. Bybit publishes
+This aggregation happens inside Market Simulator. Bybit publishes
 per-contract option market data and does not expose a native option
 chain stream in the V5 public WebSocket docs.
 
@@ -496,8 +496,8 @@ GREEKS_LOG=/tmp/bybit_greeks.log CHAIN_LOG=/tmp/bybit_chain.log \
 
 ## Complete source
 
-- [`crates/adapters/bybit/examples/node_greeks.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/bybit/examples/node_greeks.rs)
-- [`crates/adapters/bybit/examples/node_option_chain.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/bybit/examples/node_option_chain.rs)
+- [`crates/adapters/bybit/examples/node_greeks.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/bybit/examples/node_greeks.rs)
+- [`crates/adapters/bybit/examples/node_option_chain.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/bybit/examples/node_option_chain.rs)
 
 ## Next steps
 

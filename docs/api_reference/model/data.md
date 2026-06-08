@@ -1,7 +1,7 @@
 # Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.data
+.. automodule:: market_simulator.model.data
    :show-inheritance:
    :inherited-members:
    :members:

@@ -4,7 +4,7 @@ This guide covers the release process and the standards for writing release note
 
 ## Overview
 
-NautilusTrader uses a three-branch model:
+Market Simulator uses a three-branch model:
 
 - **`develop`**: active development; publishes dev wheels to Cloudflare R2 on every push.
 - **`nightly`**: pre-release testing; publishes alpha wheels and CLI binaries.
@@ -62,7 +62,7 @@ Keep these sequencing rules intact when editing `.github/workflows/build.yml`:
 
 - The draft GitHub release must exist before any release asset upload or package registry publish.
 - Wheel and sdist assets must be attached to the GitHub release before package index publishing
-  starts (`packages.nautechsystems.io`, PyPI, crates.io).
+  starts (`packages.market-simulator-team.io`, PyPI, crates.io).
 - PyPI and crates.io Trusted Publishing jobs must keep `environment: release` and
   `id-token: write`; those registrations depend on the `release` environment.
 - Non-OIDC integrity and asset-upload jobs should avoid `environment: release` unless they need
@@ -94,8 +94,8 @@ token. Configure each crate on crates.io with:
 
 | Field       | Value             |
 |-------------|-------------------|
-| Owner       | `nautechsystems`  |
-| Repository  | `nautilus_trader` |
+| Owner       | `market-simulator-team`  |
+| Repository  | `market_simulator` |
 | Workflow    | `build.yml`       |
 | Environment | `release`         |
 
@@ -194,7 +194,7 @@ Changes that may break existing code.
 **Format**:
 
 ```markdown
-- Removed `nautilus_trader.analysis.statistics` subpackage - must import from `nautilus_trader.analysis`
+- Removed `market_simulator.analysis.statistics` subpackage - must import from `market_simulator.analysis`
 - Renamed `BinanceAccountType.USDT_FUTURE` to `USDT_FUTURES`
 - Changed `start` parameter to required for `Actor` data request methods
 ```
@@ -349,7 +349,7 @@ Note: Plain logic panics belong in Fixes unless they threaten system stability o
 ## Release notes template
 
 ```markdown
-# NautilusTrader <VERSION> Beta
+# Market Simulator <VERSION> Beta
 
 Released on TBD (UTC).
 

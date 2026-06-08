@@ -1,6 +1,6 @@
 # Integrations
 
-NautilusTrader uses modular *adapters* to connect to trading venues and data providers, translating raw APIs into a unified interface and normalized domain model.
+Market Simulator uses modular *adapters* to connect to trading venues and data providers, translating raw APIs into a unified interface and normalized domain model.
 
 The following integrations are currently supported:
 
@@ -36,7 +36,7 @@ The following integrations are currently supported:
 
 ## Implementation goals
 
-The primary goal of NautilusTrader is to provide a unified trading system for
+The primary goal of Market Simulator is to provide a unified trading system for
 use with a variety of integrations. To support the widest range of trading
 strategies, priority will be given to *standard* functionality:
 
@@ -50,13 +50,13 @@ strategies, priority will be given to *standard* functionality:
 The implementation of each integration aims to meet the following criteria:
 
 - Low-level client components should match the exchange API as closely as possible.
-- The full range of an exchange's functionality (where applicable to NautilusTrader) should *eventually* be supported.
+- The full range of an exchange's functionality (where applicable to Market Simulator) should *eventually* be supported.
 - Exchange specific data types will be added to support the functionality and return types which are reasonably expected by a user.
-- Actions unsupported by an exchange or NautilusTrader will be logged as a warning or error when invoked.
+- Actions unsupported by an exchange or Market Simulator will be logged as a warning or error when invoked.
 
 ## API unification
 
-All integrations must conform to NautilusTrader’s system API, requiring normalization and standardization:
+All integrations must conform to Market Simulator’s system API, requiring normalization and standardization:
 
 - Symbols should use the venue’s native symbol format unless disambiguation is required (e.g., Binance Spot vs. Binance Futures).
 - Timestamps must use UNIX epoch nanoseconds. If milliseconds are used, field/property names should explicitly end with `_ms`.

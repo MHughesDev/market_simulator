@@ -1,13 +1,13 @@
 # Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data
+.. automodule:: market_simulator.data
 ```
 
 ## Aggregation
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data.aggregation
+.. automodule:: market_simulator.data.aggregation
    :show-inheritance:
    :inherited-members:
    :members:
@@ -17,7 +17,7 @@
 ## Client
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data.client
+.. automodule:: market_simulator.data.client
    :show-inheritance:
    :inherited-members:
    :members:
@@ -27,7 +27,7 @@
 ## Engine
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data.engine
+.. automodule:: market_simulator.data.engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -37,7 +37,7 @@
 ## Messages
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data.messages
+.. automodule:: market_simulator.data.messages
    :show-inheritance:
    :inherited-members:
    :members:

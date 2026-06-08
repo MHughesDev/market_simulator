@@ -1,6 +1,6 @@
 # Adapters
 
-Adapters integrate data providers and trading venues into NautilusTrader.
+Adapters integrate data providers and trading venues into Market Simulator.
 They can be found in the top-level `adapters` subpackage.
 
 An adapter typically comprises these components:
@@ -62,11 +62,11 @@ Here is an example of discovering the current instruments for the Binance Future
 import asyncio
 import os
 
-from nautilus_trader.adapters.binance.common.enums import BinanceAccountType
-from nautilus_trader.adapters.binance.common.enums import BinanceEnvironment
-from nautilus_trader.adapters.binance import get_cached_binance_http_client
-from nautilus_trader.adapters.binance.futures.providers import BinanceFuturesInstrumentProvider
-from nautilus_trader.common.component import LiveClock
+from market_simulator.adapters.binance.common.enums import BinanceAccountType
+from market_simulator.adapters.binance.common.enums import BinanceEnvironment
+from market_simulator.adapters.binance import get_cached_binance_http_client
+from market_simulator.adapters.binance.futures.providers import BinanceFuturesInstrumentProvider
+from market_simulator.common.component import LiveClock
 
 
 async def main():
@@ -104,7 +104,7 @@ generally offers two loading behaviors:
 - Load all instruments on start:
 
 ```python
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.config import InstrumentProviderConfig
 
 InstrumentProviderConfig(load_all=True)
 ```
@@ -129,8 +129,8 @@ and normalize incoming data into Nautilus types.
 Actors and strategies can request data using built-in methods. Data returns via callbacks:
 
 ```python
-from nautilus_trader.model import Instrument, InstrumentId
-from nautilus_trader.trading.strategy import Strategy
+from market_simulator.model import Instrument, InstrumentId
+from market_simulator.trading.strategy import Strategy
 
 
 class MyStrategy(Strategy):

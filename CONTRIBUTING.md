@@ -1,6 +1,6 @@
-# Contributing to NautilusTrader
+# Contributing to Market Simulator
 
-We highly value involvement from the trading community, and all contributions are greatly appreciated as they help us continually improve NautilusTrader!
+We highly value involvement from the trading community, and all contributions are greatly appreciated as they help us continually improve Market Simulator!
 
 > [!NOTE]
 >
@@ -29,7 +29,7 @@ To contribute, follow these steps:
 
 5. The CI system will run the full test suite on your code including all unit and integration tests, so include appropriate tests with the PR.
 
-6. Read and understand the Contributor License Agreement (CLA), available at https://github.com/nautechsystems/nautilus_trader/blob/develop/CLA.md.
+6. Read and understand the Contributor License Agreement (CLA), available at https://github.com/market-simulator-team/market_simulator/blob/develop/CLA.md.
 
 7. You will also be required to sign the CLA, which is administered automatically through [CLA Assistant](https://cla-assistant.io/).
 
@@ -37,7 +37,7 @@ To contribute, follow these steps:
 
 ## Tips
 
-- Follow the established coding practices in the [Developer Guide](https://nautilustrader.io/docs/developer_guide/index.html).
+- Follow the established coding practices in the [Developer Guide](https://market-simulator/docs/developer_guide/index.html).
 - For documentation changes, follow the style guide in `docs/developer_guide/docs.md` (use sentence case for headings H2 and below).
 - Keep PRs small and focused for easier review.
 - Reference the relevant GitHub issue(s) in your PR comment.

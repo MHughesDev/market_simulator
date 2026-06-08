@@ -164,8 +164,8 @@ let expirations = client
 ```
 
 ```python tab="Python"
-from nautilus_trader.adapters.deribit import DeribitCurrency
-from nautilus_trader.adapters.deribit import DeribitHttpClient
+from market_simulator.adapters.deribit import DeribitCurrency
+from market_simulator.adapters.deribit import DeribitHttpClient
 
 client = DeribitHttpClient()
 expirations = await client.request_option_expirations(DeribitCurrency.BTC)
@@ -295,7 +295,7 @@ The Nautilus adapter supports both feed types via subscription parameters:
 | `depth`    | `1`, `10`, `20`        | Default: `10`. Number of price levels per side.                               |
 
 ```python
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import InstrumentId
 
 instrument_id = InstrumentId.from_str("BTC-PERPETUAL.DERIBIT")
 
@@ -504,9 +504,9 @@ Subscribe from an actor or strategy with `DataType(DeribitVolatilityIndex)`.
 The `index_name` metadata key is required:
 
 ```python
-from nautilus_trader.adapters.deribit.constants import DERIBIT_CLIENT_ID
-from nautilus_trader.adapters.deribit.data import DeribitVolatilityIndex
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.deribit.constants import DERIBIT_CLIENT_ID
+from market_simulator.adapters.deribit.data import DeribitVolatilityIndex
+from market_simulator.model.data import DataType
 
 self.subscribe_data(
     data_type=DataType(DeribitVolatilityIndex, metadata={"index_name": "btc_usd"}),
@@ -678,7 +678,7 @@ Deribit provides a testnet environment for testing strategies without real funds
 To use the testnet, set `environment=DeribitEnvironment.TESTNET` in your client configuration:
 
 ```python
-from nautilus_trader.core.nautilus_pyo3 import DeribitEnvironment
+from market_simulator.core.nautilus_pyo3 import DeribitEnvironment
 
 config = TradingNodeConfig(
     data_clients={
@@ -762,16 +762,16 @@ HTTP failures are logged and the WebSocket subscribe is skipped.
 Below is an example configuration for a live trading node using Deribit data and execution clients:
 
 ```python
-from nautilus_trader.adapters.deribit import DERIBIT
-from nautilus_trader.adapters.deribit import DeribitDataClientConfig
-from nautilus_trader.adapters.deribit import DeribitExecClientConfig
-from nautilus_trader.adapters.deribit import DeribitLiveDataClientFactory
-from nautilus_trader.adapters.deribit import DeribitLiveExecClientFactory
-from nautilus_trader.config import InstrumentProviderConfig
-from nautilus_trader.config import TradingNodeConfig
-from nautilus_trader.core.nautilus_pyo3 import DeribitEnvironment
-from nautilus_trader.core.nautilus_pyo3 import DeribitProductType
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.deribit import DERIBIT
+from market_simulator.adapters.deribit import DeribitDataClientConfig
+from market_simulator.adapters.deribit import DeribitExecClientConfig
+from market_simulator.adapters.deribit import DeribitLiveDataClientFactory
+from market_simulator.adapters.deribit import DeribitLiveExecClientFactory
+from market_simulator.config import InstrumentProviderConfig
+from market_simulator.config import TradingNodeConfig
+from market_simulator.core.nautilus_pyo3 import DeribitEnvironment
+from market_simulator.core.nautilus_pyo3 import DeribitProductType
+from market_simulator.live.node import TradingNode
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -835,7 +835,7 @@ Available options via the `DeribitProductType` enum:
 Example loading multiple product types:
 
 ```python
-from nautilus_trader.core.nautilus_pyo3 import DeribitProductType
+from market_simulator.core.nautilus_pyo3 import DeribitProductType
 
 config = DeribitDataClientConfig(
     product_types=(
@@ -870,5 +870,5 @@ For more details, see the [Server Infrastructure article](https://support.deribi
 
 :::info
 For additional features or to contribute to the Deribit adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

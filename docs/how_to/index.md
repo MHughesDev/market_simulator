@@ -28,5 +28,5 @@ path and [tutorials](../tutorials/) first.
 | [Run a Backtest (Rust)](run_rust_backtest)                | Use BacktestEngine or BacktestNode with a catalog.     |
 | [Run Live Trading (Rust)](run_rust_live_trading)          | Connect to a venue with LiveNode.                      |
 
-[loading_external_data]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/how_to/loading_external_data.py
-[data_catalog_databento]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/how_to/data_catalog_databento.py
+[loading_external_data]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/how_to/loading_external_data.py
+[data_catalog_databento]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/how_to/data_catalog_databento.py

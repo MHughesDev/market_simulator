@@ -1,6 +1,6 @@
 # Docs Style
 
-This guide outlines the style conventions and best practices for writing documentation for NautilusTrader.
+This guide outlines the style conventions and best practices for writing documentation for Market Simulator.
 
 ## General principles
 
@@ -109,7 +109,7 @@ It improves readability, reduces cognitive load, and is more accessible for inte
 ### Examples
 
 ```markdown
-# NautilusTrader Developer Guide
+# Market Simulator Developer Guide
 
 ## Getting started with Python
 ## Using the Binance adapter

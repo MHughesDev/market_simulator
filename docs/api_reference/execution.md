@@ -1,13 +1,13 @@
 # Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution
+.. automodule:: market_simulator.execution
 ```
 
 ## Components
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.algorithm
+.. automodule:: market_simulator.execution.algorithm
    :show-inheritance:
    :inherited-members:
    :members:
@@ -15,7 +15,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.client
+.. automodule:: market_simulator.execution.client
    :show-inheritance:
    :inherited-members:
    :members:
@@ -23,7 +23,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.emulator
+.. automodule:: market_simulator.execution.emulator
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.engine
+.. automodule:: market_simulator.execution.engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -39,7 +39,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.manager
+.. automodule:: market_simulator.execution.manager
    :show-inheritance:
    :inherited-members:
    :members:
@@ -47,7 +47,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.matching_core
+.. automodule:: market_simulator.execution.matching_core
    :show-inheritance:
    :inherited-members:
    :members:
@@ -57,7 +57,7 @@
 ## Messages
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.messages
+.. automodule:: market_simulator.execution.messages
    :show-inheritance:
    :inherited-members:
    :members:
@@ -67,7 +67,7 @@
 ## Reports
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.reports
+.. automodule:: market_simulator.execution.reports
    :show-inheritance:
    :inherited-members:
    :members:

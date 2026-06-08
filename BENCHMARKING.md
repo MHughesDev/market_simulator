@@ -1,6 +1,6 @@
 # Benchmarking
 
-NautilusTrader is performance-sensitive software. This document describes
+Market Simulator is performance-sensitive software. This document describes
 how the project approaches benchmarking: what we measure, why, when, and
 with what tools. It is intended for contributors and reviewers who need to
 understand the policy before writing or evaluating performance work.

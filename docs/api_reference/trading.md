@@ -1,11 +1,11 @@
 # Trading
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading
+.. automodule:: market_simulator.trading
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading.controller
+.. automodule:: market_simulator.trading.controller
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading.filters
+.. automodule:: market_simulator.trading.filters
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading.strategy
+.. automodule:: market_simulator.trading.strategy
    :show-inheritance:
    :inherited-members:
    :members:
@@ -29,7 +29,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading.trader
+.. automodule:: market_simulator.trading.trader
    :show-inheritance:
    :inherited-members:
    :members:

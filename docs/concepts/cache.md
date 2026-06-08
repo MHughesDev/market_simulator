@@ -75,7 +75,7 @@ You can provide this configuration either to a `BacktestEngine` or a `TradingNod
 Here's a basic example of configuring the `Cache`:
 
 ```python
-from nautilus_trader.config import CacheConfig, BacktestEngineConfig, TradingNodeConfig
+from market_simulator.config import CacheConfig, BacktestEngineConfig, TradingNodeConfig
 
 # For backtesting
 engine_config = BacktestEngineConfig(
@@ -104,7 +104,7 @@ These limits provide a good balance between memory usage and data availability. 
 The `CacheConfig` class supports these parameters:
 
 ```python
-from nautilus_trader.config import CacheConfig
+from market_simulator.config import CacheConfig
 
 cache_config = CacheConfig(
     database: DatabaseConfig | None = None,  # Database configuration for persistence
@@ -137,7 +137,7 @@ When is it useful to use persistence?
 - **Multi-node or distributed setups**: If multiple services or nodes need to access the same state, a persistent store helps ensure shared and consistent data.
 
 ```python
-from nautilus_trader.config import DatabaseConfig
+from market_simulator.config import DatabaseConfig
 
 config = CacheConfig(
     database=DatabaseConfig(
@@ -216,7 +216,7 @@ update_count = self.cache.book_update_count(instrument_id)  # Returns the number
 #### Price access
 
 ```python
-from nautilus_trader.core.rust.model import PriceType
+from market_simulator.core.rust.model import PriceType
 
 # Get current price by type; Returns Price or None.
 price = self.cache.price(
@@ -228,7 +228,7 @@ price = self.cache.price(
 #### Bar types
 
 ```python
-from nautilus_trader.core.rust.model import PriceType, AggregationSource
+from market_simulator.core.rust.model import PriceType, AggregationSource
 
 # Get all available bar types for an instrument; Returns list[BarType].
 bar_types = self.cache.bar_types(
@@ -461,7 +461,7 @@ the loop and the buffer or lookback to control how recent entries are protected.
 following defaults work well for most live sessions:
 
 ```python
-from nautilus_trader.config import LiveExecEngineConfig
+from market_simulator.config import LiveExecEngineConfig
 
 exec_engine = LiveExecEngineConfig(
     purge_closed_orders_interval_mins=15,
@@ -504,7 +504,7 @@ self.cache.add(key="my_key", value=b"some binary data")
 stored_data = self.cache.get("my_key")  # Returns bytes or None
 ```
 
-For more complex use cases, the `Cache` can store custom data objects that inherit from the `nautilus_trader.core.Data` base class.
+For more complex use cases, the `Cache` can store custom data objects that inherit from the `market_simulator.core.Data` base class.
 
 :::warning
 The `Cache` is not designed to be a full database replacement. For large datasets or complex querying needs, consider using a dedicated database system.
@@ -514,7 +514,7 @@ The `Cache` is not designed to be a full database replacement. For large dataset
 
 ### Cache vs. portfolio usage
 
-The `Cache` and `Portfolio` components serve different but complementary purposes in NautilusTrader:
+The `Cache` and `Portfolio` components serve different but complementary purposes in Market Simulator:
 
 **Cache**:
 

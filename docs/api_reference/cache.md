@@ -1,11 +1,11 @@
 # Cache
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.cache
+.. automodule:: market_simulator.cache
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.cache.cache
+.. automodule:: market_simulator.cache.cache
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.cache.database
+.. automodule:: market_simulator.cache.database
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.cache.base
+.. automodule:: market_simulator.cache.base
    :show-inheritance:
    :inherited-members:
    :members:

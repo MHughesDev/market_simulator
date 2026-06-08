@@ -1,4 +1,4 @@
-# NautilusTrader 1.228.0 Beta
+# Market Simulator 1.228.0 Beta
 
 Released on TBD (UTC).
 
@@ -213,7 +213,7 @@ None
 
 ---
 
-# NautilusTrader 1.227.0 Beta
+# Market Simulator 1.227.0 Beta
 
 Released on 18th May 2026 (UTC).
 
@@ -460,7 +460,7 @@ Released on 18th May 2026 (UTC).
 - Improved `update_balance_multi_currency` to delegate negative-balance enforcement to per-account `update_balances`
 - Improved live exec clients to log ERROR with `timeout_post_stop` hint when cancel tasks abort on disconnect
 - Improved `ExecTester` to refresh tracked orders from cache before modify/cancel-replace so they see venue acks
-- Improved `make build` to leave the venv able to import `nautilus_trader` from any cwd via a local editable `.pth`
+- Improved `make build` to leave the venv able to import `market_simulator` from any cwd via a local editable `.pth`
 - Improved Betfair Rust adapter to suppress late HTTP acceptance at debug level
 - Improved Betfair Rust adapter to suppress noisy `instrument_close` subscribe/unsubscribe warnings
 - Improved Betfair Rust HTTP client `connect()` to short-circuit when authenticated and serialise concurrent callers
@@ -504,7 +504,7 @@ Released on 18th May 2026 (UTC).
 
 ---
 
-# NautilusTrader 1.226.0 Beta
+# Market Simulator 1.226.0 Beta
 
 Released on 29th April 2026 (UTC).
 
@@ -530,7 +530,7 @@ Released on 29th April 2026 (UTC).
 - Added Bybit user-related endpoints (#3894), thanks @sunlei
 - Added Bybit `BybitPositionIdx` enum and `bybit_resolve_position_idx` PyO3 helper
 - Added Coinbase initial integration adapter (Rust)
-- Added `DydxNetwork` re-export on the `nautilus_trader.adapters.dydx` package
+- Added `DydxNetwork` re-export on the `market_simulator.adapters.dydx` package
 - Added Hyperliquid historical funding rates via `fundingHistory` info endpoint
 - Added Hyperliquid configurable MARKET slippage (`market_order_slippage_bps`) with per-order override
 - Added Hyperliquid `OrderBookDepth10` subscription backed by the `l2Book` feed
@@ -807,7 +807,7 @@ Released on 29th April 2026 (UTC).
 
 ---
 
-# NautilusTrader 1.225.0 Beta
+# Market Simulator 1.225.0 Beta
 
 Released on 6th April 2026 (UTC).
 
@@ -893,7 +893,7 @@ Released on 6th April 2026 (UTC).
 ### Security
 - Hardened Docker Compose to bind all ports to localhost and add `no-new-privileges` to all services
 - Hardened CI egress policy to block by default and fall back to `audit` mode for fork pull requests
-- Upgraded all `nautilustrader.io` URLs from HTTP to HTTPS (#3686), thanks @04cb
+- Upgraded all `market-simulator` URLs from HTTP to HTTPS (#3686), thanks @04cb
 - Documented `aws-lc-rs` non-FIPS mode rationale (FIPS 140-3 module requires Go toolchain)
 
 ### Fixes
@@ -1130,7 +1130,7 @@ Released on 6th April 2026 (UTC).
 
 ---
 
-# NautilusTrader 1.224.0 Beta
+# Market Simulator 1.224.0 Beta
 
 Released on 3rd March 2026 (UTC).
 
@@ -1226,7 +1226,7 @@ Released on 3rd March 2026 (UTC).
 
 ---
 
-# NautilusTrader 1.223.0 Beta
+# Market Simulator 1.223.0 Beta
 
 Released on 21st February 2026 (UTC).
 
@@ -1276,7 +1276,7 @@ Released on 21st February 2026 (UTC).
 ### Breaking Changes
 - Removed dYdX v3 (legacy) Python adapter (the v3 exchange was decommissioned at end of 2024)
 - Removed `dydx` optional install extra (the v4 Rust-backed adapter has no additional Python dependencies)
-- Renamed `nautilus_trader.adapters.dydx_v4` module to `nautilus_trader.adapters.dydx` and standardized class names to `Dydx` prefix (e.g. `DydxDataClientConfig`, `DydxLiveDataClientFactory`)
+- Renamed `market_simulator.adapters.dydx_v4` module to `market_simulator.adapters.dydx` and standardized class names to `Dydx` prefix (e.g. `DydxDataClientConfig`, `DydxLiveDataClientFactory`)
 - Removed dead `subscribe_order_book_snapshots` and `unsubscribe_order_book_snapshots` methods from `LiveMarketDataClient` (were never called by the data engine)
 - Removed OKX URL environment variable overrides (`OKX_BASE_URL_HTTP`, `OKX_BASE_URL_WS_*`, `OKX_DEMO_BASE_URL_WS_*`); use config `base_url_*` fields instead
 - Removed deprecated `get_ws_base_url` function from OKX Rust adapter; use `get_ws_base_url_private` or `get_ws_base_url_public` instead
@@ -1481,7 +1481,7 @@ Released on 21st February 2026 (UTC).
 
 ---
 
-# NautilusTrader 1.222.0 Beta
+# Market Simulator 1.222.0 Beta
 
 Released on 1st January 2026 (UTC).
 
@@ -1755,7 +1755,7 @@ None
 
 ---
 
-# NautilusTrader 1.221.0 Beta
+# Market Simulator 1.221.0 Beta
 
 Released on 26th October 2025 (UTC).
 
@@ -1798,7 +1798,7 @@ This will be the final release with support for Python 3.11.
 - Added Polymarket native market orders support
 
 ### Breaking Changes
-- Removed `nautilus_trader.analysis.statistics` subpackage - all statistics are now implemented in Rust and must be imported from `nautilus_trader.analysis` (e.g., `from nautilus_trader.analysis import WinRate`)
+- Removed `market_simulator.analysis.statistics` subpackage - all statistics are now implemented in Rust and must be imported from `market_simulator.analysis` (e.g., `from market_simulator.analysis import WinRate`)
 - Removed partial bar functionality from bar aggregators and subscription APIs (#3020), thanks @faysou
 - Renamed `nautilus-cli` crate feature flag from `hypersync` to `defi` (gates blockchain/DeFi commands)
 - Polymarket execution client no longer accepts market BUY orders unless `quote_quantity=True`
@@ -1977,7 +1977,7 @@ This will be the final release with support for Python 3.11.
 
 ---
 
-# NautilusTrader 1.220.0 Beta
+# Market Simulator 1.220.0 Beta
 
 Released on 9th September 2025 (UTC).
 
@@ -2047,10 +2047,10 @@ Released on 9th September 2025 (UTC).
 - Consolidated ~40 individual indicator modules into 6 files to reduce binary size
 - Consolidated `backtest.exchange` into `backtest.engine` to reduce binary size
 - Consolidated `backtest.matching_engine` into `backtest.engine` to reduce binary size
-- Changed indicator imports from nested modules to flat structure (e.g., `from nautilus_trader.indicators.atr import AverageTrueRange` becomes `from nautilus_trader.indicators import AverageTrueRange`)
+- Changed indicator imports from nested modules to flat structure (e.g., `from market_simulator.indicators.atr import AverageTrueRange` becomes `from market_simulator.indicators import AverageTrueRange`)
 - Changed `NAUTILUS_CATALOG_PATH` to `NAUTILUS_PATH` for Tardis adapter (#2850), thanks @nicolad
 - Simplified Binance environment variables for API credentials: removed separate variables for RSA/Ed25519 keys and consolidated mainnet spot/futures credentials
-- Moved `Indicator` base class from `nautilus_trader.indicators.base.indicator` to `nautilus_trader.indicators.base`
+- Moved `Indicator` base class from `market_simulator.indicators.base.indicator` to `market_simulator.indicators.base`
 
 ### Internal Improvements
 - Refactored OKX adapter to Rust API clients
@@ -2193,7 +2193,7 @@ None
 
 ---
 
-# NautilusTrader 1.219.0 Beta
+# Market Simulator 1.219.0 Beta
 
 Released on 5th July 2025 (UTC).
 
@@ -2312,7 +2312,7 @@ Released on 5th July 2025 (UTC).
 
 ---
 
-# NautilusTrader 1.218.0 Beta
+# Market Simulator 1.218.0 Beta
 
 Released on 31st May 2025 (UTC).
 
@@ -2439,7 +2439,7 @@ Released on 31st May 2025 (UTC).
 
 ---
 
-# NautilusTrader 1.217.0 Beta
+# Market Simulator 1.217.0 Beta
 
 Released on 30th April 2025 (UTC).
 
@@ -2512,7 +2512,7 @@ None
 
 ---
 
-# NautilusTrader 1.216.0 Beta
+# Market Simulator 1.216.0 Beta
 
 Released on 13th April 2025 (UTC).
 
@@ -2562,7 +2562,7 @@ None
 
 ---
 
-# NautilusTrader 1.215.0 Beta
+# Market Simulator 1.215.0 Beta
 
 Released on 5th April 2025 (UTC).
 
@@ -2616,7 +2616,7 @@ None
 
 ---
 
-# NautilusTrader 1.214.0 Beta
+# Market Simulator 1.214.0 Beta
 
 Released on 28th March 2025 (UTC).
 
@@ -2679,7 +2679,7 @@ None
 
 ---
 
-# NautilusTrader 1.213.0 Beta
+# Market Simulator 1.213.0 Beta
 
 Released on 16th March 2025 (UTC).
 
@@ -2726,7 +2726,7 @@ None
 
 ---
 
-# NautilusTrader 1.212.0 Beta
+# Market Simulator 1.212.0 Beta
 
 Released on 11th March 2025 (UTC).
 
@@ -2755,7 +2755,7 @@ This release introduces [uv](https://docs.astral.sh/uv) as the Python project an
 - Added requests for order book snapshots with HTTP for dYdX (#2393), thanks @davidsblom
 
 ### Breaking Changes
-- Removed [talib](https://github.com/nautechsystems/nautilus_trader/tree/develop/nautilus_trader/indicators/ta_lib) subpackage (see deprecations for v1.211.0)
+- Removed [talib](https://github.com/market-simulator-team/market_simulator/tree/develop/market_simulator/indicators/ta_lib) subpackage (see deprecations for v1.211.0)
 - Removed internal `ExchangeRateCalculator`, replaced with `get_exchange_rate(...)` function implemented in Rust
 - Replaced `ForexSession` enum with equivalent from PyO3
 - Replaced `ForexSessionFilter` with equivalent functions from PyO3
@@ -2877,20 +2877,20 @@ None
 
 ---
 
-# NautilusTrader 1.211.0 Beta
+# Market Simulator 1.211.0 Beta
 
 Released on 9th February 2025 (UTC).
 
-This release introduces [high-precision mode](https://nautilustrader.io/docs/nightly/concepts/overview#value-types),
+This release introduces [high-precision mode](https://market-simulator/docs/nightly/concepts/overview#value-types),
 where value types such as `Price`, `Quantity` and `Money` are now backed by 128-bit integers (instead of 64-bit),
 thereby increasing maximum precision to 16, and vastly expanding the allowable value ranges.
 
 This will address precision and value range issues experienced by some crypto users, alleviate higher timeframe bar volume limitations, as well as future proofing the platform.
 
-See the [RFC](https://github.com/nautechsystems/nautilus_trader/issues/2084) for more details.
-For an explanation on compiling with or without high-precision mode, see the [precision-mode](https://nautilustrader.io/docs/nightly/getting_started/installation/#precision-mode) section of the installation guide.
+See the [RFC](https://github.com/market-simulator-team/market_simulator/issues/2084) for more details.
+For an explanation on compiling with or without high-precision mode, see the [precision-mode](https://market-simulator/docs/nightly/getting_started/installation/#precision-mode) section of the installation guide.
 
-**For migrating data catalogs due to the breaking changes, see the [data migrations guide](https://nautilustrader.io/docs/nightly/concepts/data#data-migrations)**.
+**For migrating data catalogs due to the breaking changes, see the [data migrations guide](https://market-simulator/docs/nightly/concepts/data#data-migrations)**.
 
 **This release will be the final version that uses Poetry for package and dependency management.**
 
@@ -2931,7 +2931,7 @@ For an explanation on compiling with or without high-precision mode, see the [pr
 - Changed `TradeTick` Arrow schema to use `FixedSizeBinary` fields to support the new precision modes
 - Changed `Bar` Arrow schema to use `FixedSizeBinary` fields to support the new precision modes
 - Changed `BettingInstrument` default `min_notional` to `None`
-- Changed meaning of `ws_connection_delay_secs` for [PolymarketDataClientConfig](https://github.com/nautechsystems/nautilus_trader/blob/develop/nautilus_trader/adapters/polymarket/config.py) to be **non-initial** delay (#2271), thanks @ryantam626
+- Changed meaning of `ws_connection_delay_secs` for [PolymarketDataClientConfig](https://github.com/market-simulator-team/market_simulator/blob/develop/market_simulator/adapters/polymarket/config.py) to be **non-initial** delay (#2271), thanks @ryantam626
 - Changed `GATEIO` Tardis venue to `GATE_IO` for consistency with `CRYPTO_COM` and `BLOCKCHAIN_COM`
 - Removed `max_ws_reconnection_tries` for dYdX configs (no longer applicable with infinite retries and exponential backoff)
 - Removed `max_ws_reconnection_tries` for Bybit configs (no longer applicable with infinite retries and exponential backoff)
@@ -3011,11 +3011,11 @@ For an explanation on compiling with or without high-precision mode, see the [pr
 - Refined `streaming` parameter description (#2293), thanks @faysou and @stefansimik
 
 ### Deprecations
-- The [talib](https://github.com/nautechsystems/nautilus_trader/tree/develop/nautilus_trader/indicators/ta_lib) subpackage for indicators is deprecated and will be removed in a future version, see [RFC](https://github.com/nautechsystems/nautilus_trader/issues/2206)
+- The [talib](https://github.com/market-simulator-team/market_simulator/tree/develop/market_simulator/indicators/ta_lib) subpackage for indicators is deprecated and will be removed in a future version, see [RFC](https://github.com/market-simulator-team/market_simulator/issues/2206)
 
 ---
 
-# NautilusTrader 1.210.0 Beta
+# Market Simulator 1.210.0 Beta
 
 Released on 10th January 2025 (UTC).
 
@@ -3097,7 +3097,7 @@ Released on 10th January 2025 (UTC).
 
 ---
 
-# NautilusTrader 1.209.0 Beta
+# Market Simulator 1.209.0 Beta
 
 Released on 25th December 2024 (UTC).
 
@@ -3116,7 +3116,7 @@ Released on 25th December 2024 (UTC).
 - Upgraded `databento` crate to v0.17.0
 
 ### Breaking Changes
-- Moved `BinanceOrderBookDeltaDataLoader` from `nautilus_trader.persistence.loaders` to `nautilus_trader.adapters.binance.loaders`
+- Moved `BinanceOrderBookDeltaDataLoader` from `market_simulator.persistence.loaders` to `market_simulator.adapters.binance.loaders`
 
 ### Fixes
 - Fixed multi-threaded monotonicity for `AtomicTime` in real-time mode
@@ -3127,7 +3127,7 @@ Released on 25th December 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.208.0 Beta
+# Market Simulator 1.208.0 Beta
 
 Released on 15th December 2024 (UTC).
 
@@ -3185,7 +3185,7 @@ Released on 15th December 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.207.0 Beta
+# Market Simulator 1.207.0 Beta
 
 Released on 29th November 2024 (UTC).
 
@@ -3225,7 +3225,7 @@ Released on 29th November 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.206.0 Beta
+# Market Simulator 1.206.0 Beta
 
 Released on 17th November 2024 (UTC).
 
@@ -3235,7 +3235,7 @@ Released on 17th November 2024 (UTC).
 - Added `Portfolio.realized_pnl(...)` method for per instrument realized PnL (based on positions)
 - Added `Portfolio.realized_pnls(...)` method for per venue realized PnL (based on positions)
 - Added configuration warning for `InstrumentProvider` (to warn when node starts with no instrument loading)
-- Implemented Tardis optional [symbol normalization](https://nautilustrader.io/docs/nightly/integrations/tardis/#symbology-and-normalization)
+- Implemented Tardis optional [symbol normalization](https://market-simulator/docs/nightly/integrations/tardis/#symbology-and-normalization)
 - Implemented `WebSocketClient` reconnection retries (#2044), thanks @davidsblom
 - Implemented `OrderCancelRejected` event generation for Binance and Bybit
 - Implemented `OrderModifyRejected` event generation for Binance and Bybit
@@ -3282,7 +3282,7 @@ None
 
 ---
 
-# NautilusTrader 1.205.0 Beta
+# Market Simulator 1.205.0 Beta
 
 Released on 3rd November 2024 (UTC).
 
@@ -3315,7 +3315,7 @@ Released on 3rd November 2024 (UTC).
 
 ### Breaking Changes
 - Removed PyO3 `DataTransformer` (was being used for namespacing, so refactored to separate functions)
-- Moved `TEST_DATA_DIR` constant from `tests` to `nautilus_trader` package (#2020), thanks @faysou
+- Moved `TEST_DATA_DIR` constant from `tests` to `market_simulator` package (#2020), thanks @faysou
 
 ### Fixes
 - Fixed use of Redis `KEYS` command which, is unsupported in cluster environments (replaced with `SCAN` for compatibility)
@@ -3330,7 +3330,7 @@ Released on 3rd November 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.204.0 Beta
+# Market Simulator 1.204.0 Beta
 
 Released on 22nd October 2024 (UTC).
 
@@ -3343,7 +3343,7 @@ Released on 22nd October 2024 (UTC).
 - Added rate limiter for `WebSocketClient` (#1994), thanks @Pushkarm029
 - Added in the money probability field to GreeksData (#1995), thanks @faysou
 - Added `on_signal(signal)` handler for custom signal data
-- Added `nautilus_trader.common.events` module with re-exports for `TimeEvent` and other system events
+- Added `market_simulator.common.events` module with re-exports for `TimeEvent` and other system events
 - Improved usability of `OrderBookDepth10` by filling partial levels with null orders and zero counts
 - Improved Postgres config (#2010), thanks @filipmacek
 - Refined `DatabentoInstrumentProvider` handling of large bulks of instrument definitions (improved parent symbol support)
@@ -3384,7 +3384,7 @@ Released on 22nd October 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.203.0 Beta
+# Market Simulator 1.203.0 Beta
 
 Released on 5th October 2024 (UTC).
 
@@ -3418,7 +3418,7 @@ None
 
 ---
 
-# NautilusTrader 1.202.0 Beta
+# Market Simulator 1.202.0 Beta
 
 Released on 27th September 2024 (UTC).
 
@@ -3473,7 +3473,7 @@ The `numpy` version requirement has been relaxed to >= 1.26.4.
 
 ---
 
-# NautilusTrader 1.201.0 Beta
+# Market Simulator 1.201.0 Beta
 
 Released on 9th September 2024 (UTC).
 
@@ -3492,7 +3492,7 @@ None
 
 ---
 
-# NautilusTrader 1.200.0 Beta
+# Market Simulator 1.200.0 Beta
 
 Released on 7th September 2024 (UTC).
 
@@ -3536,7 +3536,7 @@ Released on 7th September 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.199.0 Beta
+# Market Simulator 1.199.0 Beta
 
 Released on 19th August 2024 (UTC).
 
@@ -3569,7 +3569,7 @@ Released on 19th August 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.198.0 Beta
+# Market Simulator 1.198.0 Beta
 
 Released on 9th August 2024 (UTC).
 
@@ -3590,7 +3590,7 @@ None
 
 ---
 
-# NautilusTrader 1.197.0 Beta
+# Market Simulator 1.197.0 Beta
 
 Released on 2nd August 2024 (UTC).
 
@@ -3629,7 +3629,7 @@ Released on 2nd August 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.196.0 Beta
+# Market Simulator 1.196.0 Beta
 
 Released on 5th July 2024 (UTC).
 
@@ -3687,7 +3687,7 @@ Released on 5th July 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.195.0 Beta
+# Market Simulator 1.195.0 Beta
 
 Released on 17th June 2024 (UTC).
 
@@ -3715,7 +3715,7 @@ None
 
 ---
 
-# NautilusTrader 1.194.0 Beta
+# Market Simulator 1.194.0 Beta
 
 Released on 31st May 2024 (UTC).
 
@@ -3743,7 +3743,7 @@ None
 
 ---
 
-# NautilusTrader 1.193.0 Beta
+# Market Simulator 1.193.0 Beta
 
 Released on 24th May 2024 (UTC).
 
@@ -3761,12 +3761,12 @@ Released on 24th May 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.192.0 Beta
+# Market Simulator 1.192.0 Beta
 
 Released on 18th May 2024 (UTC).
 
 ### Enhancements
-- Added Nautilus CLI (see [docs](https://nautilustrader.io/docs/nightly/developer_guide/index.html)) (#1602), many thanks @filipmacek
+- Added Nautilus CLI (see [docs](https://market-simulator/docs/nightly/developer_guide/index.html)) (#1602), many thanks @filipmacek
 - Added `Cfd` and `Commodity` instruments with Interactive Brokers support (#1604), thanks @DracheShiki
 - Added `OrderMatchingEngine` futures and option contract activation and expiration simulation
 - Added Sandbox example with Interactive Brokers (#1618), thanks @rsmb7z
@@ -3800,7 +3800,7 @@ Released on 18th May 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.191.0 Beta
+# Market Simulator 1.191.0 Beta
 
 Released on 20th April 2024 (UTC).
 
@@ -3843,7 +3843,7 @@ Released on 20th April 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.190.0 Beta
+# Market Simulator 1.190.0 Beta
 
 Released on 22nd March 2024 (UTC).
 
@@ -3872,7 +3872,7 @@ None
 
 ---
 
-# NautilusTrader 1.189.0 Beta
+# Market Simulator 1.189.0 Beta
 
 Released on 15th March 2024 (UTC).
 
@@ -3902,7 +3902,7 @@ Released on 15th March 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.188.0 Beta
+# Market Simulator 1.188.0 Beta
 
 Released on 25th February 2024 (UTC).
 
@@ -3946,7 +3946,7 @@ Released on 25th February 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.187.0 Beta
+# Market Simulator 1.187.0 Beta
 
 Released on 9th February 2024 (UTC).
 
@@ -3955,7 +3955,7 @@ Released on 9th February 2024 (UTC).
 - Improved Interactive Brokers adapter symbology and parsing with a `strict_symbology` config option, thanks @rsmb7z and @fhill2
 
 ### Breaking Changes
-- Reorganized configuration objects (separated into a `config` module per subpackage, with re-exports from `nautilus_trader.config`)
+- Reorganized configuration objects (separated into a `config` module per subpackage, with re-exports from `market_simulator.config`)
 
 ### Fixes
 - Fixed `BacktestEngine` and `Trader` disposal (now properly releasing resources), thanks for reporting @davidsblom
@@ -3964,7 +3964,7 @@ Released on 9th February 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.186.0 Beta
+# Market Simulator 1.186.0 Beta
 
 Released on 2nd February 2024 (UTC).
 
@@ -3982,7 +3982,7 @@ None
 
 ---
 
-# NautilusTrader 1.185.0 Beta
+# Market Simulator 1.185.0 Beta
 
 Released on 26th January 2024 (UTC).
 
@@ -4003,7 +4003,7 @@ Released on 26th January 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.184.0 Beta
+# Market Simulator 1.184.0 Beta
 
 Released on 22nd January 2024 (UTC).
 
@@ -4030,7 +4030,7 @@ Released on 22nd January 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.183.0 Beta
+# Market Simulator 1.183.0 Beta
 
 Released on 12th January 2024 (UTC).
 
@@ -4079,7 +4079,7 @@ Released on 12th January 2024 (UTC).
 
 ---
 
-# NautilusTrader 1.182.0 Beta
+# Market Simulator 1.182.0 Beta
 
 Released on 23rd December 2023 (UTC).
 
@@ -4119,7 +4119,7 @@ Released on 23rd December 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.181.0 Beta
+# Market Simulator 1.181.0 Beta
 
 Released on 2nd December (UTC).
 
@@ -4157,7 +4157,7 @@ This release adds support for Python 3.12.
 
 ---
 
-# NautilusTrader 1.180.0 Beta
+# Market Simulator 1.180.0 Beta
 
 Released on 3rd November 2023 (UTC).
 
@@ -4198,7 +4198,7 @@ Released on 3rd November 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.179.0 Beta
+# Market Simulator 1.179.0 Beta
 
 Released on 22nd October 2023 (UTC).
 
@@ -4254,7 +4254,7 @@ This will be the final release with support for Python 3.9.
 
 ---
 
-# NautilusTrader 1.178.0 Beta
+# Market Simulator 1.178.0 Beta
 
 Released on 2nd September 2023 (UTC).
 
@@ -4273,7 +4273,7 @@ None
 
 ---
 
-# NautilusTrader 1.177.0 Beta
+# Market Simulator 1.177.0 Beta
 
 Released on 26th August 2023 (UTC).
 
@@ -4309,7 +4309,7 @@ this change.
 
 ---
 
-# NautilusTrader 1.176.0 Beta
+# Market Simulator 1.176.0 Beta
 
 Released on 31st July 2023 (UTC).
 
@@ -4369,7 +4369,7 @@ Released on 31st July 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.175.0 Beta
+# Market Simulator 1.175.0 Beta
 
 Released on 16th June 2023 (UTC).
 
@@ -4388,8 +4388,8 @@ We recommend you do not upgrade to this version if you're using the Betfair adap
 - Added `use_random_ids` to `add_venue(...)` method, controls whether venue order, position and trade IDs will be random UUID4s (no change to current behavior)
 - Added `ExecEngineConfig.filter_unclaimed_external_orders` config option, if unclaimed order events with an `EXTERNAL` strategy ID should be filtered/dropped
 - Changed `BinanceHttpClient` to use new core HTTP client
-- Defined public API for data, can now import directly from `nautilus_trader.model.data` (denest namespace)
-- Defined public API for events, can now import directly from `nautilus_trader.model.events` (denest namespace)
+- Defined public API for data, can now import directly from `market_simulator.model.data` (denest namespace)
+- Defined public API for events, can now import directly from `market_simulator.model.events` (denest namespace)
 
 ### Breaking Changes
 - Upgraded `pandas` to v2
@@ -4398,7 +4398,7 @@ We recommend you do not upgrade to this version if you're using the Betfair adap
 - Renamed `Actor.handle_order_book_delta` to `handle_order_book_deltas` (to more clearly reflect the `OrderBookDeltas` data type)
 - Renamed `Actor.on_order_book_delta` to `on_order_book_deltas` (to more clearly reflect the `OrderBookDeltas` data type)
 - Renamed `inverse_as_quote` to `use_quote_for_inverse` (ambiguous name, only applicable for notional calcs on inverse instruments)
-- Changed `Data` contract (custom data), [see docs](https://nautilustrader.io/docs/latest/concepts/advanced/data.html)
+- Changed `Data` contract (custom data), [see docs](docs/concepts/advanced/data.html)
 - Renamed core `LogMessage` to `LogEvent` to more clearly distinguish between the `message` field and the event struct itself (aligns with [vector](https://vector.dev/docs/about/under-the-hood/architecture/data-model/log/) language)
 - Renamed core `LogEvent.timestamp_ns` to `LogEvent.timestamp` (affects field name for JSON format)
 - Renamed core `LogEvent.msg` to `LogEvent.message` (affects field name for JSON format)
@@ -4413,7 +4413,7 @@ We recommend you do not upgrade to this version if you're using the Betfair adap
 
 ---
 
-# NautilusTrader 1.174.0 Beta
+# Market Simulator 1.174.0 Beta
 
 Released on 19th May 2023 (UTC).
 
@@ -4438,7 +4438,7 @@ Released on 19th May 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.173.0 Beta
+# Market Simulator 1.173.0 Beta
 
 Released on 5th May 2023 (UTC).
 
@@ -4457,7 +4457,7 @@ None
 
 ---
 
-# NautilusTrader 1.172.0 Beta
+# Market Simulator 1.172.0 Beta
 
 Released on 30th April 2023 (UTC).
 
@@ -4480,9 +4480,9 @@ Released on 30th April 2023 (UTC).
 - Build out `ExecAlgorithm` base class for implementing 'first class' execution algorithms
 - Rewired execution for improved flow flexibility between emulated orders, execution algorithms and the `RiskEngine`
 - Improved handling for `OrderEmulator` updating of contingent orders from execution algorithms
-- Defined public API for instruments, can now import directly from `nautilus_trader.model.instruments` (denest namespace)
-- Defined public API for orders, can now import directly from `nautilus_trader.model.orders` (denest namespace)
-- Defined public API for order book, can now import directly from `nautilus_trader.model.orderbook` (denest namespace)
+- Defined public API for instruments, can now import directly from `market_simulator.model.instruments` (denest namespace)
+- Defined public API for orders, can now import directly from `market_simulator.model.orders` (denest namespace)
+- Defined public API for order book, can now import directly from `market_simulator.model.orderbook` (denest namespace)
 - Now stripping debug symbols after build (reduced binary wheel size)
 - Refined build and added additional `debug` Makefile convenience targets
 
@@ -4495,7 +4495,7 @@ Released on 30th April 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.171.0 Beta
+# Market Simulator 1.171.0 Beta
 
 Released on 30th March 2023 (UTC).
 
@@ -4518,7 +4518,7 @@ Released on 30th March 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.170.0 Beta
+# Market Simulator 1.170.0 Beta
 
 Released on 11th March 2023 (UTC).
 
@@ -4557,7 +4557,7 @@ Released on 11th March 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.169.0 Beta
+# Market Simulator 1.169.0 Beta
 
 Released on 18th February 2023 (UTC).
 
@@ -4589,7 +4589,7 @@ Released on 18th February 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.168.0 Beta
+# Market Simulator 1.168.0 Beta
 
 Released on 29th January 2023 (UTC).
 
@@ -4609,7 +4609,7 @@ Released on 29th January 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.167.0 Beta
+# Market Simulator 1.167.0 Beta
 
 Released on 28th January 2023 (UTC).
 
@@ -4630,7 +4630,7 @@ Released on 28th January 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.166.0 Beta
+# Market Simulator 1.166.0 Beta
 
 Released on 17th January 2023 (UTC).
 
@@ -4651,7 +4651,7 @@ Released on 17th January 2023 (UTC).
 
 ---
 
-# NautilusTrader 1.165.0 Beta
+# Market Simulator 1.165.0 Beta
 
 Released on 14th January 2023 (UTC).
 
@@ -4701,7 +4701,7 @@ and also to avoid C naming collisions.
 
 ---
 
-# NautilusTrader 1.164.0 Beta
+# Market Simulator 1.164.0 Beta
 
 Released on 23rd December 2022 (UTC).
 
@@ -4722,7 +4722,7 @@ None
 
 ---
 
-# NautilusTrader 1.163.0 Beta
+# Market Simulator 1.163.0 Beta
 
 Released on 17th December 2022 (UTC).
 
@@ -4740,7 +4740,7 @@ None
 
 ---
 
-# NautilusTrader 1.162.0 Beta
+# Market Simulator 1.162.0 Beta
 
 Released on 12th December 2022 (UTC).
 
@@ -4758,7 +4758,7 @@ Released on 12th December 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.161.0 Beta
+# Market Simulator 1.161.0 Beta
 
 Released on 10th December 2022 (UTC).
 
@@ -4787,7 +4787,7 @@ This release adds support for Python 3.11.
 
 ---
 
-# NautilusTrader 1.160.0 Beta
+# Market Simulator 1.160.0 Beta
 
 Released on 28th November 2022 (UTC).
 
@@ -4810,7 +4810,7 @@ Released on 28th November 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.159.0 Beta
+# Market Simulator 1.159.0 Beta
 
 Released on 18th November 2022 (UTC).
 
@@ -4836,7 +4836,7 @@ Released on 18th November 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.158.0 Beta
+# Market Simulator 1.158.0 Beta
 
 Released on 3rd November 2022 (UTC).
 
@@ -4861,7 +4861,7 @@ Released on 3rd November 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.157.0 Beta
+# Market Simulator 1.157.0 Beta
 
 Released on 24th October 2022 (UTC).
 
@@ -4878,7 +4878,7 @@ Released on 24th October 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.156.0 Beta
+# Market Simulator 1.156.0 Beta
 
 Released on 19th October 2022 (UTC).
 
@@ -4917,7 +4917,7 @@ This will be the final release with support for Python 3.8.
 
 ---
 
-# NautilusTrader 1.155.0 Beta
+# Market Simulator 1.155.0 Beta
 
 Released on September 15th 2022 (UTC).
 
@@ -4935,7 +4935,7 @@ None
 
 ---
 
-# NautilusTrader 1.154.0 Beta
+# Market Simulator 1.154.0 Beta
 
 Released on September 14th 2022 (UTC).
 
@@ -4963,7 +4963,7 @@ Released on September 14th 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.153.0 Beta
+# Market Simulator 1.153.0 Beta
 
 Released on September 6th 2022 (UTC).
 
@@ -4986,7 +4986,7 @@ None
 
 ---
 
-# NautilusTrader 1.152.0 Beta
+# Market Simulator 1.152.0 Beta
 
 Released on September 1st 2022 (UTC).
 
@@ -5007,7 +5007,7 @@ Released on September 1st 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.151.0 Beta
+# Market Simulator 1.151.0 Beta
 
 Released on August 22nd 2022 (UTC).
 
@@ -5027,7 +5027,7 @@ None
 
 ---
 
-# NautilusTrader 1.150.0 Beta
+# Market Simulator 1.150.0 Beta
 
 Released on August 15th 2022 (UTC).
 
@@ -5050,7 +5050,7 @@ Released on August 15th 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.149.0 Beta
+# Market Simulator 1.149.0 Beta
 
 Released on 27th June 2022 (UTC).
 
@@ -5071,7 +5071,7 @@ Released on 27th June 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.148.0 Beta
+# Market Simulator 1.148.0 Beta
 
 Released on 30th June 2022 (UTC).
 
@@ -5095,7 +5095,7 @@ None
 
 ---
 
-# NautilusTrader 1.147.1 Beta
+# Market Simulator 1.147.1 Beta
 
 Released on 6th June 2022 (UTC).
 
@@ -5111,7 +5111,7 @@ None
 
 ---
 
-# NautilusTrader 1.147.0 Beta
+# Market Simulator 1.147.0 Beta
 
 Released on 4th June 2022 (UTC).
 
@@ -5131,7 +5131,7 @@ None
 
 ---
 
-# NautilusTrader 1.146.0 Beta
+# Market Simulator 1.146.0 Beta
 
 Released on 22nd May 2022 (UTC).
 
@@ -5150,7 +5150,7 @@ Released on 22nd May 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.145.0 Beta
+# Market Simulator 1.145.0 Beta
 
 Released on 15th May 2022 (UTC).
 
@@ -5170,7 +5170,7 @@ None
 
 ---
 
-# NautilusTrader 1.144.0 Beta
+# Market Simulator 1.144.0 Beta
 
 Released on 10th May 2022 (UTC).
 
@@ -5199,7 +5199,7 @@ Released on 10th May 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.143.0 Beta
+# Market Simulator 1.143.0 Beta
 
 Released on 21st April 2022 (UTC).
 
@@ -5215,7 +5215,7 @@ None
 
 ---
 
-# NautilusTrader 1.142.0 Beta
+# Market Simulator 1.142.0 Beta
 
 Released on 17th April 2022 (UTC).
 
@@ -5233,7 +5233,7 @@ Released on 17th April 2022 (UTC).
 - Added `BacktestNode.get_engine(run_config_id)` method
 - Added `Actor.request_instrument()` method (also applies to `Strategy`)
 - Added `Cache.snapshot_position()` method
-- All configuration objects can now be imported directly from `nautilus_trader.config`
+- All configuration objects can now be imported directly from `market_simulator.config`
 - Execution engine now takes snapshots of closed netted positions
 - Performance statistics now based on total positions and snapshots
 - Added Binance Spot/Margin external order handling
@@ -5246,7 +5246,7 @@ None
 
 ---
 
-# NautilusTrader 1.141.0 Beta
+# Market Simulator 1.141.0 Beta
 
 Released on 4th April 2022 (UTC).
 
@@ -5287,7 +5287,7 @@ Released on 4th April 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.140.0 Beta
+# Market Simulator 1.140.0 Beta
 
 ## Release Notes
 
@@ -5306,7 +5306,7 @@ Note the minor version was incremented in error.
 
 ---
 
-# NautilusTrader 1.139.0 Beta
+# Market Simulator 1.139.0 Beta
 
 ## Release Notes
 
@@ -5345,7 +5345,7 @@ Released on 11th March 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.138.0 Beta
+# Market Simulator 1.138.0 Beta
 
 ## Release Notes
 
@@ -5390,7 +5390,7 @@ safety this type is now utilized for the `TradeTick.trade_id`.
 
 ---
 
-# NautilusTrader 1.137.1 Beta
+# Market Simulator 1.137.1 Beta
 
 ## Release Notes
 
@@ -5406,7 +5406,7 @@ This release upgrades to `pillow 9.0.0`.
 
 ---
 
-# NautilusTrader 1.137.0 Beta
+# Market Simulator 1.137.0 Beta
 
 ## Release Notes
 
@@ -5433,7 +5433,7 @@ Released on 12th January 2022 (UTC).
 
 ---
 
-# NautilusTrader 1.136.0 Beta
+# Market Simulator 1.136.0 Beta
 
 ## Release Notes
 
@@ -5466,7 +5466,7 @@ Released on 29th December 2021.
 
 ---
 
-# NautilusTrader 1.135.0 Beta
+# Market Simulator 1.135.0 Beta
 
 ## Release Notes
 
@@ -5489,7 +5489,7 @@ Released on 13th December 2021.
 
 ---
 
-# NautilusTrader 1.134.0 Beta
+# Market Simulator 1.134.0 Beta
 
 ## Release Notes
 
@@ -5512,7 +5512,7 @@ Released on 22nd November 2021.
 
 ---
 
-# NautilusTrader 1.133.0 Beta
+# Market Simulator 1.133.0 Beta
 
 ## Release Notes
 
@@ -5538,7 +5538,7 @@ None
 
 ---
 
-# NautilusTrader 1.132.0 Beta
+# Market Simulator 1.132.0 Beta
 
 ## Release Notes
 
@@ -5561,7 +5561,7 @@ Released on 24th October 2021.
 
 ---
 
-# NautilusTrader 1.131.0 Beta
+# Market Simulator 1.131.0 Beta
 
 ## Release Notes
 
@@ -5595,7 +5595,7 @@ Released on 10th October 2021.
 
 ---
 
-# NautilusTrader 1.130.0 Beta
+# Market Simulator 1.130.0 Beta
 
 ## Release Notes
 
@@ -5627,7 +5627,7 @@ Released on 26th September 2021.
 
 ---
 
-# NautilusTrader 1.129.0 Beta
+# Market Simulator 1.129.0 Beta
 
 ## Release Notes
 
@@ -5657,7 +5657,7 @@ Released on 12th September 2021.
 
 ---
 
-# NautilusTrader 1.128.0 Beta - Release Notes
+# Market Simulator 1.128.0 Beta - Release Notes
 
 Released on 30th August 2021.
 
@@ -5698,7 +5698,7 @@ which is an order whose state can change (is not a `completed` order).
 
 ---
 
-# NautilusTrader 1.127.0 Beta
+# Market Simulator 1.127.0 Beta
 
 ## Release Notes
 
@@ -5742,7 +5742,7 @@ as closely as possible with established terminology in the domain.
 
 ---
 
-# NautilusTrader 1.126.1 Beta
+# Market Simulator 1.126.1 Beta
 
 ## Release Notes
 
@@ -5763,7 +5763,7 @@ None
 
 ---
 
-# NautilusTrader 1.126.0 Beta
+# Market Simulator 1.126.0 Beta
 
 ## Release Notes
 
@@ -5775,7 +5775,7 @@ additions of point-to-point and Req/Rep messaging functionality.
 
 An `Actor` base class has been abstracted from `TradingStrategy` which allows
 custom components to be added to a `Trader` which aren't necessarily trading
-strategies, opening up further possibilities for extending NautilusTrader with
+strategies, opening up further possibilities for extending Market Simulator with
 custom functionality.
 
 For the sake of simplicity and to favour more idiomatic Python, the null object
@@ -5823,7 +5823,7 @@ in the years ahead.
 
 ---
 
-# NautilusTrader 1.125.0 Beta
+# Market Simulator 1.125.0 Beta
 
 ## Release Notes
 
@@ -5870,7 +5870,7 @@ on events, along with numerous 'under the hood' cleanups and two bug fixes.
 
 ---
 
-# NautilusTrader 1.124.0 Beta
+# Market Simulator 1.124.0 Beta
 
 ## Release Notes
 
@@ -5899,7 +5899,7 @@ hood' code cleanup and consolidation.
 
 ---
 
-# NautilusTrader 1.123.0 Beta
+# Market Simulator 1.123.0 Beta
 
 ## Release Notes
 
@@ -5955,7 +5955,7 @@ Initial scaffolding for new backtest data tooling has been added.
 
 ---
 
-# NautilusTrader 1.122.0 Beta
+# Market Simulator 1.122.0 Beta
 
 ## Release Notes
 
@@ -6000,7 +6000,7 @@ handling of margins.
 
 ---
 
-# NautilusTrader 1.121.0 Beta
+# Market Simulator 1.121.0 Beta
 
 ## Release Notes
 
@@ -6044,7 +6044,7 @@ result of inlining the function.
 
 ---
 
-# NautilusTrader 1.120.0 Beta
+# Market Simulator 1.120.0 Beta
 
 ## Release Notes
 
@@ -6069,7 +6069,7 @@ None
 
 ---
 
-# NautilusTrader 1.119.0 Beta
+# Market Simulator 1.119.0 Beta
 
 ## Release Notes
 
@@ -6115,7 +6115,7 @@ natural flow of command and event messages.
 
 ---
 
-# NautilusTrader 1.118.0 Beta
+# Market Simulator 1.118.0 Beta
 
 ## Release Notes
 
@@ -6156,7 +6156,7 @@ for `OrderFill` events, as well as additional order states and events.
 
 ---
 
-# NautilusTrader 1.117.0 Beta
+# Market Simulator 1.117.0 Beta
 
 ## Release Notes
 
@@ -6179,7 +6179,7 @@ improved fill modelling assumptions and customizations.
 
 ---
 
-# NautilusTrader 1.116.1 Beta
+# Market Simulator 1.116.1 Beta
 
 ## Release Notes
 
@@ -6203,7 +6203,7 @@ None
 
 ---
 
-# NautilusTrader 1.116.0 Beta
+# Market Simulator 1.116.0 Beta
 
 ## Release Notes
 
@@ -6226,7 +6226,7 @@ None
 
 ---
 
-# NautilusTrader 1.115.0 Beta
+# Market Simulator 1.115.0 Beta
 
 ## Release Notes
 
@@ -6260,7 +6260,7 @@ being renamed in properties and variables from `cl_ord_id` to `client_order_id`.
 
 ---
 
-# NautilusTrader 1.114.0 Beta
+# Market Simulator 1.114.0 Beta
 
 ## Release Notes
 
@@ -6287,7 +6287,7 @@ and fixes.
 
 ---
 
-# NautilusTrader 1.113.0 Beta
+# Market Simulator 1.113.0 Beta
 
 ## Release Notes
 
@@ -6314,7 +6314,7 @@ in the system (prefer throwing exceptions)
 
 ---
 
-# NautilusTrader 1.112.0 Beta
+# Market Simulator 1.112.0 Beta
 
 ## Release Notes
 
@@ -6347,7 +6347,7 @@ FIX5.0 SP2 specification, and CME MDP 3.0.
 
 ### Enhancements
 - Standardized nanosecond timestamps
-- Added time unit conversion functions as found in `nautilus_trader.core.datetime`
+- Added time unit conversion functions as found in `market_simulator.core.datetime`
 - Added optional `broker` property to `Venue` to assist with routing
 - Enhanced state reconciliation from both `LiveExecutionEngine` and `LiveExecutionClient`
 - Added internal messages to aid state reconciliation
@@ -6357,7 +6357,7 @@ FIX5.0 SP2 specification, and CME MDP 3.0.
 
 ---
 
-# NautilusTrader 1.111.0 Beta
+# Market Simulator 1.111.0 Beta
 
 ## Release Notes
 
@@ -6383,7 +6383,7 @@ None
 
 ---
 
-# NautilusTrader 1.110.0 Beta
+# Market Simulator 1.110.0 Beta
 
 ## Release Notes
 
@@ -6413,7 +6413,7 @@ None
 
 ---
 
-# NautilusTrader 1.109.0 Beta
+# Market Simulator 1.109.0 Beta
 
 ## Release Notes
 
@@ -6438,7 +6438,7 @@ Errors in the CCXT clients caused by the last release have been addressed.
 
 ---
 
-# NautilusTrader 1.108.0 Beta
+# Market Simulator 1.108.0 Beta
 
 ## Release Notes
 
@@ -6467,7 +6467,7 @@ symbol string, a primary `Venue`, `AssetClass` and `AssetType` properties.
 
 ---
 
-# NautilusTrader 1.107.1 Beta - Release Notes
+# Market Simulator 1.107.1 Beta - Release Notes
 
 This is a patch release which applies various fixes and refactorings.
 
@@ -6488,7 +6488,7 @@ None
 
 ---
 
-# NautilusTrader 1.107.0 Beta
+# Market Simulator 1.107.0 Beta
 
 ## Release Notes
 
@@ -6515,7 +6515,7 @@ None
 
 ---
 
-# NautilusTrader 1.106.0 Beta
+# Market Simulator 1.106.0 Beta
 
 ## Release Notes
 

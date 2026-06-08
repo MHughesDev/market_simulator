@@ -1,11 +1,11 @@
 # Persistence
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence
+.. automodule:: market_simulator.persistence
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence.catalog.base
+.. automodule:: market_simulator.persistence.catalog.base
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence.catalog.parquet
+.. automodule:: market_simulator.persistence.catalog.parquet
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence.wranglers
+.. automodule:: market_simulator.persistence.wranglers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -29,7 +29,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence.writer
+.. automodule:: market_simulator.persistence.writer
    :show-inheritance:
    :inherited-members:
    :members:

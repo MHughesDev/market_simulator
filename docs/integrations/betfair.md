@@ -3,15 +3,15 @@
 Founded in 2000, Betfair operates the world’s largest online betting exchange,
 with its headquarters in London and satellite offices across the globe.
 
-NautilusTrader provides an adapter for integrating with the Betfair REST API and
+Market Simulator provides an adapter for integrating with the Betfair REST API and
 Exchange Streaming API.
 
 ## Installation
 
-Install NautilusTrader with Betfair support:
+Install Market Simulator with Betfair support:
 
 ```bash
-uv pip install "nautilus_trader[betfair]"
+uv pip install "market_simulator[betfair]"
 ```
 
 To build from source with Betfair extras:
@@ -22,7 +22,7 @@ uv sync --all-extras
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/betfair/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/betfair/).
 
 ## Betfair documentation
 
@@ -120,7 +120,7 @@ The Betfair adapter provides three primary components:
 
 ## Implementation status
 
-NautilusTrader currently ships a stable Python Betfair adapter and an in-progress Rust parity path.
+Market Simulator currently ships a stable Python Betfair adapter and an in-progress Rust parity path.
 
 This page remains the stable guide. It now calls out the main Rust differences inline. Use the
 [Betfair v2 transition guide](betfair_v2.md) for the current Rust-first behavior in
@@ -398,11 +398,11 @@ Custom data flows automatically through the Betfair market stream when you subsc
 To receive custom data in your strategy or actor, register a handler with the Betfair client ID:
 
 ```python
-from nautilus_trader.adapters.betfair.constants import BETFAIR_CLIENT_ID
-from nautilus_trader.adapters.betfair.data_types import BetfairRaceRunnerData
-from nautilus_trader.adapters.betfair.data_types import BetfairRaceProgress
-from nautilus_trader.adapters.betfair.data_types import BetfairTicker
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.betfair.constants import BETFAIR_CLIENT_ID
+from market_simulator.adapters.betfair.data_types import BetfairRaceRunnerData
+from market_simulator.adapters.betfair.data_types import BetfairRaceProgress
+from market_simulator.adapters.betfair.data_types import BetfairTicker
+from market_simulator.model.data import DataType
 
 class MyStrategy(Strategy):
     def on_start(self):
@@ -454,7 +454,7 @@ API key with TPD access. Not all races have GPS tracking enabled.
 For backtesting with recorded race data, use the file parser:
 
 ```python
-from nautilus_trader.adapters.betfair.parsing.core import parse_betfair_rcm_file
+from market_simulator.adapters.betfair.parsing.core import parse_betfair_rcm_file
 
 for data in parse_betfair_rcm_file("path/to/rcm_data.json"):
     if isinstance(data, BetfairRaceRunnerData):
@@ -560,7 +560,7 @@ by the adapter. If the market has advanced beyond that version by the time Betfa
 the order, Betfair **lapses** the bet rather than matching it against a changed book.
 
 ```python
-from nautilus_trader.adapters.betfair.config import BetfairExecClientConfig
+from market_simulator.adapters.betfair.config import BetfairExecClientConfig
 
 exec_config = BetfairExecClientConfig(
     account_currency="GBP",
@@ -595,11 +595,11 @@ This prevents warning spam and ensures each node processes only its own orders a
 Here is a minimal example showing how to configure a live `TradingNode` with Betfair clients:
 
 ```python
-from nautilus_trader.adapters.betfair import BETFAIR
-from nautilus_trader.adapters.betfair import BetfairLiveDataClientFactory
-from nautilus_trader.adapters.betfair import BetfairLiveExecClientFactory
-from nautilus_trader.config import TradingNodeConfig
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.betfair import BETFAIR
+from market_simulator.adapters.betfair import BetfairLiveDataClientFactory
+from market_simulator.adapters.betfair import BetfairLiveExecClientFactory
+from market_simulator.config import TradingNodeConfig
+from market_simulator.live.node import TradingNode
 
 # Configure Betfair data and execution clients (using AUD account currency)
 config = TradingNodeConfig(
@@ -618,5 +618,5 @@ node.build()
 
 :::info
 For additional features or to contribute to the Betfair adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

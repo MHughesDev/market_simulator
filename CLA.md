@@ -32,5 +32,5 @@
 15. In this Agreement:
 - (i) **Contributions** means any know-how, processes, circuit layouts, software, computer programs, databases, source codes, tools, data, documentation, feedback, information or any other work that You submit, in any form or manner, to Our Software.
 - (ii) **Moral Rights** has the meaning given in the _Copyright Act 1968_ (Cth) and includes any similar rights in any jurisdiction in the world.
-- (iii) **Software** means Our open source software project licensed under LGPL v3.0, available at https://github.com/nautechsystems/nautilus_trader.
+- (iii) **Software** means Our open source software project licensed under LGPL v3.0, available at https://github.com/market-simulator-team/market_simulator.
 16. **Last updated**: 4th October 2024.

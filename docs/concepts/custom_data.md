@@ -1,6 +1,6 @@
 # Custom Data
 
-Nautilus Trader supports custom data authored in Python and Rust, and moves
+Market Simulator supports custom data authored in Python and Rust, and moves
 that data through the same runtime, persistence, and query pipeline used
 by the rest of the platform.
 

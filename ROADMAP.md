@@ -1,10 +1,10 @@
 # Roadmap
 
-This document outlines the key priorities and upcoming goals for **NautilusTrader**,
+This document outlines the key priorities and upcoming goals for **Market Simulator**,
 charting its path as a production-grade, Rust-native trading engine.
 
 Given the dynamic nature of the project, priorities may evolve to keep pace with the fast-moving development cycle.
-For real-time updates and detailed task tracking, refer to the [NautilusTrader Kanban board](https://github.com/orgs/nautechsystems/projects/3).
+For real-time updates and detailed task tracking, refer to the [Market Simulator Kanban board](https://github.com/orgs/market-simulator-team/projects/3).
 
 **Note**: Bug fixes and roadmap priorities take precedence over feature requests to ensure stability
 and progress. However, pull requests (PRs) for improvements and new features are always welcome.
@@ -12,7 +12,7 @@ For more details, see the [CONTRIBUTING.md](/CONTRIBUTING.md).
 
 ## Vision
 
-To establish NautilusTrader as the default open trading engine for quantitative algorithmic
+To establish Market Simulator as the default open trading engine for quantitative algorithmic
 trading, combining production-grade architecture, reliability, and documentation for traders
 and developers alike.
 
@@ -50,7 +50,7 @@ As we progress on the top priorities, we also plan to focus on the following enh
 
 ## Open-source scope
 
-The NautilusTrader open-source project is purpose-built to empower individual and
+The Market Simulator open-source project is purpose-built to empower individual and
 small team quantitative traders, enabling strategy research and live trading with efficiency and
 reliability on a single node. By explicitly defining what is *in* and *out* of scope,
 we set clear expectations, focus community efforts, and support a sustainable open-source ecosystem.
@@ -88,7 +88,7 @@ This allows discussion of suitability, alignment with the roadmap, and maintenan
 **Step 2 – Evaluation**
 
 The maintainers will review the RFC in light of factors such as stability, demand, technical fit, and available bandwidth.
-Integrations must also align with NautilusTrader’s professional, performance-focused, and high-reliability philosophy.
+Integrations must also align with Market Simulator’s professional, performance-focused, and high-reliability philosophy.
 Only after agreement at this stage should a PR be considered.
 
 **Step 3 – PR submission (if approved)**
@@ -103,7 +103,7 @@ independent projects, see [TRADEMARK.md](TRADEMARK.md).
 
 ## Long-term commitment
 
-NautilusTrader is an open-core project. All core trading engine
+Market Simulator is an open-core project. All core trading engine
 features land in the public repository first, and we are committed to
 continually widening the feature set and improving documentation so that the
 community can rely on a modern, production-grade, battle-tested trading engine.
@@ -112,14 +112,14 @@ Feedback and contributions from users directly influence the roadmap; as
 real-world requirements evolve, we will steadily raise the ceiling of what can
 be achieved with the open-source codebase.
 
-## NautilusTrader v2.0 and beyond
+## Market Simulator v2.0 and beyond
 
-- **Achieving Stable Status**: While NautilusTrader is already successfully used in production, v2.0 represents a significant milestone toward establishing a stable API.
+- **Achieving Stable Status**: While Market Simulator is already successfully used in production, v2.0 represents a significant milestone toward establishing a stable API.
 - **Focus Areas**: The v2.0 initiative will prioritize API consistency, long-term maintainability, and meeting the rigorous standards of live trading environments.
 - **Formal Deprecations**: v2.0 will introduce formal deprecations, making it easier to adopt changes and new features while maintaining clarity for developers.
-- **Python API Commitment**: Despite transitioning the core to Rust, NautilusTrader will continue to provide a user-facing Python API.
+- **Python API Commitment**: Despite transitioning the core to Rust, Market Simulator will continue to provide a user-facing Python API.
 
 ## Charting the future
 
-This roadmap builds on NautilusTrader’s strong foundation, driving continuous refinement while
+This roadmap builds on Market Simulator’s strong foundation, driving continuous refinement while
 expanding its possibilities and capabilities for algorithmic traders and developers.

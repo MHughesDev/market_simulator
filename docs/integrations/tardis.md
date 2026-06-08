@@ -4,7 +4,7 @@ Tardis provides granular data for cryptocurrency markets including tick-by-tick 
 updates, trades, open interest, funding rates, option summaries, and liquidations data for leading
 crypto exchanges.
 
-NautilusTrader integrates with the Tardis API, Tardis Machine WebSocket server, and Tardis CSV
+Market Simulator integrates with the Tardis API, Tardis Machine WebSocket server, and Tardis CSV
 formats. The capabilities of this adapter include:
 
 - `TardisCSVDataLoader`: reads Tardis-format CSV files into Nautilus data, with bulk and
@@ -37,15 +37,15 @@ The core components of the adapter are compiled as static libraries and linked d
 ## Tardis documentation
 
 Tardis provides extensive user [documentation](https://docs.tardis.dev/).
-We recommend also referring to the Tardis documentation in conjunction with this NautilusTrader integration guide.
+We recommend also referring to the Tardis documentation in conjunction with this Market Simulator integration guide.
 
 ## Supported formats
 
 Tardis provides *normalized* market data, a unified format consistent across supported exchanges.
 This normalization lets one parser handle data from any [Tardis-supported exchange](#venues).
-NautilusTrader does not support exchange-native Tardis market data formats in this adapter.
+Market Simulator does not support exchange-native Tardis market data formats in this adapter.
 
-The following normalized Tardis Machine formats are supported by NautilusTrader. See the official
+The following normalized Tardis Machine formats are supported by Market Simulator. See the official
 [Tardis data type reference](https://docs.tardis.dev/tardis-machine/data-types) for field schemas.
 
 | Tardis format       | Nautilus data type                                                |
@@ -91,8 +91,8 @@ This includes the following:
 
 ## Symbology and normalization
 
-The Tardis integration ensures compatibility with NautilusTrader's crypto exchange adapters
-by consistently normalizing symbols. Typically, NautilusTrader uses the native exchange naming
+The Tardis integration ensures compatibility with Market Simulator's crypto exchange adapters
+by consistently normalizing symbols. Typically, Market Simulator uses the native exchange naming
 conventions provided by Tardis. For certain exchanges, raw symbols are adjusted to adhere to
 Nautilus symbology normalization, as outlined below:
 
@@ -168,12 +168,12 @@ Tardis also exposes legacy Binance exchanges such as `binance-european-options` 
 
 ## Environment variables
 
-The following environment variables are used by Tardis and NautilusTrader.
+The following environment variables are used by Tardis and Market Simulator.
 
 - `TM_API_KEY`: API key for the Tardis Machine.
-- `TARDIS_API_KEY`: API key for NautilusTrader Tardis clients.
+- `TARDIS_API_KEY`: API key for Market Simulator Tardis clients.
 - `TARDIS_MACHINE_WS_URL` (optional): WebSocket URL for the `TardisMachineClient`.
-- `TARDIS_BASE_URL` (optional): Base URL for the `TardisHttpClient` in NautilusTrader.
+- `TARDIS_BASE_URL` (optional): Base URL for the `TardisHttpClient` in Market Simulator.
 - `NAUTILUS_PATH` (optional): Parent directory containing the `catalog/` subdirectory for
   replay output.
 
@@ -351,7 +351,7 @@ To run a replay in Python, create a script similar to the following:
 import asyncio
 from pathlib import Path
 
-from nautilus_trader.core import nautilus_pyo3
+from market_simulator.core import nautilus_pyo3
 
 
 async def run():
@@ -448,8 +448,8 @@ To load the data, create a script similar to the following:
 ```python
 from pathlib import Path
 
-from nautilus_trader.adapters.tardis import TardisCSVDataLoader
-from nautilus_trader.model import InstrumentId
+from market_simulator.adapters.tardis import TardisCSVDataLoader
+from market_simulator.model import InstrumentId
 
 
 instrument_id = InstrumentId.from_str("BTC-PERPETUAL.DERIBIT")
@@ -527,8 +527,8 @@ The `TardisCSVDataLoader` provides streaming methods that yield chunks of data a
 method accepts a `chunk_size` parameter that controls how many records are read per chunk:
 
 ```python
-from nautilus_trader.adapters.tardis import TardisCSVDataLoader
-from nautilus_trader.model import InstrumentId
+from market_simulator.adapters.tardis import TardisCSVDataLoader
+from market_simulator.model import InstrumentId
 
 instrument_id = InstrumentId.from_str("BTC-PERPETUAL.DERIBIT")
 loader = TardisCSVDataLoader(
@@ -658,7 +658,7 @@ To request instrument definitions in Python, create a script similar to the foll
 ```python
 import asyncio
 
-from nautilus_trader.core import nautilus_pyo3
+from market_simulator.core import nautilus_pyo3
 
 
 async def run():
@@ -723,9 +723,9 @@ Since there are multiple [Tardis-supported exchanges](#venues), when loading all
 you must filter for the desired venues using an `InstrumentProviderConfig`:
 
 ```python
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.config import InstrumentProviderConfig
 
-# See supported venues https://nautilustrader.io/docs/nightly/integrations/tardis#venues
+# See supported venues https://market-simulator/docs/nightly/integrations/tardis#venues
 venues = {"BINANCE", "BYBIT"}
 filters = {"venues": frozenset(venues)}
 instrument_provider_config = InstrumentProviderConfig(load_all=True, filters=filters)
@@ -734,7 +734,7 @@ instrument_provider_config = InstrumentProviderConfig(load_all=True, filters=fil
 You can also load specific instrument definitions in the usual way:
 
 ```python
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.config import InstrumentProviderConfig
 
 instrument_ids = [
     InstrumentId.from_str("BTCUSDT-PERP.BINANCE"),  # Uses the 'binance-futures' exchange
@@ -752,7 +752,7 @@ The instrument provider filters out option-specific exchanges, such as `binance-
 To explicitly load option instruments, include `"option"` in the `instrument_type` filter:
 
 ```python
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.config import InstrumentProviderConfig
 
 venues = {"BINANCE", "BYBIT"}
 filters = {
@@ -771,7 +771,7 @@ For simplicity, it's recommended to load all instruments for the venues you inte
 
 ## Live data client
 
-The `TardisDataClient` integrates Tardis Machine with a running NautilusTrader system.
+The `TardisDataClient` integrates Tardis Machine with a running Market Simulator system.
 The Python live data client translates standard subscriptions into Tardis Machine streams for:
 
 - `OrderBookDelta` (L2 granularity from Tardis, including changes or full-depth snapshots)
@@ -826,5 +826,5 @@ The following limitations and considerations are currently known:
 
 :::info
 For additional features or to contribute to the Tardis adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

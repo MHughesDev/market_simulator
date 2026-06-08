@@ -137,7 +137,7 @@ Pass the config to `add_native_strategy` on a `LiveNode` or `BacktestEngine`.
 Python provides the configuration; the strategy runs entirely in Rust.
 
 ```python
-from nautilus_trader.core.nautilus_pyo3.trading import CompositeMarketMakerConfig
+from market_simulator.core.nautilus_pyo3.trading import CompositeMarketMakerConfig
 
 config = CompositeMarketMakerConfig(
     instrument_id=InstrumentId.from_str("OCPI-H100-PERP.AX"),

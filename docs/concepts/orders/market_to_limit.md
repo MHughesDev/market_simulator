@@ -42,11 +42,11 @@ let order = self.core.order_factory().market_to_limit(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import MarketToLimitOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model import InstrumentId
+from market_simulator.model import Quantity
+from market_simulator.model.orders import MarketToLimitOrder
 
 order: MarketToLimitOrder = self.order_factory.market_to_limit(
     instrument_id=InstrumentId.from_str("USD/JPY.IDEALPRO"),
@@ -59,7 +59,7 @@ order: MarketToLimitOrder = self.order_factory.market_to_limit(
 )
 ```
 
-See the [`MarketToLimitOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.market_to_limit.MarketToLimitOrder) for further details.
+See the [`MarketToLimitOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.market_to_limit.MarketToLimitOrder) for further details.
 
 ## Related guides
 

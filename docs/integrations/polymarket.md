@@ -3,31 +3,31 @@
 Founded in 2020, Polymarket is a decentralized prediction market platform that enables
 traders to speculate on event outcomes by buying and selling outcome tokens.
 
-NautilusTrader provides a venue integration for data and execution via Polymarket's Central Limit
+Market Simulator provides a venue integration for data and execution via Polymarket's Central Limit
 Order Book (CLOB) API.
 
 Today the repository exposes two Polymarket implementations through the public package path
-`nautilus_trader.adapters.polymarket`:
+`market_simulator.adapters.polymarket`:
 
 - The Python adapter, which uses the
   [official Python CLOB V2 client library](https://github.com/Polymarket/py-clob-client-v2).
-- The Rust-native adapter surface, which NautilusTrader is consolidating toward.
+- The Rust-native adapter surface, which Market Simulator is consolidating toward.
 
 :::warning
 The two implementations overlap heavily, but they do not behave identically in every area.
 This guide calls out the current differences where they matter.
 :::
 
-NautilusTrader supports multiple Polymarket signature types for order signing, which gives
-flexibility for different wallet configurations while NautilusTrader handles signing and order
+Market Simulator supports multiple Polymarket signature types for order signing, which gives
+flexibility for different wallet configurations while Market Simulator handles signing and order
 preparation.
 
 ## Installation
 
-To install NautilusTrader with Polymarket support:
+To install Market Simulator with Polymarket support:
 
 ```bash
-uv pip install "nautilus_trader[polymarket]"
+uv pip install "market_simulator[polymarket]"
 ```
 
 To build from source with all extras (including Polymarket):
@@ -38,14 +38,14 @@ uv sync --all-extras
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/polymarket/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/polymarket/).
 
 ## Binary options
 
 A [binary option](https://en.wikipedia.org/wiki/Binary_option) is a type of financial exotic
 option contract in which traders bet on the outcome of a yes-or-no proposition. If the
 prediction is correct, the trader receives a fixed payout; otherwise, they receive nothing.
-NautilusTrader represents Polymarket outcome tokens as `BinaryOption` instruments.
+Market Simulator represents Polymarket outcome tokens as `BinaryOption` instruments.
 
 Polymarket uses **pUSD** as the collateral token for trading, [see below](#pusd) for more
 information.
@@ -84,7 +84,7 @@ The table below shows the main differences that affect behavior today.
 
 | Area                | Python adapter                                                                | Rust adapter                                                  | Notes |
 |---------------------|-------------------------------------------------------------------------------|---------------------------------------------------------------|-------|
-| Public package path | `nautilus_trader.adapters.polymarket`                                         | `nautilus_trader.adapters.polymarket`                         | Rust is the consolidation target. |
+| Public package path | `market_simulator.adapters.polymarket`                                         | `market_simulator.adapters.polymarket`                         | Rust is the consolidation target. |
 | Order signing       | Uses `py-clob-client-v2`                                                      | Native Rust signing                                           | Python signing is slower. |
 | Post‑only orders    | Supported for `GTC` and `GTD` only                                            | Supported for `GTC` and `GTD` only                            | Both reject post‑only with market TIF (`IOC` or `FOK`). |
 | Batch submit        | Uses `POST /orders` for batchable `SubmitOrderList` requests                  | Uses `POST /orders` for batchable `SubmitOrderList` requests  | Both batch only independent limit orders, capped at 15 per request. |
@@ -108,7 +108,7 @@ after conversion.
 
 ## Wallets and accounts
 
-To interact with Polymarket via NautilusTrader, you'll need a **Polygon**-compatible wallet (such as MetaMask).
+To interact with Polymarket via Market Simulator, you'll need a **Polygon**-compatible wallet (such as MetaMask).
 
 ### Signature types
 
@@ -125,7 +125,7 @@ Polymarket supports multiple signature types for order signing and verification:
 See also: [Proxy wallet](https://docs.polymarket.com/developers/proxy-wallet) in the Polymarket documentation for more details about signature types and proxy wallet infrastructure.
 :::
 
-NautilusTrader defaults to signature type 0 (EOA) but can be configured to use any of the supported signature types via the `signature_type` configuration parameter.
+Market Simulator defaults to signature type 0 (EOA) but can be configured to use any of the supported signature types via the `signature_type` configuration parameter.
 
 A single wallet address is supported per trader instance when using environment variables,
 or multiple wallets could be configured with multiple `PolymarketExecutionClient` instances.
@@ -138,7 +138,7 @@ or allowance" API error when submitting orders.
 ### Setting allowances for Polymarket contracts
 
 Before you can start trading, you need to ensure that your wallet has allowances set for Polymarket's smart contracts.
-You can do this by running the provided script located at `nautilus_trader/adapters/polymarket/scripts/set_allowances.py`.
+You can do this by running the provided script located at `market_simulator/adapters/polymarket/scripts/set_allowances.py`.
 
 This script is adapted from a [gist](https://gist.github.com/poly-rodr/44313920481de58d5a3f6d1f8226bd5e) created by @poly-rodr.
 
@@ -179,7 +179,7 @@ export POLYGON_PUBLIC_KEY="YOUR_PUBLIC_KEY"
 Run the script using:
 
 ```bash
-python nautilus_trader/adapters/polymarket/scripts/set_allowances.py
+python market_simulator/adapters/polymarket/scripts/set_allowances.py
 ```
 
 ### Script breakdown
@@ -204,7 +204,7 @@ To trade with Polymarket, you'll need to generate API credentials. Follow these 
 2. Run the script using:
 
    ```bash
-   python nautilus_trader/adapters/polymarket/scripts/create_api_key.py
+   python market_simulator/adapters/polymarket/scripts/create_api_key.py
    ```
 
 The script will generate and print API credentials, which you should save to the following environment variables:
@@ -220,7 +220,7 @@ These can then be used for Polymarket client configurations:
 
 ## Configuration
 
-When setting up NautilusTrader to work with Polymarket, it’s crucial to properly configure the necessary parameters, particularly the private key.
+When setting up Market Simulator to work with Polymarket, it’s crucial to properly configure the necessary parameters, particularly the private key.
 
 **Key parameters**:
 
@@ -297,7 +297,7 @@ strategy.submit_order(order)
 
 ### Time-in-force options
 
-Polymarket calls the `POST /order` field `orderType`. In NautilusTrader, this maps to
+Polymarket calls the `POST /order` field `orderType`. In Market Simulator, this maps to
 `TimeInForce`. The valid combinations depend on the Nautilus order type:
 
 | Nautilus TIF | Polymarket `orderType` | Nautilus order scope | Notes |
@@ -308,7 +308,7 @@ Polymarket calls the `POST /order` field `orderType`. In NautilusTrader, this ma
 | `IOC`        | `FAK`                  | `LIMIT` or `MARKET`  | Fill available size immediately and cancel the remainder. |
 
 :::note
-Polymarket uses `FAK` (Fill-And-Kill) for the semantics NautilusTrader calls
+Polymarket uses `FAK` (Fill-And-Kill) for the semantics Market Simulator calls
 `IOC` (Immediate or Cancel). Polymarket docs classify `FOK` and `FAK` as market
 order types, while `GTC` and `GTD` are limit order types. For Nautilus `MARKET`
 orders, both adapters accept only `IOC` and `FOK`; `GTC` and `GTD` are valid for
@@ -461,7 +461,7 @@ Trades on Polymarket can have the following statuses:
 - `FAILED`: Trade has failed and is not being retried.
 
 Once a trade is initially matched, subsequent trade status updates will be received via the WebSocket.
-NautilusTrader records the initial trade details in the `info` field of the `OrderFilled` event,
+Market Simulator records the initial trade details in the `info` field of the `OrderFilled` event,
 with additional trade events stored in the cache as JSON under a custom key to retain this information.
 
 ### Trade ID derivation
@@ -507,7 +507,7 @@ For the latest rates, see Polymarket's [Fees](https://docs.polymarket.com/tradin
 ### Backtest fee model
 
 For backtests, the adapter ships `PolymarketFeeModel` (a
-`nautilus_trader.backtest.models.FeeModel` subclass) which applies the taker
+`market_simulator.backtest.models.FeeModel` subclass) which applies the taker
 fee formula above and credits passive maker fills with a rebate inferred from
 the market category. Polymarket pays a 20% maker rebate on Crypto markets and
 25% on other fee-enabled categories (Sports, Finance, Politics, Economics,
@@ -516,7 +516,7 @@ rebate pool. Geopolitics markets are fee-free with no rebates and the model
 returns zero for them.
 
 ```python
-from nautilus_trader.adapters.polymarket.fee_model import PolymarketFeeModel
+from market_simulator.adapters.polymarket.fee_model import PolymarketFeeModel
 
 # Default: maker rebates enabled
 fee_model = PolymarketFeeModel()
@@ -760,7 +760,7 @@ When you attempt to subscribe to 501 or more instruments on a single WebSocket c
 - You will **not** receive the initial order book snapshot for each instrument.
 - You will only receive subsequent order book updates.
 
-NautilusTrader automatically manages WebSocket connections to handle this limitation:
+Market Simulator automatically manages WebSocket connections to handle this limitation:
 
 - The adapter defaults to **200 instrument subscriptions per connection** (configurable via
   `ws_max_subscriptions_per_connection` in the Python adapter; `ws_max_subscriptions` in the
@@ -820,7 +820,7 @@ result in HTTP 429 responses or temporary blocking.
 
 The `PolymarketDataLoader` includes built-in rate limiting when using the default HTTP client.
 Requests are automatically throttled to 100 requests per minute by default.
-That is a NautilusTrader default, not Polymarket's current published limit.
+That is a Market Simulator default, not Polymarket's current published limit.
 The current Rust HTTP clients also ship with conservative 100 requests per minute quotas.
 
 When fetching large date ranges across multiple markets:
@@ -849,7 +849,7 @@ below document both adapters in full.
 
 ### Data client options (Python v2)
 
-Class: `PolymarketDataClientConfig` in `nautilus_trader.adapters.polymarket.config`.
+Class: `PolymarketDataClientConfig` in `market_simulator.adapters.polymarket.config`.
 
 | Option                                | Default      | Description |
 |---------------------------------------|--------------|-------------|
@@ -878,7 +878,7 @@ Class: `PolymarketDataClientConfig` in `nautilus_trader.adapters.polymarket.conf
 
 ### Execution client options (Python v2)
 
-Class: `PolymarketExecClientConfig` in `nautilus_trader.adapters.polymarket.config`.
+Class: `PolymarketExecClientConfig` in `market_simulator.adapters.polymarket.config`.
 
 | Option                                | Default      | Description |
 |---------------------------------------|--------------|-------------|
@@ -979,7 +979,7 @@ the full venue catalogue. Instead of loading everything, you provide a function 
 event slugs for the specific markets you need.
 
 ```python
-from nautilus_trader.adapters.polymarket.providers import PolymarketInstrumentProviderConfig
+from market_simulator.adapters.polymarket.providers import PolymarketInstrumentProviderConfig
 
 # Configure with a slug builder function
 instrument_config = PolymarketInstrumentProviderConfig(
@@ -1064,10 +1064,10 @@ Use the provided utility scripts to discover active markets:
 
 ```bash
 # List all active markets
-python nautilus_trader/adapters/polymarket/scripts/active_markets.py
+python market_simulator/adapters/polymarket/scripts/active_markets.py
 
 # List BTC and ETH UpDown markets specifically
-python nautilus_trader/adapters/polymarket/scripts/list_updown_markets.py
+python market_simulator/adapters/polymarket/scripts/list_updown_markets.py
 ```
 
 ### Basic usage
@@ -1078,7 +1078,7 @@ all the API calls and instrument creation automatically:
 ```python
 import asyncio
 
-from nautilus_trader.adapters.polymarket import PolymarketDataLoader
+from market_simulator.adapters.polymarket import PolymarketDataLoader
 
 async def main():
     # Create loader from market slug (recommended)
@@ -1173,7 +1173,7 @@ condition_id = loader.condition_id
 # Fetch raw trades from the Polymarket Data API
 raw_trades = await loader.fetch_trades(condition_id=condition_id)
 
-# Parse to NautilusTrader TradeTicks
+# Parse to Market Simulator TradeTicks
 trades = loader.parse_trades(raw_trades)
 ```
 
@@ -1195,18 +1195,18 @@ See `examples/backtest/polymarket_simple_quoter.py` for a full example:
 import asyncio
 from decimal import Decimal
 
-from nautilus_trader.adapters.polymarket import POLYMARKET_VENUE
-from nautilus_trader.adapters.polymarket import PolymarketDataLoader
-from nautilus_trader.backtest.config import BacktestEngineConfig
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.examples.strategies.ema_cross_long_only import EMACrossLongOnly
-from nautilus_trader.examples.strategies.ema_cross_long_only import EMACrossLongOnlyConfig
-from nautilus_trader.model.currencies import pUSD
-from nautilus_trader.model.data import BarType
-from nautilus_trader.model.enums import AccountType
-from nautilus_trader.model.enums import OmsType
-from nautilus_trader.model.identifiers import TraderId
-from nautilus_trader.model.objects import Money
+from market_simulator.adapters.polymarket import POLYMARKET_VENUE
+from market_simulator.adapters.polymarket import PolymarketDataLoader
+from market_simulator.backtest.config import BacktestEngineConfig
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.examples.strategies.ema_cross_long_only import EMACrossLongOnly
+from market_simulator.examples.strategies.ema_cross_long_only import EMACrossLongOnlyConfig
+from market_simulator.model.currencies import pUSD
+from market_simulator.model.data import BarType
+from market_simulator.model.enums import AccountType
+from market_simulator.model.enums import OmsType
+from market_simulator.model.identifiers import TraderId
+from market_simulator.model.objects import Money
 
 async def run_backtest():
     # Initialize loader and fetch market data
@@ -1260,9 +1260,9 @@ python examples/backtest/polymarket_simple_quoter.py
 The adapter provides utility functions for working with Polymarket identifiers:
 
 ```python
-from nautilus_trader.adapters.polymarket import get_polymarket_instrument_id
+from market_simulator.adapters.polymarket import get_polymarket_instrument_id
 
-# Create NautilusTrader InstrumentId from Polymarket identifiers
+# Create Market Simulator InstrumentId from Polymarket identifiers
 instrument_id = get_polymarket_instrument_id(
     condition_id="0xcccb7e7613a087c132b69cbf3a02bece3fdcb824c1da54ae79acc8d4a562d902",
     token_id="8441400852834915183759801017793514978104486628517653995211751018945988243154"
@@ -1273,5 +1273,5 @@ instrument_id = get_polymarket_instrument_id(
 
 :::info
 For additional features or to contribute to the Polymarket adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

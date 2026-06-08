@@ -1,4 +1,4 @@
-# NautilusTrader v2
+# Market Simulator v2
 
 > [!NOTE]
 >
@@ -6,13 +6,13 @@
 > adapters, strategies, execution algorithms) works through PyO3 bindings. Some features
 > from v1 are still being ported.
 
-This directory contains the `nautilus_trader` v2 Python package.
+This directory contains the `market_simulator` v2 Python package.
 v2 replaces the Cython layer with Rust core bindings exposed through PyO3.
 
 **Rules during the transition:**
 
 - The `python/` directory is self-contained. Everything Python-related for v2 lives here.
-- This directory will remain when v1 is removed (the top-level `nautilus_trader/` goes away).
+- This directory will remain when v1 is removed (the top-level `market_simulator/` goes away).
 - Nothing outside this directory should reference anything inside it for now.
 
 ## Project structure
@@ -31,7 +31,7 @@ python/
 │   │   ├── common/actor.py     # Test actor/strategy/algorithm fixtures
 │   │   └── test_live_node.py   # LiveNode registration tests
 │   └── acceptance/             # Acceptance tests
-└── nautilus_trader/
+└── market_simulator/
     ├── __init__.py             # Re-exports from _libnautilus
     ├── _libnautilus/            # Compiled Rust extension (created by the build)
     ├── core/
@@ -80,7 +80,7 @@ Run again after Rust changes.
 ## How it works
 
 1. **Build**: `maturin develop` compiles all Rust code into a single extension module
-   under `nautilus_trader/_libnautilus/`.
+   under `market_simulator/_libnautilus/`.
 2. **Re-exports**: Each submodule's `__init__.py` re-exports components from `_libnautilus`.
 3. **Type stubs**: `.pyi` files provide type information for IDEs and `mypy`.
 4. **Docstrings**: `generate_docstrings.py` copies `///` doc comments from the Rust source
@@ -89,7 +89,7 @@ Run again after Rust changes.
 ## Usage
 
 ```python
-from nautilus_trader.core import UUID4
+from market_simulator.core import UUID4
 
 UUID4()
 ```
@@ -99,8 +99,8 @@ UUID4()
 ### From source
 
 ```bash
-git clone https://github.com/nautechsystems/nautilus_trader.git
-cd nautilus_trader/python
+git clone https://github.com/market-simulator-team/market_simulator.git
+cd market_simulator/python
 uv run maturin develop --extras dev,test
 ```
 
@@ -109,7 +109,7 @@ uv run maturin develop --extras dev,test
 CI publishes a wheel to the v2 index on every successful `develop` or `nightly` build.
 
 ```bash
-pip install --index-url https://packages.nautechsystems.io/v2/simple/ --pre nautilus-trader
+pip install --index-url https://packages.market-simulator-team.io/v2/simple/ --pre market-simulator
 ```
 
 | Platform         | Python  | Develop | Nightly |

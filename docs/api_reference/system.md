@@ -1,11 +1,11 @@
 # System
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.system
+.. automodule:: market_simulator.system
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.system.kernel
+.. automodule:: market_simulator.system.kernel
    :show-inheritance:
    :inherited-members:
    :members:

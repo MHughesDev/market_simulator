@@ -29,7 +29,7 @@ positions, the strategy can submit hedge orders.
   subaccount, session-key, and funding setup.
 - A Derive testnet or mainnet subaccount with enough USDC collateral for the hedge orders you plan
   to allow.
-- A working Rust toolchain and a built NautilusTrader workspace.
+- A working Rust toolchain and a built Market Simulator workspace.
 - Environment variables for the selected Derive environment.
 
 For testnet:

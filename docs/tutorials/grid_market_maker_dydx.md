@@ -286,7 +286,7 @@ Press **Ctrl+C** to stop the node. The shutdown sequence:
 ## Code walkthrough
 
 The `main` function lives at
-[`crates/adapters/dydx/examples/node_grid_mm.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/dydx/examples/node_grid_mm.rs):
+[`crates/adapters/dydx/examples/node_grid_mm.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/dydx/examples/node_grid_mm.rs):
 
 ```rust
 #[tokio::main]

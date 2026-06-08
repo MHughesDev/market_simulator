@@ -54,9 +54,9 @@ let synthetic = SyntheticInstrument::new(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import SyntheticInstrument
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import SyntheticInstrument
 
 synthetic = SyntheticInstrument(
     symbol=Symbol("BTC-LTC"),

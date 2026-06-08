@@ -27,11 +27,11 @@ and won't need to work directly with these lower-level components.
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/hyperliquid/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/hyperliquid/).
 
 ## Builder address
 
-Mainnet orders submitted through the adapter include a NautilusTrader builder address with a
+Mainnet orders submitted through the adapter include a Market Simulator builder address with a
 **zero fee rate**, so it adds no trading cost to your orders. This helps us gauge real usage of
 the integration and prioritize ongoing maintenance and improvements.
 
@@ -75,7 +75,7 @@ then connect the extension to testnet.
 
 ### Exporting your private key
 
-To use your testnet account with NautilusTrader, you need to export your wallet's private key:
+To use your testnet account with Market Simulator, you need to export your wallet's private key:
 
 **MetaMask:**
 
@@ -108,7 +108,7 @@ configuration.
 setup when you create an API wallet on the Hyperliquid UI), you must also
 set `HYPERLIQUID_ACCOUNT_ADDRESS` to the master account address. Without it,
 `OrderStatusReport` requests and WebSocket user feeds come back empty even
-though orders are live on the venue. See [GH-4010](https://github.com/nautechsystems/nautilus_trader/issues/4010).
+though orders are live on the venue. See [GH-4010](https://github.com/market-simulator-team/market_simulator/issues/4010).
 :::
 
 ## Product support
@@ -242,8 +242,8 @@ HIP-3 instruments are excluded by default. To load them, include
 For direct instrument provider usage:
 
 ```python
-from nautilus_trader.adapters.hyperliquid.enums import HyperliquidProductType
-from nautilus_trader.adapters.hyperliquid.providers import HyperliquidInstrumentProvider
+from market_simulator.adapters.hyperliquid.enums import HyperliquidProductType
+from market_simulator.adapters.hyperliquid.providers import HyperliquidInstrumentProvider
 
 provider = HyperliquidInstrumentProvider(
     client=client,
@@ -259,10 +259,10 @@ For live `TradingNode` usage, pass the same `product_types` through the Hyperliq
 client config:
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HyperliquidDataClientConfig
-from nautilus_trader.adapters.hyperliquid import HyperliquidExecClientConfig
-from nautilus_trader.adapters.hyperliquid import HyperliquidEnvironment
-from nautilus_trader.adapters.hyperliquid import HyperliquidProductType
+from market_simulator.adapters.hyperliquid import HyperliquidDataClientConfig
+from market_simulator.adapters.hyperliquid import HyperliquidExecClientConfig
+from market_simulator.adapters.hyperliquid import HyperliquidEnvironment
+from market_simulator.adapters.hyperliquid import HyperliquidProductType
 
 HyperliquidDataClientConfig(
     product_types=(
@@ -354,8 +354,8 @@ exposes `outcomeMeta`; current Hyperliquid docs mark that metadata endpoint as
 testnet-only.
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HyperliquidDataClientConfig
-from nautilus_trader.adapters.hyperliquid import HyperliquidProductType
+from market_simulator.adapters.hyperliquid import HyperliquidDataClientConfig
+from market_simulator.adapters.hyperliquid import HyperliquidProductType
 
 HyperliquidDataClientConfig(
     product_types=(
@@ -433,8 +433,8 @@ side-token inventory off-book:
 
 ```python
 from decimal import Decimal
-from nautilus_trader.core.nautilus_pyo3 import HyperliquidEnvironment
-from nautilus_trader.core.nautilus_pyo3 import HyperliquidHttpClient
+from market_simulator.core.nautilus_pyo3 import HyperliquidEnvironment
+from market_simulator.core.nautilus_pyo3 import HyperliquidHttpClient
 
 client = HyperliquidHttpClient.from_env(HyperliquidEnvironment.MAINNET)
 
@@ -568,7 +568,7 @@ precision. `mantissa` is only valid when `nSigFigs=5` and accepts `1`, `2`, or
 `5`.
 
 ```python
-from nautilus_trader.model.data import BookType
+from market_simulator.model.data import BookType
 
 self.subscribe_order_book_deltas(
     instrument_id=instrument_id,
@@ -601,9 +601,9 @@ Subscribe from an actor or strategy with `DataType(HyperliquidAllMids)`.
 For HIP-3 dex-specific streams, pass the venue dex in `metadata["dex"]`:
 
 ```python
-from nautilus_trader.adapters.hyperliquid.constants import HYPERLIQUID_CLIENT_ID
-from nautilus_trader.adapters.hyperliquid.data import HyperliquidAllMids
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.hyperliquid.constants import HYPERLIQUID_CLIENT_ID
+from market_simulator.adapters.hyperliquid.data import HyperliquidAllMids
+from market_simulator.model.data import DataType
 
 self.subscribe_data(
     data_type=DataType(HyperliquidAllMids, metadata={"dex": "hyperliquid"}),
@@ -623,9 +623,9 @@ in `metadata["instrument_id"]`:
 | `ts_init`       | `int`          | UNIX timestamp in nanoseconds when the object was built.                    |
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HYPERLIQUID_CLIENT_ID
-from nautilus_trader.adapters.hyperliquid import HyperliquidOpenInterest
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.hyperliquid import HYPERLIQUID_CLIENT_ID
+from market_simulator.adapters.hyperliquid import HyperliquidOpenInterest
+from market_simulator.model.data import DataType
 
 self.subscribe_data(
     data_type=DataType(
@@ -647,7 +647,7 @@ to `on_data` as the concrete custom data type itself:
 ```python
 from decimal import Decimal
 
-from nautilus_trader.adapters.hyperliquid import HyperliquidOpenInterest
+from market_simulator.adapters.hyperliquid import HyperliquidOpenInterest
 
 def on_data(self, data) -> None:
     if isinstance(data, HyperliquidOpenInterest):
@@ -693,9 +693,9 @@ reconnect. A context-count mismatch for a dex logs a warning to reconnect;
 entries stay aligned positionally, which is correct for appended listings.
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HYPERLIQUID_CLIENT_ID
-from nautilus_trader.adapters.hyperliquid import HyperliquidAllDexsAssetCtxs
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.hyperliquid import HYPERLIQUID_CLIENT_ID
+from market_simulator.adapters.hyperliquid import HyperliquidAllDexsAssetCtxs
+from market_simulator.model.data import DataType
 
 self.subscribe_data(
     data_type=DataType(HyperliquidAllDexsAssetCtxs),
@@ -846,7 +846,7 @@ unknown venue outcome do not carry this per-order evidence.
 :::
 
 :::info
-Orders placed outside NautilusTrader (e.g. via the Hyperliquid web UI or another client)
+Orders placed outside Market Simulator (e.g. via the Hyperliquid web UI or another client)
 are detected and tracked as external orders. They appear in order status reports and position
 reconciliation.
 :::
@@ -866,7 +866,7 @@ original leg.
 The Rust-native `HyperliquidExecutionClient` (used through
 `HyperliquidExecutionClientFactory`) runs detection, deduplication, and event promotion on the
 Rust side via the
-[`WsDispatchState`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/hyperliquid/src/websocket/dispatch.rs)
+[`WsDispatchState`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/hyperliquid/src/websocket/dispatch.rs)
 owned by the execution client. On submission the client registers an `OrderIdentity` (strategy,
 instrument, side, type, quantity, last-known price) keyed by `client_order_id`. Each inbound
 status report or fill is routed through the dispatch: tracked orders emit typed
@@ -876,7 +876,7 @@ compares the report's `venue_order_id` against the last cached value for the `cl
 they differ it promotes the `ACCEPTED` to `OrderUpdated` and suppresses the paired stale cancel:
 
 :::note
-The Python `HyperliquidExecutionClient` in `nautilus_trader/adapters/hyperliquid/execution.py`
+The Python `HyperliquidExecutionClient` in `market_simulator/adapters/hyperliquid/execution.py`
 still runs its own equivalent detection inside `_handle_order_status_report_pyo3` because the
 pyo3 WebSocket binding forwards raw reports to Python. The Rust dispatch described below is
 additive, for the Rust-native execution client.
@@ -909,7 +909,7 @@ subsequent `ACCEPTED` through the `OrderUpdated` path. The marker is only set af
 HTTP success, so a failed modify never leaves stale race state. Because detection otherwise
 relies on the cached `venue_order_id`, the adapter also recovers a modify that times out on the
 HTTP call but still reaches the venue: the eventual WS `ACCEPTED(new_oid)` sees the old cached
-`oid` and translates to `OrderUpdated`. See [GH-3827](https://github.com/nautechsystems/nautilus_trader/issues/3827).
+`oid` and translates to `OrderUpdated`. See [GH-3827](https://github.com/market-simulator-team/market_simulator/issues/3827).
 
 :::note
 One narrow edge case remains when all three conditions occur together:
@@ -927,7 +927,7 @@ A `FillReport` for the replacement leg can also race ahead of `ACCEPTED(new_oid)
 buffers such fills (when the pending-modify marker is set and the report's `oid` does not match
 the cached value) and drains them on the matching `ACCEPTED`, so `OrderFilled` always follows
 the promoting `OrderUpdated` against up-to-date state. See
-[GH-3972](https://github.com/nautechsystems/nautilus_trader/issues/3972).
+[GH-3972](https://github.com/market-simulator-team/market_simulator/issues/3972).
 
 :::note
 A chained-modify edge case is deferred: if a delayed fill from a *prior* leg arrives during a
@@ -1143,12 +1143,12 @@ client.
 ### Configuration example
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HYPERLIQUID
-from nautilus_trader.adapters.hyperliquid import HyperliquidDataClientConfig
-from nautilus_trader.adapters.hyperliquid import HyperliquidExecClientConfig
-from nautilus_trader.adapters.hyperliquid import HyperliquidProductType
-from nautilus_trader.config import InstrumentProviderConfig
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.adapters.hyperliquid import HYPERLIQUID
+from market_simulator.adapters.hyperliquid import HyperliquidDataClientConfig
+from market_simulator.adapters.hyperliquid import HyperliquidExecClientConfig
+from market_simulator.adapters.hyperliquid import HyperliquidProductType
+from market_simulator.config import InstrumentProviderConfig
+from market_simulator.config import TradingNodeConfig
 
 config = TradingNodeConfig(
     data_clients={
@@ -1186,10 +1186,10 @@ mainnet variables.
 Then, create a `TradingNode` and add the client factories:
 
 ```python
-from nautilus_trader.adapters.hyperliquid import HYPERLIQUID
-from nautilus_trader.adapters.hyperliquid import HyperliquidLiveDataClientFactory
-from nautilus_trader.adapters.hyperliquid import HyperliquidLiveExecClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.hyperliquid import HYPERLIQUID
+from market_simulator.adapters.hyperliquid import HyperliquidLiveDataClientFactory
+from market_simulator.adapters.hyperliquid import HyperliquidLiveExecClientFactory
+from market_simulator.live.node import TradingNode
 
 # Instantiate the live trading node with a configuration
 node = TradingNode(config=config)
@@ -1206,5 +1206,5 @@ node.build()
 
 :::info
 For additional features or to contribute to the Hyperliquid adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

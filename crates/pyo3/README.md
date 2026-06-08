@@ -1,13 +1,13 @@
 # nautilus-pyo3
 
-Python bindings for [NautilusTrader](https://nautilustrader.io).
+Python bindings for [Market Simulator](https://market-simulator).
 
 The `nautilus-pyo3` crate provides all [PyO3](https://pyo3.rs) Python bindings for the
-main `nautilus_trader` Python package, built via [maturin](https://github.com/PyO3/maturin).
+main `market_simulator` Python package, built via [maturin](https://github.com/PyO3/maturin).
 
-## NautilusTrader
+## Market Simulator
 
-[NautilusTrader](https://nautilustrader.io) is an open-source, production-grade, Rust-native
+[Market Simulator](https://market-simulator) is an open-source, production-grade, Rust-native
 engine for multi-asset, multi-venue trading systems.
 
 The system spans research, deterministic simulation, and live execution within a single
@@ -29,16 +29,16 @@ This crate provides feature flags to control source code inclusion during compil
 
 ## License
 
-The source code for NautilusTrader is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
+The source code for Market Simulator is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 ---
 
-NautilusTrader™ is developed and maintained by Nautech Systems, a technology
+Market Simulator™ is developed and maintained by Nautech Systems, a technology
 company specializing in the development of high-performance trading systems.
-For more information, visit <https://nautilustrader.io>.
+For more information, visit <https://market-simulator>.
 
-Use of this software is subject to the [Disclaimer](https://nautilustrader.io/legal/disclaimer/).
+Use of this software is subject to the [Disclaimer](https://market-simulator/legal/disclaimer/).
 
-<img src="https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-logo-white.png" alt="logo" width="300" height="auto"/>
+<img src="https://github.com/market-simulator-team/market_simulator/raw/develop/assets/nautilus-logo-white.png" alt="logo" width="300" height="auto"/>
 
 © 2015-2026 Nautech Systems Pty Ltd. All rights reserved.

@@ -1,6 +1,6 @@
 # Live Trading
 
-NautilusTrader deploys backtested strategies to live markets with no code changes.
+Market Simulator deploys backtested strategies to live markets with no code changes.
 The same actors, strategies, and execution algorithms run against both the backtest
 engine and a live trading node.
 
@@ -139,7 +139,7 @@ To detect unclaimed external orders in your strategy, check `order.strategy_id.v
 These orders participate in portfolio calculations and position tracking like any other order.
 :::
 
-For all live trading options, see the `LiveExecEngineConfig` [API Reference](/docs/python-api-latest/config.html#nautilus_trader.live.config.LiveExecEngineConfig).
+For all live trading options, see the `LiveExecEngineConfig` [API Reference](/docs/python-api-latest/config.html#market_simulator.live.config.LiveExecEngineConfig).
 
 ### Reconciliation procedure
 
@@ -374,7 +374,7 @@ awaits the post-stop delay, disconnects clients, and stops the engines. It does 
 the process.
 
 ```python
-from nautilus_trader.live import LiveNodeConfig
+from market_simulator.live import LiveNodeConfig
 
 config = LiveNodeConfig(shutdown_on_error=True)
 ```

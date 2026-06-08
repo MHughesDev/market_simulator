@@ -3,7 +3,7 @@
 ## Overview
 
 The blockchain adapter ingests DeFi data from EVM chains and exposes it through the
-NautilusTrader data model. It combines three services:
+Market Simulator data model. It combines three services:
 
 - HyperSync for high-throughput historical blocks and contract logs.
 - HTTP RPC for contract calls, Multicall reads, and final on-chain state hydration.
@@ -153,7 +153,7 @@ initialize from a snapshot supplied in the replay data. `load_pool_snapshot` rea
 from the Postgres cache, reconstructed with its full position and tick state, as of a chosen block:
 
 ```python
-from nautilus_trader.adapters.blockchain import load_pool_snapshot
+from market_simulator.adapters.blockchain import load_pool_snapshot
 
 snapshot = load_pool_snapshot(
     pg_config=postgres_config,

@@ -4,8 +4,8 @@ An instrument represents the specification for a tradable asset, contract, or lo
 synthetic market. Market data, orders, positions, accounting, portfolio calculations,
 and adapter symbology all refer back to an `InstrumentId` and its instrument definition.
 
-NautilusTrader exposes the same instrument model to Rust and Python users. Rust
-examples use `nautilus_model`; Python examples use `nautilus_trader.model.instruments`.
+Market Simulator exposes the same instrument model to Rust and Python users. Rust
+examples use `nautilus_model`; Python examples use `market_simulator.model.instruments`.
 
 ## Instrument types
 
@@ -33,7 +33,7 @@ examples use `nautilus_model`; Python examples use `nautilus_trader.model.instru
 
 ## Taxonomy
 
-NautilusTrader groups instruments by the market structure they represent:
+Market Simulator groups instruments by the market structure they represent:
 
 ```mermaid
 flowchart TD
@@ -128,10 +128,10 @@ Rust users work with the `nautilus_model` instrument structs and `InstrumentAny`
 use nautilus_model::instruments::{CurrencyPair, InstrumentAny};
 ```
 
-Python users normally work with instrument classes from `nautilus_trader.model.instruments`:
+Python users normally work with instrument classes from `market_simulator.model.instruments`:
 
 ```python
-from nautilus_trader.model.instruments import CurrencyPair
+from market_simulator.model.instruments import CurrencyPair
 ```
 
 Both surfaces represent the same instrument contract: identity, precision, increments,
@@ -142,7 +142,7 @@ currencies, limits, margins, fees, metadata, and timestamps.
 Generic test instruments can be instantiated through the `TestInstrumentProvider`:
 
 ```python
-from nautilus_trader.test_kit.providers import TestInstrumentProvider
+from market_simulator.test_kit.providers import TestInstrumentProvider
 
 audusd = TestInstrumentProvider.default_fx_ccy("AUD/USD")
 ```
@@ -164,7 +164,7 @@ let instrument = cache.instrument(&instrument_id);
 ```
 
 ```python tab="Python"
-from nautilus_trader.model import InstrumentId
+from market_simulator.model import InstrumentId
 
 instrument_id = InstrumentId.from_str("ETHUSDT-PERP.BINANCE")
 instrument = self.cache.instrument(instrument_id)
@@ -183,7 +183,7 @@ When the `DataEngine` receives an instrument update, it passes the object to the
 ## Precision
 
 Precision defines the number of decimal places allowed for prices and quantities on an
-instrument. NautilusTrader enforces this strictly because exchanges validate the same
+instrument. Market Simulator enforces this strictly because exchanges validate the same
 constraints, and backtests should not fill orders at prices or sizes that cannot exist
 in production.
 

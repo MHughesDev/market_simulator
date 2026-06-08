@@ -146,7 +146,7 @@ package. It requires a built extension module (`make build-debug-v2`) and uses i
 own virtualenv under `python/.venv/`.
 
 For new live adapter examples and docs in the v2 path, prefer
-`nautilus_trader.live.LiveNode`. `nautilus_trader.live.node.TradingNode` remains the
+`market_simulator.live.LiveNode`. `market_simulator.live.node.TradingNode` remains the
 legacy v1/Cython runtime used by the root-level `tests/` suite and older examples.
 
 ```bash
@@ -231,8 +231,8 @@ Use **pytest-style free functions and fixtures**. Do not use test classes.
   Prefer `yield` fixtures when teardown is needed (e.g., `engine.dispose()`).
 - Use `@pytest.mark.parametrize` to cover multiple inputs without duplicating
   test bodies.
-- Import model types from `nautilus_trader.model`, not from
-  `nautilus_trader.core.nautilus_pyo3`.
+- Import model types from `market_simulator.model`, not from
+  `market_simulator.core.nautilus_pyo3`.
 - Test providers live in `python/tests/providers.py`. Use `TestInstrumentProvider`
   and `TestDataProvider` for common instruments and data.
 - Mark tests that depend on unfinished features with
@@ -251,7 +251,7 @@ see the [Rust guide](rust.md#testing-conventions).
 
 ## Waiting for asynchronous effects
 
-When waiting for background work to complete, prefer the polling helpers `await eventually(...)` from `nautilus_trader.test_kit.functions` and `wait_until_async(...)` from `nautilus_common::testing` instead of arbitrary sleeps. They surface failures faster and reduce flakiness in CI because they stop as soon as the condition is satisfied or time out with a useful error.
+When waiting for background work to complete, prefer the polling helpers `await eventually(...)` from `market_simulator.test_kit.functions` and `wait_until_async(...)` from `nautilus_common::testing` instead of arbitrary sleeps. They surface failures faster and reduce flakiness in CI because they stop as soon as the condition is satisfied or time out with a useful error.
 
 ## Mocks
 
@@ -299,23 +299,23 @@ This workflow lets you debug Python and Rust code simultaneously from a Jupyter 
 
 Install these VS Code extensions: Rust Analyzer, CodeLLDB, Python, Jupyter.
 
-### Step 0: Compile `nautilus_trader` with debug symbols
+### Step 0: Compile `market_simulator` with debug symbols
 
    ```bash
-   cd nautilus_trader && make build-debug-pyo3
+   cd market_simulator && make build-debug-pyo3
    ```
 
 ### Step 1: Set up debugging configuration
 
 ```python
-from nautilus_trader.test_kit.debug_helpers import setup_debugging
+from market_simulator.test_kit.debug_helpers import setup_debugging
 
 setup_debugging()
 ```
 
 This command creates the required VS Code debugging configurations and starts a `debugpy` server for the Python debugger.
 
-By default `setup_debugging()` expects the `.vscode` folder one level above the `nautilus_trader` root directory.
+By default `setup_debugging()` expects the `.vscode` folder one level above the `market_simulator` root directory.
 Adjust the target location if your workspace layout differs.
 
 ### Step 2: Set breakpoints
@@ -365,7 +365,7 @@ existing types are tested, so new types can follow the same pattern.
 | PyO3 actor dispatch    | `crates/common/src/python/actor.rs`         | Rust handler dispatches to Python `on_*` method.           |
 | Python Actor subscribe | `tests/unit_tests/common/test_actor.py`     | Python actor subscribes; command count increments.         |
 | Python Actor unsub     | `tests/unit_tests/common/test_actor.py`     | Python actor unsubscribes; subscription list clears.       |
-| Backtest client        | `nautilus_trader/backtest/data_client.pyx`  | Backtest client overrides base subscribe/unsubscribe.      |
+| Backtest client        | `market_simulator/backtest/data_client.pyx`  | Backtest client overrides base subscribe/unsubscribe.      |
 | Adapter live tests     | `docs/developer_guide/spec_data_testing.md` | Live data acceptance tests (DataTester).                   |
 
 ### Coverage per data type
@@ -421,7 +421,7 @@ When introducing a new data type, add tests at each layer:
    - Assert `actor.subscribed_<type>()` returns expected entries after subscribe and
      is empty after unsubscribe.
 
-5. **Backtest client** (`nautilus_trader/backtest/data_client.pyx`): Override
+5. **Backtest client** (`market_simulator/backtest/data_client.pyx`): Override
    `subscribe_<type>` and `unsubscribe_<type>` if the base `MarketDataClient` raises
    `NotImplementedError` for the method.
 

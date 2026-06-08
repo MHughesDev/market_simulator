@@ -5,7 +5,7 @@ class, and how these reports are used for PnL accounting and backtest post-run a
 
 ## Overview
 
-The `ReportProvider` class in NautilusTrader generates structured analytical reports from
+The `ReportProvider` class in Market Simulator generates structured analytical reports from
 trading data, transforming raw orders, fills, positions, and account states into pandas DataFrames
 for analysis and visualization. These reports help you evaluate strategy performance,
 analyze execution quality, and verify PnL accounting.
@@ -32,7 +32,7 @@ Generates a full view of all orders:
 orders_report = trader.generate_orders_report()
 
 # Or using ReportProvider directly
-from nautilus_trader.analysis import ReportProvider
+from market_simulator.analysis import ReportProvider
 
 orders = cache.orders()
 orders_report = ReportProvider.generate_orders_report(orders)
@@ -167,7 +167,7 @@ Tracks account balance and margin changes over time:
 ```python
 # Using Trader helper method (recommended)
 # Requires venue parameter
-from nautilus_trader.model.identifiers import Venue
+from market_simulator.model.identifiers import Venue
 venue = Venue("BINANCE")
 account_report = trader.generate_account_report(venue)
 
@@ -240,7 +240,7 @@ for position in positions:
 For `NETTING` OMS:
 
 ```python
-from nautilus_trader.model.objects import Money
+from market_simulator.model.objects import Money
 
 # Include snapshots for complete PnL (per currency)
 pnl_by_currency = {}
@@ -313,10 +313,10 @@ see the [Portfolio guide](portfolio.md#portfolio-statistics). The Portfolio guid
 
 ### Visualization
 
-NautilusTrader provides interactive tearsheets and plots via Plotly:
+Market Simulator provides interactive tearsheets and plots via Plotly:
 
 ```python
-from nautilus_trader.analysis import create_tearsheet
+from market_simulator.analysis import create_tearsheet
 
 # After backtest run
 engine.run()
@@ -336,7 +336,7 @@ This creates an interactive HTML report with:
 For more control, generate individual plots:
 
 ```python
-from nautilus_trader.analysis import create_equity_curve
+from market_simulator.analysis import create_equity_curve
 
 returns = engine.portfolio.analyzer.returns()
 fig = create_equity_curve(returns, title="My Strategy Equity")
@@ -347,7 +347,7 @@ fig.write_image("equity.png")  # Export to PNG (requires kaleido)
 Install visualization dependencies:
 
 ```bash
-uv pip install "nautilus_trader[visualization]"
+uv pip install "market_simulator[visualization]"
 ```
 
 ## Report generation patterns

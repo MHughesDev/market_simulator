@@ -4,7 +4,7 @@ Founded in 2017, Binance is one of the largest cryptocurrency exchanges in terms
 of daily trading volume, and open interest of crypto assets and crypto
 derivative products.
 
-NautilusTrader provides Binance integration in both Python and Rust. The Rust
+Market Simulator provides Binance integration in both Python and Rust. The Rust
 adapter supports all product types listed below and includes additional
 features (noted inline). The Python adapter supports the same product types.
 
@@ -16,9 +16,9 @@ Supported products:
 
 ## Examples
 
-- [Python live examples](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/binance/)
-- [Rust spot examples](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/binance/examples/spot/)
-- [Rust futures examples](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/binance/examples/futures/)
+- [Python live examples](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/binance/)
+- [Rust spot examples](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/binance/examples/spot/)
+- [Rust futures examples](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/binance/examples/futures/)
 
 ## Overview
 
@@ -76,7 +76,7 @@ See the Binance [API Reference](/docs/python-api-latest/adapters/binance.html) f
 ## Symbology
 
 Native Binance symbols are used where possible for spot and futures contracts.
-Because NautilusTrader supports multi-venue trading, it must distinguish between
+Because Market Simulator supports multi-venue trading, it must distinguish between
 `BTCUSDT` the spot pair and `BTCUSDT` the perpetual futures contract (Binance
 uses the same symbol for both).
 
@@ -365,7 +365,7 @@ error. Use `activation_price` instead.
 
 ## Link & Trade
 
-The NautilusTrader integration ID is automatically prefixed to all
+The Market Simulator integration ID is automatically prefixed to all
 system-generated client order IDs for every order placed through the Binance
 Rust adapter. This provides transparent order attribution through Binance's
 [Link and Trade](https://developers.binance.com/docs/binance_link/link-and-trade)
@@ -399,7 +399,7 @@ When querying Binance directly (REST API, web UI, or your own HTTP code), the
 the original Nautilus `ClientOrderId`:
 
 ```python
-from nautilus_trader.adapters.binance import (
+from market_simulator.adapters.binance import (
     decode_binance_futures_client_order_id,
     decode_binance_spot_client_order_id,
 )
@@ -481,9 +481,9 @@ Subscribe to `BinanceFuturesMarkPriceUpdate` (including funding rate info)
 from your actor or strategy:
 
 ```python
-from nautilus_trader.adapters.binance import BinanceFuturesMarkPriceUpdate
-from nautilus_trader.model import DataType
-from nautilus_trader.model import ClientId
+from market_simulator.adapters.binance import BinanceFuturesMarkPriceUpdate
+from market_simulator.model import DataType
+from market_simulator.model import ClientId
 
 # In your `on_start` method
 self.subscribe_data(
@@ -496,7 +496,7 @@ Received `BinanceFuturesMarkPriceUpdate` objects are passed to your `on_data`
 method. Check the type, as this method handles all custom/generic data.
 
 ```python
-from nautilus_trader.core import Data
+from market_simulator.core import Data
 
 def on_data(self, data: Data):
     # First check the type of data
@@ -512,7 +512,7 @@ Subscribe to liquidation updates for either:
 - all symbols (`!forceOrder@arr`) by omitting `instrument_id`.
 
 ```python
-from nautilus_trader.core import nautilus_pyo3 as pyo3
+from market_simulator.core import nautilus_pyo3 as pyo3
 
 client_id = pyo3.ClientId.from_str("BINANCE")
 
@@ -760,8 +760,8 @@ data and execution clients. Add a `BINANCE` section to your client
 configuration:
 
 ```python
-from nautilus_trader.adapters.binance import BINANCE
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.binance import BINANCE
+from market_simulator.live.node import TradingNode
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -791,10 +791,10 @@ config = TradingNodeConfig(
 Then, create a `TradingNode` and add the client factories:
 
 ```python
-from nautilus_trader.adapters.binance import BINANCE
-from nautilus_trader.adapters.binance import BinanceLiveDataClientFactory
-from nautilus_trader.adapters.binance import BinanceLiveExecClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.binance import BINANCE
+from market_simulator.adapters.binance import BinanceLiveDataClientFactory
+from market_simulator.adapters.binance import BinanceLiveExecClientFactory
+from market_simulator.live.node import TradingNode
 
 # Instantiate the live trading node with a configuration
 node = TradingNode(config=config)
@@ -824,7 +824,7 @@ partial-book snapshots rather than buffered diffs (see [Order books](#order-book
 
 :::note
 Exposed to Python as `BinanceSpotMarketDataMode` on
-`nautilus_trader.core.nautilus_pyo3.binance`; not on the legacy Python adapter config.
+`market_simulator.core.nautilus_pyo3.binance`; not on the legacy Python adapter config.
 :::
 
 ### Key types
@@ -834,7 +834,7 @@ Binance supports three API key types: **Ed25519**, **HMAC-SHA256**, and
 no configuration is needed.
 
 **Ed25519 is strongly recommended.** Binance recommends Ed25519 for its
-superior performance and security. A future version of NautilusTrader will
+superior performance and security. A future version of Market Simulator will
 require Ed25519 exclusively.
 
 | Key Type | Data Clients | Execution Clients | Status |
@@ -878,7 +878,7 @@ Download the [Binance Asymmetric Key Generator](https://github.com/binance/asymm
 3. Paste the contents of your public key file (including the `-----BEGIN PUBLIC KEY-----` header/footer)
 4. Configure permissions (Enable Spot & Margin Trading, etc.)
 
-**Using with NautilusTrader**
+**Using with Market Simulator**
 
 Set the private key as your API secret:
 
@@ -1065,7 +1065,7 @@ level. For market maker accounts with negative maker fees or when precise
 rates are required, enable per-symbol commission rate queries:
 
 ```python
-from nautilus_trader.adapters.binance import BinanceInstrumentProviderConfig
+from market_simulator.adapters.binance import BinanceInstrumentProviderConfig
 
 instrument_provider=BinanceInstrumentProviderConfig(
     load_all=True,
@@ -1093,7 +1093,7 @@ with a warning.
 To suppress these warnings:
 
 ```python
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.config import InstrumentProviderConfig
 
 instrument_provider=InstrumentProviderConfig(
     load_all=True,
@@ -1112,7 +1112,7 @@ To use hedge mode:
 2. Set `use_reduce_only=False` in `BinanceExecClientConfig` (`True` by default).
 
     ```python
-    from nautilus_trader.adapters.binance import BINANCE
+    from market_simulator.adapters.binance import BINANCE
 
     config = TradingNodeConfig(
         ...,  # Omitted
@@ -1171,5 +1171,5 @@ To use hedge mode:
 
 :::info
 To contribute to the Binance adapter, see the
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

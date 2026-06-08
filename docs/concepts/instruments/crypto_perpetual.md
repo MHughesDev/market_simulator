@@ -99,14 +99,14 @@ let instrument = InstrumentAny::CryptoPerpetual(ethusdt_perp);
 ```python tab="Python"
 from decimal import Decimal
 
-from nautilus_trader.model.currencies import ETH
-from nautilus_trader.model.currencies import USDT
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import CryptoPerpetual
-from nautilus_trader.model.objects import Money
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import ETH
+from market_simulator.model.currencies import USDT
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import CryptoPerpetual
+from market_simulator.model.objects import Money
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 ethusdt_perp = CryptoPerpetual(
     instrument_id=InstrumentId.from_str("ETHUSDT-PERP.BINANCE"),

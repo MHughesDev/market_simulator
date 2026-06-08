@@ -1,6 +1,6 @@
 # Minimal Reproducible Example
 
-A bare-minimum template for reproducing and reporting issues with NautilusTrader.
+A bare-minimum template for reproducing and reporting issues with Market Simulator.
 
 ## Why This Template?
 

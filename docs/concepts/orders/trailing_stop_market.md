@@ -54,14 +54,14 @@ let order = self.core.order_factory().trailing_stop_market(
 ```python tab="Python"
 import pandas as pd
 from decimal import Decimal
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model.enums import TriggerType
-from nautilus_trader.model.enums import TrailingOffsetType
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Price
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import TrailingStopMarketOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model.enums import TriggerType
+from market_simulator.model.enums import TrailingOffsetType
+from market_simulator.model import InstrumentId
+from market_simulator.model import Price
+from market_simulator.model import Quantity
+from market_simulator.model.orders import TrailingStopMarketOrder
 
 order: TrailingStopMarketOrder = self.order_factory.trailing_stop_market(
     instrument_id=InstrumentId.from_str("ETHUSD-PERP.BINANCE"),
@@ -78,7 +78,7 @@ order: TrailingStopMarketOrder = self.order_factory.trailing_stop_market(
 )
 ```
 
-See the [`TrailingStopMarketOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.trailing_stop_market.TrailingStopMarketOrder) for further details.
+See the [`TrailingStopMarketOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.trailing_stop_market.TrailingStopMarketOrder) for further details.
 
 ## Related guides
 

@@ -39,7 +39,7 @@ Hurst estimate decays back through a lower threshold, or when a
 holding-time cap is reached.
 
 The strategy is shipped as
-[`HurstVpinDirectional`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/hurst_vpin_directional)
+[`HurstVpinDirectional`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/hurst_vpin_directional)
 in the `nautilus_trading::examples::strategies` module. As with all
 shipped example strategies, it is intentionally simple and has no alpha
 advantage.
@@ -59,7 +59,7 @@ currency, and dollar-bar sampling frame are all USD.
 ### Why dollar bars and VPIN together
 
 VPIN is defined on *volume* buckets rather than *time* buckets. Dollar
-bars (`VALUE` aggregation in NautilusTrader) close after a fixed
+bars (`VALUE` aggregation in Market Simulator) close after a fixed
 notional has traded, so the sampling frame adapts to market activity.
 Defining each VPIN bucket as one dollar bar keeps both signals on the
 same clock, and Hurst sampled on the same bars uses the same frame.
@@ -67,7 +67,7 @@ same clock, and Hurst sampled on the same bars uses the same frame.
 ## Prerequisites
 
 - A working Rust toolchain (see [rustup.rs](https://rustup.rs)).
-- The NautilusTrader repository cloned and building.
+- The Market Simulator repository cloned and building.
 - Internet access to download a free Tardis sample (no API key required
   for the first day of each month).
 
@@ -135,7 +135,7 @@ declared precision.
 
 Since we are loading CSV data directly rather than through the live
 Kraken adapter, we define `PF_XBTUSD` manually as a
-[`CryptoPerpetual`](https://github.com/nautechsystems/nautilus_trader/blob/develop/crates/model/src/instruments/crypto_perpetual.rs).
+[`CryptoPerpetual`](https://github.com/market-simulator-team/market_simulator/blob/develop/crates/model/src/instruments/crypto_perpetual.rs).
 Linear perpetuals on Kraken Futures are quoted and margined in USD:
 
 ```rust
@@ -178,13 +178,13 @@ for current rates.
 
 ## Dollar-bar sampling
 
-NautilusTrader ships all the information-driven bar aggregators from
+Market Simulator ships all the information-driven bar aggregators from
 AFML Chapter 2: tick, volume, value (dollar), plus imbalance and runs
 variants for each. We use plain `VALUE` bars here, which close after a
 fixed notional has traded on the tape.
 
 The bar type is expressed as a string. The `INTERNAL` suffix tells the
-engine to aggregate inside NautilusTrader from the underlying trade
+engine to aggregate inside Market Simulator from the underlying trade
 stream (price type `LAST`):
 
 ```rust
@@ -482,7 +482,7 @@ static PNGs via Plotly's Kaleido exporter.
 
 ## Further reading
 
-- [`HurstVpinDirectional` strategy source](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/hurst_vpin_directional)
+- [`HurstVpinDirectional` strategy source](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/hurst_vpin_directional)
 - [Data concepts: bar types and aggregation](../concepts/data.md)
 - [Tardis integration guide](../integrations/tardis.md)
 - [Kraken integration guide](../integrations/kraken.md)

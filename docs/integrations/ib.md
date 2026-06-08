@@ -1,10 +1,10 @@
 # Interactive Brokers
 
-Interactive Brokers (IB) is a trading platform providing market access across a wide range of financial instruments, including stocks, options, futures, currencies, bonds, funds, and cryptocurrencies. NautilusTrader offers an adapter to integrate with IB using their [Trader Workstation (TWS) API](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/) through their Python library, [ibapi](https://github.com/nautechsystems/ibapi).
+Interactive Brokers (IB) is a trading platform providing market access across a wide range of financial instruments, including stocks, options, futures, currencies, bonds, funds, and cryptocurrencies. Market Simulator offers an adapter to integrate with IB using their [Trader Workstation (TWS) API](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/) through their Python library, [ibapi](https://github.com/market-simulator-team/ibapi).
 
-The TWS API is an interface to IB's standalone trading applications: TWS and IB Gateway. Both can be downloaded from the IB website. If you haven't installed TWS or IB Gateway yet, refer to the [Initial Setup](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#tws-download) guide. In NautilusTrader, you'll establish a connection to one of these applications via the `InteractiveBrokersClient`.
+The TWS API is an interface to IB's standalone trading applications: TWS and IB Gateway. Both can be downloaded from the IB website. If you haven't installed TWS or IB Gateway yet, refer to the [Initial Setup](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#tws-download) guide. In Market Simulator, you'll establish a connection to one of these applications via the `InteractiveBrokersClient`.
 
-Alternatively, you can start with a [dockerized version](https://github.com/gnzsnz/ib-gateway-docker) of the IB Gateway, which is particularly useful when deploying trading strategies on a hosted cloud platform. This requires having [Docker](https://www.docker.com/) installed on your machine, along with the [docker](https://pypi.org/project/docker/) Python package, which NautilusTrader conveniently includes as an extra package.
+Alternatively, you can start with a [dockerized version](https://github.com/gnzsnz/ib-gateway-docker) of the IB Gateway, which is particularly useful when deploying trading strategies on a hosted cloud platform. This requires having [Docker](https://www.docker.com/) installed on your machine, along with the [docker](https://pypi.org/project/docker/) Python package, which Market Simulator conveniently includes as an extra package.
 
 :::note
 The standalone TWS and IB Gateway applications require manually inputting username, password, and trading mode (live or paper) at startup. The dockerized version of the IB Gateway handles these steps programmatically.
@@ -12,10 +12,10 @@ The standalone TWS and IB Gateway applications require manually inputting userna
 
 ## Installation
 
-To install NautilusTrader with Interactive Brokers (and Docker) support:
+To install Market Simulator with Interactive Brokers (and Docker) support:
 
 ```bash
-uv pip install "nautilus_trader[ib,docker]"
+uv pip install "market_simulator[ib,docker]"
 ```
 
 To build from source with all extras (including IB and Docker):
@@ -25,19 +25,19 @@ uv sync --all-extras
 ```
 
 :::note
-Because IB does not provide wheels for `ibapi`, NautilusTrader [repackages](https://pypi.org/project/nautilus-ibapi/) it for release on PyPI.
+Because IB does not provide wheels for `ibapi`, Market Simulator [repackages](https://pypi.org/project/nautilus-ibapi/) it for release on PyPI.
 :::
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/interactive_brokers/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/interactive_brokers/).
 
 ## Getting started
 
 Before implementing your trading strategies, make sure that either TWS (Trader Workstation) or IB Gateway is running. You can log in to one of these standalone applications with your credentials, or connect programmatically via `DockerizedIBGateway`.
 
 :::warning
-Configure TWS or IB Gateway to return market data timestamps in UTC before connecting NautilusTrader. This setting must be enabled by the user in TWS/IB Gateway, as NautilusTrader is designed to work with UTC timestamps.
+Configure TWS or IB Gateway to return market data timestamps in UTC before connecting Market Simulator. This setting must be enabled by the user in TWS/IB Gateway, as Market Simulator is designed to work with UTC timestamps.
 :::
 
 ### Connection methods
@@ -61,8 +61,8 @@ Interactive Brokers uses different default ports depending on the application an
 When connecting to a pre-existing gateway or TWS, specify the `ibg_host` and `ibg_port` parameters in both the `InteractiveBrokersDataClientConfig` and `InteractiveBrokersExecClientConfig`:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
 
 # Example for TWS paper trading (default port 7497)
 data_config = InteractiveBrokersDataClientConfig(
@@ -84,8 +84,8 @@ exec_config = InteractiveBrokersExecClientConfig(
 For automated deployments, the dockerized gateway is recommended. Supply `dockerized_gateway` with an instance of `DockerizedIBGatewayConfig` in both client configurations. The `ibg_host` and `ibg_port` parameters are not needed as they're managed automatically.
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import DockerizedIBGatewayConfig
-from nautilus_trader.adapters.interactive_brokers.gateway import DockerizedIBGateway
+from market_simulator.adapters.interactive_brokers.config import DockerizedIBGatewayConfig
+from market_simulator.adapters.interactive_brokers.gateway import DockerizedIBGateway
 
 gateway_config = DockerizedIBGatewayConfig(
     username="your_username",  # Or set TWS_USERNAME env var
@@ -353,7 +353,7 @@ The adapter supports various instrument formats based on Interactive Brokers' co
 
 ## Instruments and contracts
 
-In Interactive Brokers, a NautilusTrader `Instrument` corresponds to an IB [Contract](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#contracts). The adapter handles two types of contract representations:
+In Interactive Brokers, a Market Simulator `Instrument` corresponds to an IB [Contract](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/#contracts). The adapter handles two types of contract representations:
 
 ### Contract types
 
@@ -361,7 +361,7 @@ In Interactive Brokers, a NautilusTrader `Instrument` corresponds to an IB [Cont
 
 - Contains essential contract identification fields
 - Used for contract searches and basic operations
-- Cannot be directly converted to a NautilusTrader `Instrument`
+- Cannot be directly converted to a Market Simulator `Instrument`
 
 #### Contract details (`IBContractDetails`)
 
@@ -371,7 +371,7 @@ In Interactive Brokers, a NautilusTrader `Instrument` corresponds to an IB [Cont
   - Margin requirements
   - Price increments and multipliers
   - Market data permissions
-- Can be converted to a NautilusTrader `Instrument`
+- Can be converted to a Market Simulator `Instrument`
 - Required for trading operations
 
 ### Contract discovery
@@ -395,8 +395,8 @@ For FX instruments, use slash-separated symbols such as `EUR/USD.IDEALPRO`. The 
 local symbol form belongs to raw symbology, for example `EUR.USD=CASH.IDEALPRO`.
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
-from nautilus_trader.adapters.interactive_brokers.config import SymbologyMethod
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
+from market_simulator.adapters.interactive_brokers.config import SymbologyMethod
 
 instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
     symbology_method=SymbologyMethod.IB_SIMPLIFIED,
@@ -415,7 +415,7 @@ instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
 Use `load_contracts` with `IBContract` instances for complex scenarios like options/futures chains:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBContract
+from market_simulator.adapters.interactive_brokers.common import IBContract
 
 # Load options chain for specific expiry
 options_chain_expiry = IBContract(
@@ -456,7 +456,7 @@ instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
 ### IBContract examples by asset class
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBContract
+from market_simulator.adapters.interactive_brokers.common import IBContract
 
 # Stocks
 IBContract(secType='STK', exchange='SMART', primaryExchange='ARCA', symbol='SPY')
@@ -564,14 +564,14 @@ When using `build_options_chain=True` or `build_futures_chain=True`, the `secTyp
 
 ## Option spreads
 
-Interactive Brokers supports option spreads through BAG contracts, which combine multiple option legs into a single tradeable instrument. NautilusTrader provides support for creating, loading, and trading option spreads.
+Interactive Brokers supports option spreads through BAG contracts, which combine multiple option legs into a single tradeable instrument. Market Simulator provides support for creating, loading, and trading option spreads.
 
 ### Creating option spread instrument IDs
 
 Option spreads are created using the `new_generic_spread_id()` function, which combines individual option legs with their respective ratios:
 
 ```python
-from nautilus_trader.model.identifiers import InstrumentId, new_generic_spread_id
+from market_simulator.model.identifiers import InstrumentId, new_generic_spread_id
 
 # Create individual option instrument IDs
 call_leg = InstrumentId.from_str("SPY C400.SMART")
@@ -637,7 +637,7 @@ The `HistoricInteractiveBrokersClient` provides methods for retrieving historica
 ### Historical data client
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.historical.client import HistoricInteractiveBrokersClient
+from market_simulator.adapters.interactive_brokers.historical.client import HistoricInteractiveBrokersClient
 from ibapi.common import MarketDataTypeEnum
 
 # Initialize the client
@@ -658,7 +658,7 @@ await client.connect()
 #### Basic instrument retrieval
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBContract
+from market_simulator.adapters.interactive_brokers.common import IBContract
 
 # Define contracts
 contracts = [
@@ -805,9 +805,9 @@ The adapter supports various bar specifications:
 ```python
 import asyncio
 import datetime
-from nautilus_trader.adapters.interactive_brokers.common import IBContract
-from nautilus_trader.adapters.interactive_brokers.historical.client import HistoricInteractiveBrokersClient
-from nautilus_trader.persistence.catalog import ParquetDataCatalog
+from market_simulator.adapters.interactive_brokers.common import IBContract
+from market_simulator.adapters.interactive_brokers.historical.client import HistoricInteractiveBrokersClient
+from market_simulator.persistence.catalog import ParquetDataCatalog
 
 
 async def download_historical_data():
@@ -908,9 +908,9 @@ The `InteractiveBrokersInstrumentProvider` provides access to financial instrume
 #### Basic configuration
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
-from nautilus_trader.adapters.interactive_brokers.config import SymbologyMethod
-from nautilus_trader.adapters.interactive_brokers.common import IBContract
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
+from market_simulator.adapters.interactive_brokers.config import SymbologyMethod
+from market_simulator.adapters.interactive_brokers.common import IBContract
 
 instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
     symbology_method=SymbologyMethod.IB_SIMPLIFIED,
@@ -1009,8 +1009,8 @@ Interactive Brokers supports several market data types:
 #### Basic data client configuration
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import IBMarketDataTypeEnum
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
+from market_simulator.adapters.interactive_brokers.config import IBMarketDataTypeEnum
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
 
 data_client_config = InteractiveBrokersDataClientConfig(
     ibg_host="127.0.0.1",
@@ -1159,8 +1159,8 @@ The adapter supports most Interactive Brokers order types:
 #### Basic execution client configuration
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
-from nautilus_trader.config import RoutingConfig
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
+from market_simulator.config import RoutingConfig
 
 exec_client_config = InteractiveBrokersExecClientConfig(
     ibg_host="127.0.0.1",
@@ -1226,7 +1226,7 @@ Leave `exchange` unset, or set it to an empty string, to use the cached contract
 The adapter supports IB-specific order parameters through order tags:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBOrderTags
+from market_simulator.adapters.interactive_brokers.common import IBOrderTags
 
 # Create order with IB-specific parameters
 order_tags = IBOrderTags(
@@ -1257,7 +1257,7 @@ The adapter provides support for OCA orders through explicit configuration using
 All OCA functionality must be explicitly configured using `IBOrderTags`:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBOrderTags
+from market_simulator.adapters.interactive_brokers.common import IBOrderTags
 
 # Create OCA configuration
 oca_tags = IBOrderTags(
@@ -1282,7 +1282,7 @@ bracket_order = order_factory.bracket(
 You can specify different OCA types and behaviors using `IBOrderTags`:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBOrderTags
+from market_simulator.adapters.interactive_brokers.common import IBOrderTags
 
 # Create custom OCA configuration
 custom_oca_tags = IBOrderTags(
@@ -1360,7 +1360,7 @@ The adapter supports Interactive Brokers conditional orders through the `conditi
 #### Basic conditional order example
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.common import IBOrderTags
+from market_simulator.adapters.interactive_brokers.common import IBOrderTags
 
 # Create a price condition: trigger when SPY goes above $250
 price_condition = {
@@ -1469,7 +1469,7 @@ order_tags = IBOrderTags(
 
 ```python
 # Example showing all 6 supported condition types
-from nautilus_trader.adapters.interactive_brokers.common import IBOrderTags
+from market_simulator.adapters.interactive_brokers.common import IBOrderTags
 
 # 1. Price Condition - trigger when ES futures > 6000
 price_condition = {
@@ -1556,20 +1556,20 @@ Setting up a complete trading environment involves configuring a `TradingNodeCon
 
 ```python
 import os
-from nautilus_trader.adapters.interactive_brokers.common import IB
-from nautilus_trader.adapters.interactive_brokers.common import IB_VENUE
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
-from nautilus_trader.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
-from nautilus_trader.adapters.interactive_brokers.config import IBMarketDataTypeEnum
-from nautilus_trader.adapters.interactive_brokers.config import SymbologyMethod
-from nautilus_trader.adapters.interactive_brokers.factories import InteractiveBrokersLiveDataClientFactory
-from nautilus_trader.adapters.interactive_brokers.factories import InteractiveBrokersLiveExecClientFactory
-from nautilus_trader.config import LiveDataEngineConfig
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.config import RoutingConfig
-from nautilus_trader.config import TradingNodeConfig
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.interactive_brokers.common import IB
+from market_simulator.adapters.interactive_brokers.common import IB_VENUE
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersDataClientConfig
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersExecClientConfig
+from market_simulator.adapters.interactive_brokers.config import InteractiveBrokersInstrumentProviderConfig
+from market_simulator.adapters.interactive_brokers.config import IBMarketDataTypeEnum
+from market_simulator.adapters.interactive_brokers.config import SymbologyMethod
+from market_simulator.adapters.interactive_brokers.factories import InteractiveBrokersLiveDataClientFactory
+from market_simulator.adapters.interactive_brokers.factories import InteractiveBrokersLiveExecClientFactory
+from market_simulator.config import LiveDataEngineConfig
+from market_simulator.config import LoggingConfig
+from market_simulator.config import RoutingConfig
+from market_simulator.config import TradingNodeConfig
+from market_simulator.live.node import TradingNode
 
 # Instrument provider configuration
 instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
@@ -1637,7 +1637,7 @@ if __name__ == "__main__":
 ## Live trading with Dockerized gateway
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import DockerizedIBGatewayConfig
+from market_simulator.adapters.interactive_brokers.config import DockerizedIBGatewayConfig
 
 # Dockerized gateway configuration
 dockerized_gateway_config = DockerizedIBGatewayConfig(
@@ -1705,7 +1705,7 @@ exec_client_config = InteractiveBrokersExecClientConfig(
 
 ### Multiple IB execution clients for different accounts
 
-NautilusTrader supports using multiple Interactive Brokers execution clients simultaneously, each connected to a different IB account. This is useful when you need to trade with multiple accounts, such as:
+Market Simulator supports using multiple Interactive Brokers execution clients simultaneously, each connected to a different IB account. This is useful when you need to trade with multiple accounts, such as:
 
 - Separate accounts for different strategies
 - Paper trading and live trading accounts running simultaneously
@@ -1714,15 +1714,15 @@ NautilusTrader supports using multiple Interactive Brokers execution clients sim
 To configure multiple IB execution clients, provide multiple entries in the `exec_clients` dictionary with unique keys. Each entry specifies a different `account_id`:
 
 ```python
-from nautilus_trader.adapters.interactive_brokers.config import (
+from market_simulator.adapters.interactive_brokers.config import (
     InteractiveBrokersDataClientConfig,
     InteractiveBrokersExecClientConfig,
     InteractiveBrokersInstrumentProviderConfig,
     SymbologyMethod,
     IBMarketDataTypeEnum,
 )
-from nautilus_trader.live.config import TradingNodeConfig, RoutingConfig, LoggingConfig
-from nautilus_trader.model.identifiers import AccountId, Venue, ClientId
+from market_simulator.live.config import TradingNodeConfig, RoutingConfig, LoggingConfig
+from market_simulator.model.identifiers import AccountId, Venue, ClientId
 
 # Shared instrument provider configuration
 instrument_provider_config = InteractiveBrokersInstrumentProviderConfig(
@@ -1808,8 +1808,8 @@ config_node = TradingNodeConfig(
 **Example: Using multiple IB execution clients in a strategy:**
 
 ```python
-from nautilus_trader.model.identifiers import AccountId, ClientId
-from nautilus_trader.trading.strategy import Strategy
+from market_simulator.model.identifiers import AccountId, ClientId
+from market_simulator.trading.strategy import Strategy
 
 class MultiAccountStrategy(Strategy):
     """Example strategy using multiple IB accounts."""
@@ -1857,7 +1857,7 @@ class MultiAccountStrategy(Strategy):
 **Example: Querying account information with multiple IB clients:**
 
 ```python
-from nautilus_trader.model.identifiers import AccountId
+from market_simulator.model.identifiers import AccountId
 
 # Query specific account
 paper_account = cache.account(AccountId("IB-PAPER-DU123456"))
@@ -1942,7 +1942,7 @@ logging_config = LoggingConfig(
 )
 ```
 
-You can find additional examples here: <https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/interactive_brokers>
+You can find additional examples here: <https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/interactive_brokers>
 
 ## Troubleshooting
 
@@ -2076,7 +2076,7 @@ if not instruments:
 ### Support and resources
 
 - **IB API Documentation**: [TWS API Guide](https://ibkrcampus.com/ibkr-api-page/trader-workstation-api/)
-- **NautilusTrader Examples**: [GitHub Examples](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/interactive_brokers)
+- **Market Simulator Examples**: [GitHub Examples](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/interactive_brokers)
 - **IB Contract Search**: [Contract Information Center](https://pennies.interactivebrokers.com/cstools/contract_info/)
 - **Market Data Subscriptions**: [IB Market Data](https://www.interactivebrokers.com/en/pricing/market-data-pricing.php)
 
@@ -2084,5 +2084,5 @@ if not instruments:
 
 :::info
 For additional features or to contribute to the Interactive Brokers adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::
