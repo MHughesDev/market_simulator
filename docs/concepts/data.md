@@ -16,7 +16,7 @@ Common built-in data types include:
 
 See the API reference for the full set of built-in data classes and wrappers.
 
-NautilusTrader operates primarily on granular order book data for the highest realism
+Market Simulator operates primarily on granular order book data for the highest realism
 in execution simulations. Backtests can also run on any supported market data type,
 depending on the desired simulation fidelity.
 
@@ -85,7 +85,7 @@ The system generates bars using an *aggregation method* that groups data by spec
 
 ### Purpose of data aggregation
 
-Data aggregation in NautilusTrader transforms granular market data into structured bars or candles for several reasons:
+Data aggregation in Market Simulator transforms granular market data into structured bars or candles for several reasons:
 
 - To provide data for technical indicators and strategy development.
 - Because time-aggregated data (like minute bars) are often sufficient for many strategies.
@@ -146,7 +146,7 @@ to classify each trade. They cannot be aggregated from `QuoteTick` data alone.
 
 ### Types of aggregation
 
-NautilusTrader implements three distinct data aggregation methods:
+Market Simulator implements three distinct data aggregation methods:
 
 1. **Trade-to-bar aggregation**: Creates bars from `TradeTick` objects (executed trades)
    - Use case: For strategies analyzing execution prices or when working directly with trade data.
@@ -162,7 +162,7 @@ NautilusTrader implements three distinct data aggregation methods:
 
 ### Bar types
 
-NautilusTrader defines a unique *bar type* (`BarType` class) based on the following components:
+Market Simulator defines a unique *bar type* (`BarType` class) based on the following components:
 
 - **Instrument ID** (`InstrumentId`): Specifies the particular instrument for the bar.
 - **Bar Specification** (`BarSpecification`):
@@ -197,7 +197,7 @@ Bar data aggregation can be either *internal* or *external*:
 - `INTERNAL`: The bar is aggregated inside the local Nautilus system boundary.
 - `EXTERNAL`: The bar is aggregated outside the local Nautilus system boundary (typically by a trading venue or data provider).
 
-For bar-to-bar aggregation, the target bar type is always `INTERNAL` (since you're doing the aggregation within NautilusTrader),
+For bar-to-bar aggregation, the target bar type is always `INTERNAL` (since you're doing the aggregation within Market Simulator),
 but the source bars can be either `INTERNAL` or `EXTERNAL`, i.e., you can aggregate externally provided bars or already
 aggregated internal bars.
 
@@ -321,7 +321,7 @@ hourly_bar_type = BarType.from_str("6EH4.XCME-1-HOUR-LAST-INTERNAL@5-MINUTE-INTE
 
 ### Working with bars: request vs. subscribe
 
-NautilusTrader provides two distinct operations for working with bars:
+Market Simulator provides two distinct operations for working with bars:
 
 - **`request_bars()`**: Fetches historical data for a standard `BarType`, processed by the
   `on_historical_data()` handler.
@@ -453,7 +453,7 @@ apply to all time-based aggregation (millisecond through year):
 | `time_bars_build_delay`             | `int`  | `0`           | Delay in microseconds before building a bar. Useful in backtests to ensure data at bar boundary timestamps is processed before the timer fires. |
 
 ```python
-from nautilus_trader.data.config import DataEngineConfig
+from market_simulator.data.config import DataEngineConfig
 
 config = DataEngineConfig(
     time_bars_timestamp_on_close=True,
@@ -548,7 +548,7 @@ For details on how to implement user-defined data types, see the [Custom Data](#
 
 ## Loading data
 
-NautilusTrader supports data loading and conversion for three main use cases:
+Market Simulator supports data loading and conversion for three main use cases:
 
 - Providing data for a `BacktestEngine` to run backtests.
 - Persisting the Nautilus-specific Parquet format for the data catalog via `ParquetDataCatalog.write_data(...)` to be later used with a `BacktestNode`.
@@ -568,7 +568,7 @@ an entirely different format to [Databento Binary Encoding (DBN)](https://databe
 
 ### Data wranglers
 
-Data wranglers are implemented per specific Nautilus data type, and can be found in the `nautilus_trader.persistence.wranglers` module.
+Data wranglers are implemented per specific Nautilus data type, and can be found in the `market_simulator.persistence.wranglers` module.
 Common v1 wranglers include:
 
 - `OrderBookDeltaDataWrangler`
@@ -588,7 +588,7 @@ of the Nautilus core, currently in development.
 
 ### Fixed-point precision and raw values
 
-NautilusTrader uses fixed-point arithmetic for `Price` and `Quantity` types for precise financial calculations without floating-point errors. Understanding how raw values work is essential when creating data or working with catalogs.
+Market Simulator uses fixed-point arithmetic for `Price` and `Quantity` types for precise financial calculations without floating-point errors. Understanding how raw values work is essential when creating data or working with catalogs.
 
 #### Raw value requirements
 
@@ -654,10 +654,10 @@ Concretely, this would involve:
 The following example shows how to accomplish the above in Python:
 
 ```python
-from nautilus_trader import TEST_DATA_DIR
-from nautilus_trader.adapters.binance.loaders import BinanceOrderBookDeltaDataLoader
-from nautilus_trader.persistence.wranglers import OrderBookDeltaDataWrangler
-from nautilus_trader.test_kit.providers import TestInstrumentProvider
+from market_simulator import TEST_DATA_DIR
+from market_simulator.adapters.binance.loaders import BinanceOrderBookDeltaDataLoader
+from market_simulator.persistence.wranglers import OrderBookDeltaDataWrangler
+from market_simulator.test_kit.providers import TestInstrumentProvider
 
 
 # Load raw data
@@ -678,7 +678,7 @@ The data catalog is a central store for Nautilus data, persisted in the [Parquet
 
 ### Overview and architecture
 
-The NautilusTrader data catalog is built on a dual-backend architecture that combines the performance of Rust with the flexibility of Python:
+The Market Simulator data catalog is built on a dual-backend architecture that combines the performance of Rust with the flexibility of Python:
 
 **Core components:**
 
@@ -725,7 +725,7 @@ The following example shows how to initialize a data catalog where there is pre-
 
 ```python
 from pathlib import Path
-from nautilus_trader.persistence.catalog import ParquetDataCatalog
+from market_simulator.persistence.catalog import ParquetDataCatalog
 
 
 CATALOG_PATH = Path.cwd() / "catalog"
@@ -892,7 +892,7 @@ Use `skip_disjoint_check=True` in `write_data()` to bypass this check when neede
 Use the `query()` method to read data back from the catalog:
 
 ```python
-from nautilus_trader.model import QuoteTick, TradeTick
+from market_simulator.model import QuoteTick, TradeTick
 
 # Query quote ticks for a specific instrument and time range
 quotes = catalog.query(
@@ -944,8 +944,8 @@ The `BacktestDataConfig` class is the primary mechanism for specifying data requ
 **Loading quote ticks:**
 
 ```python
-from nautilus_trader.config import BacktestDataConfig
-from nautilus_trader.model import QuoteTick, InstrumentId
+from market_simulator.config import BacktestDataConfig
+from market_simulator.model import QuoteTick, InstrumentId
 
 data_config = BacktestDataConfig(
     catalog_path="/path/to/catalog",
@@ -1019,7 +1019,7 @@ data_config = BacktestDataConfig(
 The `BacktestDataConfig` objects are integrated into the backtesting framework through `BacktestRunConfig`:
 
 ```python
-from nautilus_trader.config import BacktestRunConfig, BacktestVenueConfig
+from market_simulator.config import BacktestRunConfig, BacktestVenueConfig
 
 # Define multiple data configurations
 data_configs = [
@@ -1089,7 +1089,7 @@ Catalogs defined this way can also be used for requesting historical data.
 **Local Catalog Configuration:**
 
 ```python
-from nautilus_trader.persistence.config import DataCatalogConfig
+from market_simulator.persistence.config import DataCatalogConfig
 
 catalog_config = DataCatalogConfig(
     path="/path/to/catalog",
@@ -1122,8 +1122,8 @@ catalog_config = DataCatalogConfig(
 `DataCatalogConfig` is commonly used in live trading configurations for historical data access:
 
 ```python
-from nautilus_trader.config import TradingNodeConfig
-from nautilus_trader.persistence.config import DataCatalogConfig
+from market_simulator.config import TradingNodeConfig
+from market_simulator.persistence.config import DataCatalogConfig
 
 # Configure catalog for live system
 catalog_config = DataCatalogConfig(
@@ -1144,7 +1144,7 @@ node_config = TradingNodeConfig(
 For streaming data to catalogs during live trading or backtesting, use `StreamingConfig`:
 
 ```python
-from nautilus_trader.persistence.config import StreamingConfig, RotationMode
+from market_simulator.persistence.config import StreamingConfig, RotationMode
 import pandas as pd
 
 streaming_config = StreamingConfig(
@@ -1373,7 +1373,7 @@ The catalog supports streaming data to temporary feather files during backtests,
 
 ```python
 from option_trader.greeks import GreeksData
-from nautilus_trader.persistence.config import StreamingConfig
+from market_simulator.persistence.config import StreamingConfig
 
 # 1. Configure streaming for custom data
 streaming = StreamingConfig(
@@ -1403,7 +1403,7 @@ greeks_data = catalog.query(
 
 ### Catalog summary
 
-The NautilusTrader data catalog provides market data management:
+The Market Simulator data catalog provides market data management:
 
 **Core features**:
 
@@ -1421,7 +1421,7 @@ The NautilusTrader data catalog provides market data management:
 
 ## Data migrations
 
-NautilusTrader defines an internal data format specified in the `nautilus_model` crate.
+Market Simulator defines an internal data format specified in the `nautilus_model` crate.
 These models are serialized into Arrow record batches and written to Parquet files.
 Nautilus backtesting is most efficient when using these Nautilus-format Parquet files.
 
@@ -1468,7 +1468,7 @@ This example describes a scenario where you want to migrate from standard-precis
 
 :::note
 If you're migrating from a catalog that used the `Int64` and `UInt64` Arrow data types for prices and sizes,
-be sure to check out commit [e284162](https://github.com/nautechsystems/nautilus_trader/commit/e284162cf27a3222115aeb5d10d599c8cf09cf50)
+be sure to check out commit [e284162](https://github.com/market-simulator-team/market_simulator/commit/e284162cf27a3222115aeb5d10d599c8cf09cf50)
 **before** compiling the code that writes the initial JSON.
 :::
 
@@ -1539,7 +1539,7 @@ As `Data` holds no state, it is not strictly necessary to call `super().__init__
 :::
 
 ```python
-from nautilus_trader.core import Data
+from market_simulator.core import Data
 
 
 class MyDataPoint(Data):
@@ -1624,7 +1624,7 @@ Extra metadata information can also be passed to a `BacktestDataConfig` configur
 enrich and describe custom data objects used in a backtesting context:
 
 ```python
-from nautilus_trader.config import BacktestDataConfig
+from market_simulator.config import BacktestDataConfig
 
 data_config = BacktestDataConfig(
     catalog_path=str(catalog.path),
@@ -1678,15 +1678,15 @@ them in the `Cache` or `ParquetDataCatalog` for efficient retrieval.
 
 ```python
 import msgspec
-from nautilus_trader.core import Data
-from nautilus_trader.core.datetime import unix_nanos_to_iso8601
-from nautilus_trader.model import DataType
-from nautilus_trader.serialization.base import register_serializable_type
-from nautilus_trader.serialization.arrow.serializer import register_arrow
+from market_simulator.core import Data
+from market_simulator.core.datetime import unix_nanos_to_iso8601
+from market_simulator.model import DataType
+from market_simulator.serialization.base import register_serializable_type
+from market_simulator.serialization.arrow.serializer import register_arrow
 import pyarrow as pa
 
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.core.datetime import dt_to_unix_nanos, unix_nanos_to_dt, format_iso8601
+from market_simulator.model import InstrumentId
+from market_simulator.core.datetime import dt_to_unix_nanos, unix_nanos_to_dt, format_iso8601
 
 
 class GreeksData(Data):
@@ -1791,7 +1791,7 @@ For streaming custom data to feather files or writing it to parquet files in a c
 ```python
 register_arrow(GreeksData, GreeksData.schema(), GreeksData.to_catalog, GreeksData.from_catalog)
 
-from nautilus_trader.persistence.catalog import ParquetDataCatalog
+from market_simulator.persistence.catalog import ParquetDataCatalog
 catalog = ParquetDataCatalog('.')
 
 catalog.write_data([GreeksData()])
@@ -1805,7 +1805,7 @@ implementations for all the features described above.
 Each method can also be overridden if needed. Here is an example of its usage:
 
 ```python
-from nautilus_trader.model.custom import customdataclass
+from market_simulator.model.custom import customdataclass
 
 
 @customdataclass
@@ -1830,11 +1830,11 @@ expects (JSON and Arrow IPC serialization). After defining your class, register 
 the **type** (recommended) or a **sample instance**:
 
 ```python
-from nautilus_trader.core.nautilus_pyo3 import ParquetDataCatalog
-from nautilus_trader.core.nautilus_pyo3.model import CustomData
-from nautilus_trader.core.nautilus_pyo3.model import DataType
-from nautilus_trader.core.nautilus_pyo3.model import register_custom_data_class
-from nautilus_trader.model.custom import customdataclass_pyo3
+from market_simulator.core.nautilus_pyo3 import ParquetDataCatalog
+from market_simulator.core.nautilus_pyo3.model import CustomData
+from market_simulator.core.nautilus_pyo3.model import DataType
+from market_simulator.core.nautilus_pyo3.model import register_custom_data_class
+from market_simulator.model.custom import customdataclass_pyo3
 
 
 @customdataclass_pyo3()
@@ -1860,7 +1860,7 @@ result = catalog.query("MarketTickPython")
 ticks = [item.data for item in result]
 ```
 
-See `nautilus_trader.model.custom.customdataclass_pyo3` for details.
+See `market_simulator.model.custom.customdataclass_pyo3` for details.
 
 #### Custom data type stub
 
@@ -1873,8 +1873,8 @@ For instance, if you have a custom data class defined in `greeks.py`, you can cr
 with the following constructor signature:
 
 ```python
-from nautilus_trader.core import Data
-from nautilus_trader.model import InstrumentId
+from market_simulator.core import Data
+from market_simulator.model import InstrumentId
 
 
 class GreeksData(Data):

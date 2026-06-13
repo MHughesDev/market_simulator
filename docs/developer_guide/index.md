@@ -1,8 +1,8 @@
 # Developer Guide
 
-Guidance on developing and extending NautilusTrader, or contributing back to the project.
+Guidance on developing and extending Market Simulator, or contributing back to the project.
 
-NautilusTrader uses a **Rust core with Python bindings** architecture:
+Market Simulator uses a **Rust core with Python bindings** architecture:
 
 - **Rust** handles networking, data parsing, order matching, and other performance-critical operations.
 - **Python** provides the user-facing API for strategy development, configuration, and system integration.

@@ -97,14 +97,14 @@ let btcusdt_future = CryptoFuture::new(
 ```python tab="Python"
 import pandas as pd
 
-from nautilus_trader.model.currencies import BTC
-from nautilus_trader.model.currencies import USDT
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import CryptoFuture
-from nautilus_trader.model.objects import Money
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import BTC
+from market_simulator.model.currencies import USDT
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import CryptoFuture
+from market_simulator.model.objects import Money
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 btcusdt_future = CryptoFuture(
     instrument_id=InstrumentId.from_str("BTCUSDT-240329.BINANCE"),

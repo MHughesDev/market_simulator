@@ -1,10 +1,10 @@
 # Polymarket
 
 This page documents the Polymarket adapter modules in
-`nautilus_trader.adapters.polymarket`.
+`market_simulator.adapters.polymarket`.
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket
+.. automodule:: market_simulator.adapters.polymarket
    :show-inheritance:
    :inherited-members:
    :members:
@@ -14,7 +14,7 @@ This page documents the Polymarket adapter modules in
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.config
+.. automodule:: market_simulator.adapters.polymarket.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -24,7 +24,7 @@ This page documents the Polymarket adapter modules in
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.factories
+.. automodule:: market_simulator.adapters.polymarket.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -34,7 +34,7 @@ This page documents the Polymarket adapter modules in
 ## Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.common.enums
+.. automodule:: market_simulator.adapters.polymarket.common.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -44,7 +44,7 @@ This page documents the Polymarket adapter modules in
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.providers
+.. automodule:: market_simulator.adapters.polymarket.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -54,7 +54,7 @@ This page documents the Polymarket adapter modules in
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.data
+.. automodule:: market_simulator.adapters.polymarket.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -64,7 +64,7 @@ This page documents the Polymarket adapter modules in
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.polymarket.execution
+.. automodule:: market_simulator.adapters.polymarket.execution
    :show-inheritance:
    :inherited-members:
    :members:

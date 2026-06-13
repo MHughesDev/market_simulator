@@ -91,7 +91,7 @@ The following log levels are supported:
 You can set `TRACE` as a filter level to capture trace logs from Rust components, even though Python code cannot emit them directly.
 :::
 
-See the `LoggingConfig` [API Reference](/docs/python-api-latest/config.html#nautilus_trader.common.config.LoggingConfig) for further details.
+See the `LoggingConfig` [API Reference](/docs/python-api-latest/config.html#market_simulator.common.config.LoggingConfig) for further details.
 
 Logging can be configured in the following ways:
 
@@ -184,8 +184,8 @@ The input value should be a dictionary of component ID strings to log level stri
 Below is an example of a trading node logging configuration that includes some of the options mentioned above:
 
 ```python
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.config import LoggingConfig
+from market_simulator.config import TradingNodeConfig
 
 config_node = TradingNodeConfig(
     trader_id="TESTER-001",
@@ -291,8 +291,8 @@ If you ***aren't*** using an object which already initializes a `NautilusKernel`
 then you can activate logging in the following way:
 
 ```python
-from nautilus_trader.common.component import init_logging
-from nautilus_trader.common.component import Logger
+from market_simulator.common.component import init_logging
+from market_simulator.common.component import Logger
 
 log_guard = init_logging()
 logger = Logger("MyLogger")
@@ -387,8 +387,8 @@ custom Rust components (such as feature extractors or adapters) compiled as sepa
 Enable the tracing subscriber by setting `use_tracing=True` in `LoggingConfig`:
 
 ```python
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.config import LoggingConfig
+from market_simulator.config import TradingNodeConfig
 
 config_node = TradingNodeConfig(
     trader_id="TESTER-001",
@@ -403,7 +403,7 @@ config_node = TradingNodeConfig(
 Alternatively, call `init_tracing()` directly:
 
 ```python
-from nautilus_trader.core import nautilus_pyo3
+from market_simulator.core import nautilus_pyo3
 
 nautilus_pyo3.init_tracing()
 ```
@@ -462,7 +462,7 @@ logging subsystem signals the background thread to close and joins it to ensure 
 messages are written. If Python's garbage collector delays dropping the guard until after
 interpreter shutdown has begun, this join may not complete, resulting in truncated logs.
 
-This issue is tracked in GitHub [issue #3027](https://github.com/nautechsystems/nautilus_trader/issues/3027).
+This issue is tracked in GitHub [issue #3027](https://github.com/market-simulator-team/market_simulator/issues/3027).
 A more deterministic shutdown mechanism is under consideration.
 
 ## Related guides

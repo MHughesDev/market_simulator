@@ -6,7 +6,7 @@ For development we recommend using the PyCharm *Professional* edition IDE, as it
 
 [prek](https://github.com/j178/prek) is used to automatically run various pre-commit checks, auto-formatters and linting tools at commit.
 
-NautilusTrader uses increasingly more [Rust](https://www.rust-lang.org), so Rust should be installed on your system as well
+Market Simulator uses increasingly more [Rust](https://www.rust-lang.org), so Rust should be installed on your system as well
 ([installation guide](https://www.rust-lang.org/tools/install)).
 
 [Cap'n Proto](https://capnproto.org/) is required for serialization schema compilation. The required
@@ -14,7 +14,7 @@ version is specified in `tools.toml` in the repository root. Ubuntu's default pa
 is typically too old, so you may need to install from source (see below).
 
 :::info
-NautilusTrader *must* compile and run on **Linux, macOS, and Windows**. Please keep portability in
+Market Simulator *must* compile and run on **Linux, macOS, and Windows**. Please keep portability in
 mind (use `std::path::Path`, avoid Bash-isms in shell scripts, etc.).
 :::
 
@@ -41,8 +41,8 @@ xcode-select --install
 Then clone the repository and install the pinned project tools:
 
 ```bash
-git clone --branch develop https://github.com/nautechsystems/nautilus_trader
-cd nautilus_trader
+git clone --branch develop https://github.com/market-simulator-team/market_simulator
+cd market_simulator
 
 curl https://sh.rustup.rs -sSf | sh
 source "$HOME/.cargo/env"
@@ -95,7 +95,7 @@ make install-debug
 
 ### 2. Install development tools
 
-NautilusTrader pins every development tool so that all contributors and CI run identical versions.
+Market Simulator pins every development tool so that all contributors and CI run identical versions.
 A single Makefile target installs the full set:
 
 ```bash
@@ -427,12 +427,12 @@ CREATE DATABASE
 
 ## Introduction
 
-The Nautilus CLI is a command-line interface tool for interacting with the NautilusTrader ecosystem.
+The Nautilus CLI is a command-line interface tool for interacting with the Market Simulator ecosystem.
 It offers commands for managing the PostgreSQL database and handling various trading operations.
 
 :::warning
 On Linux systems with GNOME desktop, the `nautilus` command typically refers to the GNOME file manager (`/usr/bin/nautilus`).
-After installing the NautilusTrader CLI, you may need to ensure the Cargo binary takes precedence by either:
+After installing the Market Simulator CLI, you may need to ensure the Cargo binary takes precedence by either:
 
 - Adding an alias to your shell config: `alias nautilus="$HOME/.cargo/bin/nautilus"`
 - Using the full path: `~/.cargo/bin/nautilus`
@@ -487,7 +487,7 @@ List of commands are:
 
 ## Rust analyzer settings
 
-Rust analyzer is a popular language server for Rust and has integrations for many IDEs. It is recommended to configure rust analyzer to have same environment variables as `make build-debug` for faster compile times. Below tested configurations for VSCode and Astro Nvim are provided. For more information see [PR](https://github.com/nautechsystems/nautilus_trader/pull/2524) or rust analyzer [config docs](https://rust-analyzer.github.io/book/configuration.html).
+Rust analyzer is a popular language server for Rust and has integrations for many IDEs. It is recommended to configure rust analyzer to have same environment variables as `make build-debug` for faster compile times. Below tested configurations for VSCode and Astro Nvim are provided. For more information see [PR](https://github.com/market-simulator-team/market_simulator/pull/2524) or rust analyzer [config docs](https://rust-analyzer.github.io/book/configuration.html).
 
 ```json tab="VSCode"
 {

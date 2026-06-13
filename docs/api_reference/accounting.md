@@ -1,11 +1,11 @@
 # Accounting
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting
+.. automodule:: market_simulator.accounting
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting.accounts.cash
+.. automodule:: market_simulator.accounting.accounts.cash
     :show-inheritance:
     :inherited-members:
     :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting.accounts.margin
+.. automodule:: market_simulator.accounting.accounts.margin
     :show-inheritance:
     :inherited-members:
     :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting.calculators
+.. automodule:: market_simulator.accounting.calculators
     :show-inheritance:
     :inherited-members:
     :members:
@@ -29,7 +29,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting.factory
+.. automodule:: market_simulator.accounting.factory
     :show-inheritance:
     :inherited-members:
     :members:
@@ -37,7 +37,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.accounting.manager
+.. automodule:: market_simulator.accounting.manager
     :show-inheritance:
     :inherited-members:
     :members:

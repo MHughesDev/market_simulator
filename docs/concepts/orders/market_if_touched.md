@@ -48,13 +48,13 @@ let order = self.core.order_factory().market_if_touched(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model.enums import TriggerType
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Price
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import MarketIfTouchedOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model.enums import TriggerType
+from market_simulator.model import InstrumentId
+from market_simulator.model import Price
+from market_simulator.model import Quantity
+from market_simulator.model.orders import MarketIfTouchedOrder
 
 order: MarketIfTouchedOrder = self.order_factory.market_if_touched(
     instrument_id=InstrumentId.from_str("ETHUSDT-PERP.BINANCE"),
@@ -69,7 +69,7 @@ order: MarketIfTouchedOrder = self.order_factory.market_if_touched(
 )
 ```
 
-See the [`MarketIfTouchedOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.market_if_touched.MarketIfTouchedOrder) for further details.
+See the [`MarketIfTouchedOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.market_if_touched.MarketIfTouchedOrder) for further details.
 
 ## Related guides
 

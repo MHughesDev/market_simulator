@@ -74,12 +74,12 @@ let aapl = Equity::new(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import Equity
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import USD
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import Equity
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 aapl = Equity(
     instrument_id=InstrumentId.from_str("AAPL.XNAS"),

@@ -94,13 +94,13 @@ let sr3_spread = OptionSpread::new(
 ```python tab="Python"
 import pandas as pd
 
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import OptionSpread
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import OptionSpread
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 sr3_spread = OptionSpread(
     instrument_id=InstrumentId.from_str("UD:U$: GN 2534559.GLBX"),

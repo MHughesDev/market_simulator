@@ -1,6 +1,6 @@
 # Databento
 
-NautilusTrader includes an adapter for the [Databento](https://databento.com/) API
+Market Simulator includes an adapter for the [Databento](https://databento.com/) API
 and for data in
 [Databento Binary Encoding (DBN)](https://databento.com/docs/standards-and-conventions/databento-binary-encoding).
 Databento is a market data provider only. The adapter does not include an execution client,
@@ -49,7 +49,7 @@ these components directly.
 
 ## Examples
 
-See the [live examples](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/databento/).
+See the [live examples](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/databento/).
 
 ## Databento documentation
 
@@ -70,7 +70,7 @@ The adapter decodes DBN data to Nautilus objects. The same Rust decoder handles:
 
 ## Supported schemas
 
-The following Databento schemas are supported by NautilusTrader:
+The following Databento schemas are supported by Market Simulator:
 
 | Databento schema                                                              | Nautilus data type                | Description                     |
 |:------------------------------------------------------------------------------|:----------------------------------|:--------------------------------|
@@ -163,10 +163,10 @@ The examples below assume a `Strategy` or `Actor` context where `self` has
 subscription methods. Import the required types:
 
 ```python
-from nautilus_trader.adapters.databento import DATABENTO_CLIENT_ID
-from nautilus_trader.model import BarType
-from nautilus_trader.model.enums import BookType
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.adapters.databento import DATABENTO_CLIENT_ID
+from market_simulator.model import BarType
+from market_simulator.model.enums import BookType
+from market_simulator.model.identifiers import InstrumentId
 ```
 
 :::
@@ -287,10 +287,10 @@ self.subscribe_bars(
 Imbalance, statistics, and status data require the generic `subscribe_data` method:
 
 ```python
-from nautilus_trader.adapters.databento import DATABENTO_CLIENT_ID
-from nautilus_trader.adapters.databento import DatabentoImbalance
-from nautilus_trader.adapters.databento import DatabentoStatistics
-from nautilus_trader.model import DataType
+from market_simulator.adapters.databento import DATABENTO_CLIENT_ID
+from market_simulator.adapters.databento import DatabentoImbalance
+from market_simulator.adapters.databento import DatabentoStatistics
+from market_simulator.model import DataType
 
 # Subscribe to imbalance data
 self.subscribe_data(
@@ -305,7 +305,7 @@ self.subscribe_data(
 )
 
 # Subscribe to instrument status updates
-from nautilus_trader.model.data import InstrumentStatus
+from market_simulator.model.data import InstrumentStatus
 self.subscribe_data(
     data_type=DataType(InstrumentStatus, metadata={"instrument_id": instrument_id}),
     client_id=DATABENTO_CLIENT_ID,
@@ -497,9 +497,9 @@ Requesting and subscribing to these types requires the generic `subscribe_data`
 method. Subscribe to `imbalance` for `AAPL.XNAS`:
 
 ```python
-from nautilus_trader.adapters.databento import DATABENTO_CLIENT_ID
-from nautilus_trader.adapters.databento import DatabentoImbalance
-from nautilus_trader.model import DataType
+from market_simulator.adapters.databento import DATABENTO_CLIENT_ID
+from market_simulator.adapters.databento import DatabentoImbalance
+from market_simulator.model import DataType
 
 instrument_id = InstrumentId.from_str("AAPL.XNAS")
 self.subscribe_data(
@@ -512,9 +512,9 @@ Request the previous day's `statistics` for the `ES.FUT` parent symbol
 (all active E-mini S&P 500 futures):
 
 ```python
-from nautilus_trader.adapters.databento import DATABENTO_CLIENT_ID
-from nautilus_trader.adapters.databento import DatabentoStatistics
-from nautilus_trader.model import DataType
+from market_simulator.adapters.databento import DATABENTO_CLIENT_ID
+from market_simulator.adapters.databento import DatabentoStatistics
+from market_simulator.model import DataType
 
 instrument_id = InstrumentId.from_str("ES.FUT.GLBX")
 metadata = {
@@ -535,9 +535,9 @@ register automatically when you import the adapter package.
 #### Writing to the catalog
 
 ```python
-from nautilus_trader.adapters.databento import DatabentoDataLoader
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.persistence.catalog import ParquetDataCatalog
+from market_simulator.adapters.databento import DatabentoDataLoader
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.persistence.catalog import ParquetDataCatalog
 
 catalog = ParquetDataCatalog.from_env()
 loader = DatabentoDataLoader()
@@ -554,7 +554,7 @@ catalog.write_data(imbalances)
 #### Reading from the catalog
 
 ```python
-from nautilus_trader.adapters.databento import DatabentoImbalance
+from market_simulator.adapters.databento import DatabentoImbalance
 
 results = catalog.query(DatabentoImbalance, identifiers=["AAPL.XNAS"])
 
@@ -684,9 +684,9 @@ catalog.write_data(trades)
 Always load instruments before market data:
 
 ```python
-from nautilus_trader.adapters.databento.loaders import DatabentoDataLoader
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.persistence.catalog import ParquetDataCatalog
+from market_simulator.adapters.databento.loaders import DatabentoDataLoader
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.persistence.catalog import ParquetDataCatalog
 
 catalog = ParquetDataCatalog.from_env()
 loader = DatabentoDataLoader()
@@ -822,8 +822,8 @@ and `DatabentoDataClient` for historical requests.
 Add a `DATABENTO` section to your `TradingNode` client configuration:
 
 ```python
-from nautilus_trader.adapters.databento import DATABENTO
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.databento import DATABENTO
+from market_simulator.live.node import TradingNode
 
 config = TradingNodeConfig(
     data_clients={
@@ -842,8 +842,8 @@ config = TradingNodeConfig(
 Create the `TradingNode` and register the factory:
 
 ```python
-from nautilus_trader.adapters.databento.factories import DatabentoLiveDataClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.databento.factories import DatabentoLiveDataClientFactory
+from market_simulator.live.node import TradingNode
 
 # Create the live trading node with the configuration
 node = TradingNode(config=config)
@@ -943,5 +943,5 @@ for details.
 
 :::info
 To contribute, see the
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

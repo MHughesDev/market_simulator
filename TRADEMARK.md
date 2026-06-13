@@ -1,24 +1,24 @@
 # Trademark and Naming Policy
 
-This policy governs the use of the NautilusTrader™ name, related marks, and logos
+This policy governs the use of the Market Simulator™ name, related marks, and logos
 by third-party projects, forks, adapters, wrappers, tutorials, courses, and any
 other derivative or compatible works.
 
-NautilusTrader is a registered trademark of Nautech Systems Pty Ltd
+Market Simulator is a registered trademark of Nautech Systems Pty Ltd
 (ABN 88 609 589 237). Nautech Systems owns and maintains these marks and this
 policy. The full trademark policy is published at
-[nautilustrader.io/legal/trademark-policy](https://nautilustrader.io/legal/trademark-policy/).
-Questions or concerns should be directed to <legal@nautechsystems.io>.
+[market-simulator/legal/trademark-policy](https://market-simulator/legal/trademark-policy/).
+Questions or concerns should be directed to <legal@market-simulator-team.io>.
 
 ## The marks
 
 The following names are reserved for official project use by Nautech Systems:
 
-- **NautilusTrader** (combined form)
-- **Nautilus Trader** (separated form)
-- **nautilus_trader** (package name)
-- **nautilus-trader** (hyphenated form)
-- The NautilusTrader logo and any associated visual branding
+- **Market Simulator** (combined form)
+- **Market Simulator** (separated form)
+- **market_simulator** (package name)
+- **market-simulator** (hyphenated form)
+- The Market Simulator logo and any associated visual branding
 
 These marks identify software produced and maintained by Nautech Systems. No
 third-party project may use these marks as a prefix or leading component of a
@@ -30,27 +30,27 @@ project name, package name, or public registry identifier.
    what is not. This policy aims to be practical and fair, not restrictive for
    its own sake.**
 
-2. Third-party projects that reference NautilusTrader must clearly and honestly
+2. Third-party projects that reference Market Simulator must clearly and honestly
    represent their relationship with the project.
 
-3. Third-party projects that use or distribute NautilusTrader code must comply
+3. Third-party projects that use or distribute Market Simulator code must comply
    with the [LGPL v3.0 license](./LICENSE) where applicable. This trademark
    policy is separate from and in addition to the software license.
 
 4. Compliance with this policy does not constitute endorsement, affiliation, or
    official status. Only projects maintained within the
-   [nautechsystems](https://github.com/nautechsystems) GitHub organization and
+   [market-simulator-team](https://github.com/market-simulator-team) GitHub organization and
    designated by project maintainers carry official status.
 
 ## Acceptable nominative use
 
-Third-party projects may reference the NautilusTrader name to describe
+Third-party projects may reference the Market Simulator name to describe
 compatibility or purpose. The following uses are acceptable:
 
-- "for NautilusTrader"
-- "compatible with NautilusTrader"
-- "an adapter for NautilusTrader"
-- "works with NautilusTrader"
+- "for Market Simulator"
+- "compatible with Market Simulator"
+- "an adapter for Market Simulator"
+- "works with Market Simulator"
 
 **These phrases describe a relationship with the project. They are acceptable in
 documentation, descriptions, and READMEs, but must not be used in project or
@@ -65,12 +65,12 @@ handles.
 
 ## Naming rules for third-party projects
 
-Third-party projects must not use `nautilustrader`, `nautilus_trader`, or
-`nautilus-trader` as a prefix or leading component of a project or package name. The standalone
+Third-party projects must not use `nautilustrader`, `market_simulator`, or
+`market-simulator` as a prefix or leading component of a project or package name. The standalone
 word `nautilus` is also restricted when used for trading, brokerage, market data,
 backtesting, or related financial software where it is likely to create confusion
-with NautilusTrader. Within that same domain, the `nautilus-*` namespace on
-package registries is reserved for officially published NautilusTrader packages.
+with Market Simulator. Within that same domain, the `nautilus-*` namespace on
+package registries is reserved for officially published Market Simulator packages.
 
 As a practical matter, source repositories usually create less confusion than
 published packages. Projects that do publish to package registries should be
@@ -79,7 +79,7 @@ inclusion should follow the RFC process described in the
 [ROADMAP](./ROADMAP.md#community-contributed-integrations).
 
 **The `nt` shorthand.** The project designates `nt` as the approved shorthand
-for third-party projects to signal NautilusTrader compatibility.
+for third-party projects to signal Market Simulator compatibility.
 
 **Naming examples:**
 
@@ -95,18 +95,18 @@ but it is not required.
 ## Required disclaimer
 
 All third-party software projects that distribute code integrating with
-NautilusTrader (adapters, wrappers, forks, packages, libraries) must include a
+Market Simulator (adapters, wrappers, forks, packages, libraries) must include a
 clear disclaimer in their README or primary documentation. The disclaimer must
 state that the project is:
 
-1. not affiliated with Nautech Systems Pty Ltd or the NautilusTrader project,
-2. not endorsed by Nautech Systems Pty Ltd or the NautilusTrader project, and
-3. not supported by Nautech Systems Pty Ltd or the NautilusTrader project.
+1. not affiliated with Nautech Systems Pty Ltd or the Market Simulator project,
+2. not endorsed by Nautech Systems Pty Ltd or the Market Simulator project, and
+3. not supported by Nautech Systems Pty Ltd or the Market Simulator project.
 
 **Reference text:**
 
 > This is an independent community project. It is not affiliated with, endorsed
-> by, or supported by Nautech Systems Pty Ltd or the official NautilusTrader
+> by, or supported by Nautech Systems Pty Ltd or the official Market Simulator
 > project.
 
 Projects may adapt the phrasing to fit their documentation style, but all three
@@ -123,14 +123,14 @@ development forks that follow the workflow described in
 
 ## Logos
 
-The NautilusTrader logo and associated visual branding are proprietary to
+The Market Simulator logo and associated visual branding are proprietary to
 Nautech Systems. Third-party projects must not use the official logo or
 derivatives of it in a way that implies official status or endorsement. Use of
 the logo requires prior written permission from Nautech Systems.
 
 ## Community channels
 
-Access to, promotion within, or use of official NautilusTrader community
+Access to, promotion within, or use of official Market Simulator community
 channels (including forums, chat servers, or mailing lists) for commercial
 products or services requires prior written approval from Nautech Systems.
 Participation in community channels does not imply endorsement or affiliation.
@@ -157,7 +157,7 @@ or any other use in the future.
 
 This policy may be updated from time to time. The authoritative version is
 published at
-[nautilustrader.io/legal/trademark-policy](https://nautilustrader.io/legal/trademark-policy/).
+[market-simulator/legal/trademark-policy](https://market-simulator/legal/trademark-policy/).
 Both versions are maintained to match in substance.
 
 Last updated: 2026-04-13

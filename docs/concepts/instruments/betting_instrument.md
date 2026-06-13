@@ -118,9 +118,9 @@ let selection = BettingInstrument::new(
 ```python tab="Python"
 import pandas as pd
 
-from nautilus_trader.model.currencies import GBP
-from nautilus_trader.model.instruments import BettingInstrument
-from nautilus_trader.model.objects import Money
+from market_simulator.model.currencies import GBP
+from market_simulator.model.instruments import BettingInstrument
+from market_simulator.model.objects import Money
 
 selection = BettingInstrument(
     venue_name="BETFAIR",

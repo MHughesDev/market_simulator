@@ -1,7 +1,7 @@
 # dYdX
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx
+.. automodule:: market_simulator.adapters.dydx
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx.config
+.. automodule:: market_simulator.adapters.dydx.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx.factories
+.. automodule:: market_simulator.adapters.dydx.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx.providers
+.. automodule:: market_simulator.adapters.dydx.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx.data
+.. automodule:: market_simulator.adapters.dydx.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.dydx.execution
+.. automodule:: market_simulator.adapters.dydx.execution
    :show-inheritance:
    :inherited-members:
    :members:

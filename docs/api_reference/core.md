@@ -1,13 +1,13 @@
 # Core
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core
+.. automodule:: market_simulator.core
 ```
 
 ## Datetime
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core.datetime
+.. automodule:: market_simulator.core.datetime
    :show-inheritance:
    :inherited-members:
    :members:
@@ -17,7 +17,7 @@
 ## Finite-State Machine (FSM)
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core.fsm
+.. automodule:: market_simulator.core.fsm
    :show-inheritance:
    :inherited-members:
    :members:
@@ -27,7 +27,7 @@
 ## Message
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core.message
+.. automodule:: market_simulator.core.message
    :show-inheritance:
    :inherited-members:
    :members:
@@ -37,7 +37,7 @@
 ## Stats
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core.stats
+.. automodule:: market_simulator.core.stats
    :show-inheritance:
    :inherited-members:
    :members:
@@ -47,7 +47,7 @@
 ## UUID
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.core.uuid
+.. automodule:: market_simulator.core.uuid
    :show-inheritance:
    :inherited-members:
    :members:

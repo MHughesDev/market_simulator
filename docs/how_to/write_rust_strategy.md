@@ -137,7 +137,7 @@ The `Strategy` trait provides these methods through `StrategyCore`:
 
 ## Full examples
 
-- [`EmaCross`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/ema_cross):
+- [`EmaCross`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/ema_cross):
   Dual-EMA crossover with indicator integration.
-- [`GridMarketMaker`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/strategies/grid_mm):
+- [`GridMarketMaker`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/strategies/grid_mm):
   Grid market making with configurable levels and requoting.

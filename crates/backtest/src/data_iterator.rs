@@ -15,7 +15,7 @@
 
 //! Multi-stream, time-ordered data iterator for replaying historical data.
 
-use std::collections::BinaryHeap;
+use std::{collections::BinaryHeap, fmt::Debug};
 
 use ahash::AHashMap;
 use nautilus_core::UnixNanos;
@@ -85,6 +85,80 @@ impl PartialOrd for HeapEntry {
     }
 }
 
+/// A lazily-pulled source of pre-chronological-order [`Data`] chunks.
+///
+/// Implementations hand the iterator one chunk of data at a time on demand,
+/// allowing a backtest to stream over time series far larger than can be
+/// comfortably materialized in memory as a single `Vec<Data>` (mirroring the
+/// proven `Generator[list[Data], None, None]` contract from the legacy Cython
+/// engine's `add_data_iterator`/`init_data`).
+///
+/// Each returned chunk does not need to be pre-sorted — the iterator sorts it
+/// by replay key before merging, exactly as it does for eagerly materialized
+/// streams added via [`BacktestDataIterator::add_data`]. However, chunks
+/// themselves must be supplied in non-decreasing chronological sequence (the
+/// last element of one chunk must not be later than the first element of the
+/// next): the iterator replaces one chunk with the next rather than re-merging
+/// against already-replayed data, mirroring the legacy Cython engine's
+/// per-chunk `_add_data` contract.
+pub trait DataChunkSource: Debug {
+    /// Returns the next chunk of [`Data`], or `None` when the source is exhausted.
+    fn next_chunk(&mut self) -> Option<Vec<Data>>;
+}
+
+/// Lazily decodes [`Data`] chunks from an iterator of Arrow `RecordBatch` values
+/// (each paired with its decode metadata), one batch at a time.
+///
+/// This lets an org whose data already lives in Arrow/Parquet form (their own
+/// data lake, not the SDK's bundled catalog) hand batches straight to the
+/// engine for near zero-copy ingestion: each batch is decoded into [`Data`]
+/// only as it is consumed — via the same [`decode_batch_to_data`] dispatcher
+/// the catalog uses — rather than decoding the entire dataset up front.
+///
+/// [`decode_batch_to_data`]: nautilus_persistence::backend::custom::decode_batch_to_data
+#[cfg(feature = "streaming")]
+#[derive(Debug)]
+pub struct RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    batches: I,
+}
+
+#[cfg(feature = "streaming")]
+impl<I> RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    /// Creates a new [`RecordBatchChunkSource`] wrapping an iterator of
+    /// `(RecordBatch, metadata)` pairs, decoded lazily on each [`DataChunkSource::next_chunk`] call.
+    pub fn new(batches: I) -> Self {
+        Self { batches }
+    }
+}
+
+#[cfg(feature = "streaming")]
+impl<I> DataChunkSource for RecordBatchChunkSource<I>
+where
+    I: Iterator<Item = (arrow::record_batch::RecordBatch, std::collections::HashMap<String, String>)>
+        + Debug,
+{
+    fn next_chunk(&mut self) -> Option<Vec<Data>> {
+        let (batch, metadata) = self.batches.next()?;
+
+        match nautilus_persistence::backend::custom::decode_batch_to_data(&metadata, batch, false)
+        {
+            Ok(data) => Some(data),
+            Err(e) => {
+                log::error!("Failed to decode Arrow record batch into chunk data: {e}");
+                None
+            }
+        }
+    }
+}
+
 /// Multi-stream, time-ordered data iterator used by the backtest engine.
 #[derive(Debug, Default)]
 pub struct BacktestDataIterator {
@@ -92,6 +166,7 @@ pub struct BacktestDataIterator {
     names: AHashMap<i32, String>,      // priority -> name
     priorities: AHashMap<String, i32>, // name -> priority
     indices: AHashMap<i32, usize>,     // cursor per stream
+    sources: AHashMap<i32, Box<dyn DataChunkSource>>, // priority -> lazy chunk source (if any)
     heap: BinaryHeap<HeapEntry>,
     single_priority: Option<i32>,
     next_priority_counter: i32, // monotonically increasing counter used to assign priorities
@@ -106,6 +181,7 @@ impl BacktestDataIterator {
             names: AHashMap::new(),
             priorities: AHashMap::new(),
             indices: AHashMap::new(),
+            sources: AHashMap::new(),
             heap: BinaryHeap::new(),
             single_priority: None,
             next_priority_counter: 0,
@@ -127,6 +203,21 @@ impl BacktestDataIterator {
     }
 
     fn add_stream(&mut self, name: &str, data: Vec<Data>, append_data: bool) {
+        self.register_stream(name, data, None, append_data);
+    }
+
+    /// Registers a named stream's first chunk and (optionally) the lazy source
+    /// that will supply subsequent chunks on demand.
+    ///
+    /// Shared by [`Self::add_stream`] (materialized streams, `source: None`)
+    /// and [`Self::init_data`] (lazy streams).
+    fn register_stream(
+        &mut self,
+        name: &str,
+        data: Vec<Data>,
+        source: Option<Box<dyn DataChunkSource>>,
+        append_data: bool,
+    ) {
         let priority = if let Some(p) = self.priorities.get(name) {
             // Replace existing stream – remove previous traces then re-insert below.
             *p
@@ -144,10 +235,65 @@ impl BacktestDataIterator {
         self.priorities.insert(name.to_string(), priority);
         self.indices.insert(priority, 0);
 
+        if let Some(source) = source {
+            self.sources.insert(priority, source);
+        }
+
         self.rebuild_heap();
     }
 
+    /// Registers a named stream backed by a lazily-pulled [`DataChunkSource`].
+    ///
+    /// Pulls the first chunk eagerly to seed the heap with a valid replay key
+    /// (mirroring the legacy Cython engine's `init_data`/`next(data_generator)`),
+    /// then stores the source so [`Self::next_item`] can pull subsequent chunks
+    /// on demand as the current one is exhausted. If the source yields no data
+    /// at all, this is a no-op — matching [`Self::add_data`]'s empty-input behavior.
+    pub fn init_data(&mut self, name: &str, mut source: Box<dyn DataChunkSource>, append_data: bool) {
+        let Some(mut chunk) = source.next_chunk() else {
+            return;
+        };
+
+        if chunk.is_empty() {
+            return;
+        }
+
+        chunk.sort_by_key(replay_key);
+
+        self.register_stream(name, chunk, Some(source), append_data);
+    }
+
+    /// Pulls the next chunk for a lazy stream and installs it, replacing the
+    /// now-exhausted current chunk. Returns `true` if a non-empty chunk was
+    /// installed, or `false` if the source is exhausted (in which case the
+    /// stream is fully removed, mirroring the Cython `_update_data`/`StopIteration`
+    /// -> `remove_data(complete_remove=True)` path).
+    fn refill_stream(&mut self, priority: i32) -> bool {
+        let Some(source) = self.sources.get_mut(&priority) else {
+            return false;
+        };
+
+        match source.next_chunk() {
+            Some(mut chunk) if !chunk.is_empty() => {
+                chunk.sort_by_key(replay_key);
+                self.streams.insert(priority, chunk);
+                self.indices.insert(priority, 0);
+                true
+            }
+            _ => {
+                if let Some(name) = self.names.get(&priority).cloned() {
+                    self.remove_data(&name, true);
+                }
+                false
+            }
+        }
+    }
+
     /// Removes a named data stream.
+    ///
+    /// When `complete_remove` is true, any associated lazy [`DataChunkSource`]
+    /// is also dropped — used when a stream is fully exhausted or replaced,
+    /// as opposed to a transient removal that may be re-added later.
     pub fn remove_data(&mut self, name: &str, complete_remove: bool) {
         if let Some(priority) = self.priorities.remove(name) {
             self.streams.remove(&priority);
@@ -160,10 +306,10 @@ impl BacktestDataIterator {
             if self.heap.is_empty() {
                 self.single_priority = None;
             }
-        }
 
-        if complete_remove {
-            // Placeholder for future generator cleanup
+            if complete_remove {
+                self.sources.remove(&priority);
+            }
         }
     }
 
@@ -184,33 +330,64 @@ impl BacktestDataIterator {
     }
 
     /// Returns the next backtest data element across all streams in replay order.
+    ///
+    /// When a stream's currently-loaded chunk is exhausted and it was registered
+    /// via [`Self::init_data`], the next chunk is pulled from its [`DataChunkSource`]
+    /// on demand before the stream is considered done — mirroring the legacy
+    /// Cython engine's generator refill logic (`_update_data`).
     pub(crate) fn next_item(&mut self) -> Option<Data> {
         // Fast path for single stream
         if let Some(p) = self.single_priority {
-            let data = self.streams.get_mut(&p)?;
-            let idx = self.indices.get_mut(&p)?;
-            if *idx >= data.len() {
+            let len = self.streams.get(&p)?.len();
+            let idx = *self.indices.get(&p)?;
+
+            if idx >= len {
                 return None;
             }
-            let element = data[*idx].clone();
-            *idx += 1;
+
+            let element = self.streams.get(&p)?[idx].clone();
+            let next_idx = idx + 1;
+            self.indices.insert(p, next_idx);
+
+            // Eagerly refill at the chunk boundary (mirrors Cython's `_update_data`
+            // call placement) so `is_done` stays consistent with actual exhaustion.
+            if next_idx >= len {
+                self.refill_stream(p);
+            }
+
             return Some(element);
         }
 
         // Multi-stream path using heap
         let entry = self.heap.pop()?;
-        let stream_vec = self.streams.get(&entry.priority)?;
-        let element = stream_vec[entry.index].clone();
+        let priority = entry.priority;
+        let index = entry.index;
+        let element = self.streams.get(&priority)?[index].clone();
 
-        // Advance cursor and push next entry
-        let next_index = entry.index + 1;
-        self.indices.insert(entry.priority, next_index);
-        if next_index < stream_vec.len() {
+        // Advance cursor and push next entry, refilling the stream on demand if exhausted
+        let next_index = index + 1;
+        self.indices.insert(priority, next_index);
+        let stream_len = self.streams.get(&priority)?.len();
+        if next_index < stream_len {
+            let key = replay_key(&self.streams.get(&priority)?[next_index]);
             self.heap.push(HeapEntry {
-                key: replay_key(&stream_vec[next_index]),
-                priority: entry.priority,
+                key,
+                priority,
                 index: next_index,
             });
+        } else if self.refill_stream(priority) {
+            let first_key = self
+                .streams
+                .get(&priority)
+                .and_then(|v| v.first())
+                .map(replay_key);
+            if let Some(key) = first_key {
+                self.heap.push(HeapEntry {
+                    key,
+                    priority,
+                    index: 0,
+                });
+            }
         }
 
         Some(element)
@@ -670,5 +847,301 @@ mod tests {
         }
 
         assert_eq!(positions, vec![(11, 9, 9), (12, 2, 7), (12, 4, 1)]);
+    }
+
+    /// A mock [`DataChunkSource`] that lazily yields pre-built fixed-size chunks,
+    /// mirroring the behavior of a generator pulling from an external store.
+    ///
+    /// Exposes a shared pull counter so tests can assert chunks are pulled
+    /// incrementally on demand rather than all materialized upfront.
+    #[derive(Debug)]
+    struct MockChunkSource {
+        chunks: Vec<Vec<Data>>,
+        cursor: usize,
+        pull_count: std::rc::Rc<std::cell::Cell<usize>>,
+    }
+
+    impl MockChunkSource {
+        fn new(chunks: Vec<Vec<Data>>) -> Self {
+            Self {
+                chunks,
+                cursor: 0,
+                pull_count: std::rc::Rc::new(std::cell::Cell::new(0)),
+            }
+        }
+
+        fn with_counter(chunks: Vec<Vec<Data>>, pull_count: std::rc::Rc<std::cell::Cell<usize>>) -> Self {
+            Self {
+                chunks,
+                cursor: 0,
+                pull_count,
+            }
+        }
+    }
+
+    impl DataChunkSource for MockChunkSource {
+        fn next_chunk(&mut self) -> Option<Vec<Data>> {
+            self.pull_count.set(self.pull_count.get() + 1);
+            if self.cursor >= self.chunks.len() {
+                return None;
+            }
+            let chunk = self.chunks[self.cursor].clone();
+            self.cursor += 1;
+            Some(chunk)
+        }
+    }
+
+    fn lazy_quotes(id: &str, timestamps: &[u64], chunk_size: usize) -> Vec<Vec<Data>> {
+        timestamps
+            .iter()
+            .map(|&ts| quote(id, ts))
+            .collect::<Vec<_>>()
+            .chunks(chunk_size)
+            .map(<[Data]>::to_vec)
+            .collect()
+    }
+
+    #[rstest]
+    fn test_lazy_stream_matches_eager_equivalent_order() {
+        let timestamps: Vec<u64> = (0..20).map(|k| k * 10).collect();
+
+        let mut lazy_it = BacktestDataIterator::new();
+        lazy_it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(lazy_quotes("A.B", &timestamps, 3))),
+            true,
+        );
+
+        let mut eager_it = BacktestDataIterator::new();
+        eager_it.add_data(
+            "eager",
+            timestamps.iter().map(|&ts| quote("A.B", ts)).collect(),
+            true,
+        );
+
+        assert_eq!(collect_ts(&mut lazy_it), collect_ts(&mut eager_it));
+    }
+
+    #[rstest]
+    fn test_lazy_stream_is_exhausted_after_all_chunks_consumed() {
+        let timestamps: Vec<u64> = (0..7).map(|k| k * 10).collect();
+        let mut it = BacktestDataIterator::new();
+        it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(lazy_quotes("A.B", &timestamps, 3))),
+            true,
+        );
+
+        assert_eq!(
+            collect_ts(&mut it),
+            timestamps.clone(),
+            "lazy stream should yield every element across all chunks in order"
+        );
+        assert!(it.is_done());
+        assert!(it.next().is_none());
+    }
+
+    #[rstest]
+    fn test_lazy_and_materialized_streams_merge_chronologically() {
+        let lazy_timestamps: Vec<u64> = vec![1, 4, 7, 10, 13];
+        let mut it = BacktestDataIterator::new();
+        it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(lazy_quotes(
+                "A.B",
+                &lazy_timestamps,
+                2,
+            ))),
+            true,
+        );
+        it.add_data(
+            "materialized",
+            vec![
+                quote("C.D", 2),
+                quote("C.D", 5),
+                quote("C.D", 8),
+                quote("C.D", 11),
+            ],
+            true,
+        );
+
+        assert_eq!(collect_ts(&mut it), vec![1, 2, 4, 5, 7, 8, 10, 11, 13]);
+        assert!(it.is_done());
+    }
+
+    #[rstest]
+    fn test_lazy_stream_sorts_unsorted_chunks() {
+        let mut it = BacktestDataIterator::new();
+        it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(vec![
+                vec![quote("A.B", 300), quote("A.B", 100), quote("A.B", 200)],
+                vec![quote("A.B", 600), quote("A.B", 400), quote("A.B", 500)],
+            ])),
+            true,
+        );
+
+        assert_eq!(collect_ts(&mut it), vec![100, 200, 300, 400, 500, 600]);
+    }
+
+    #[rstest]
+    fn test_init_data_with_immediately_exhausted_source_is_noop() {
+        let mut it = BacktestDataIterator::new();
+        it.init_data("lazy", Box::new(MockChunkSource::new(vec![])), true);
+
+        assert!(it.is_done());
+        assert!(it.next().is_none());
+    }
+
+    #[rstest]
+    fn test_init_data_with_empty_first_chunk_is_noop() {
+        let mut it = BacktestDataIterator::new();
+        it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(vec![vec![], vec![quote("A.B", 1)]])),
+            true,
+        );
+
+        // Mirrors `add_data`'s empty-input behavior: an empty first chunk means
+        // the stream is never registered, even if subsequent chunks are non-empty.
+        assert!(it.is_done());
+        assert!(it.next().is_none());
+    }
+
+    #[rstest]
+    fn test_lazy_stream_pulls_chunks_incrementally_not_all_upfront() {
+        let timestamps: Vec<u64> = (0..10).map(|k| k * 10).collect();
+        let pull_count = std::rc::Rc::new(std::cell::Cell::new(0));
+        let source =
+            MockChunkSource::with_counter(lazy_quotes("A.B", &timestamps, 2), pull_count.clone());
+
+        let mut it = BacktestDataIterator::new();
+        it.init_data("lazy", Box::new(source), true);
+
+        // `init_data` pulls only the first chunk to seed the heap.
+        assert_eq!(pull_count.get(), 1);
+
+        // Consuming the first chunk's two elements triggers exactly one more pull
+        // (for the second chunk) — not a pull of the entire remaining series.
+        assert_eq!(it.next().unwrap().ts_init().as_u64(), 0);
+        assert_eq!(it.next().unwrap().ts_init().as_u64(), 10);
+        assert_eq!(pull_count.get(), 2);
+
+        assert_eq!(it.next().unwrap().ts_init().as_u64(), 20);
+        assert_eq!(it.next().unwrap().ts_init().as_u64(), 30);
+        assert_eq!(pull_count.get(), 3);
+
+        let remaining = collect_ts(&mut it);
+        assert_eq!(remaining, vec![40, 50, 60, 70, 80, 90]);
+        assert!(it.is_done());
+
+        // Final pull discovers exhaustion (5 chunks of 2 -> 5 data pulls + 1 exhaustion probe).
+        assert_eq!(pull_count.get(), 6);
+    }
+
+    #[rstest]
+    fn test_remove_lazy_stream_drops_source() {
+        let mut it = BacktestDataIterator::new();
+        it.init_data(
+            "lazy",
+            Box::new(MockChunkSource::new(lazy_quotes("A.B", &[1, 2, 3], 1))),
+            true,
+        );
+        it.add_data("other", vec![quote("C.D", 100)], true);
+
+        let priority = *it.priorities.get("lazy").unwrap();
+        assert!(it.sources.contains_key(&priority));
+
+        it.remove_data("lazy", true);
+
+        assert!(!it.sources.contains_key(&priority));
+        assert_eq!(collect_ts(&mut it), vec![100]);
+    }
+
+    #[cfg(feature = "streaming")]
+    mod record_batch_chunk_source_tests {
+        use std::collections::HashMap;
+
+        use nautilus_serialization::arrow::EncodeToRecordBatch;
+
+        use super::*;
+
+        fn quote_record_batch(
+            id: &str,
+            timestamps: &[u64],
+        ) -> (arrow::record_batch::RecordBatch, HashMap<String, String>) {
+            let quotes: Vec<QuoteTick> = timestamps
+                .iter()
+                .map(|&ts| match quote(id, ts) {
+                    Data::Quote(q) => q,
+                    _ => unreachable!(),
+                })
+                .collect();
+
+            let mut metadata = QuoteTick::chunk_metadata(&quotes);
+            let batch = QuoteTick::encode_batch(&metadata, &quotes).unwrap();
+            metadata.insert("type_name".to_string(), "QuoteTick".to_string());
+
+            (batch, metadata)
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_decodes_lazily_in_order() {
+            let timestamps: Vec<u64> = (0..12).map(|k| k * 10).collect();
+            let batches: Vec<_> = timestamps
+                .chunks(4)
+                .map(|chunk| quote_record_batch("A.B", chunk))
+                .collect();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+
+            assert_eq!(collect_ts(&mut it), timestamps);
+            assert!(it.is_done());
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_merges_with_materialized_stream() {
+            let arrow_timestamps: Vec<u64> = vec![1, 4, 7, 10];
+            let batches: Vec<_> = arrow_timestamps
+                .chunks(2)
+                .map(|chunk| quote_record_batch("A.B", chunk))
+                .collect();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+            it.add_data(
+                "materialized",
+                vec![quote("C.D", 2), quote("C.D", 5), quote("C.D", 8)],
+                true,
+            );
+
+            assert_eq!(collect_ts(&mut it), vec![1, 2, 4, 5, 7, 8, 10]);
+            assert!(it.is_done());
+        }
+
+        #[rstest]
+        fn test_record_batch_chunk_source_empty_iterator_is_noop() {
+            let batches: Vec<(arrow::record_batch::RecordBatch, HashMap<String, String>)> =
+                Vec::new();
+
+            let mut it = BacktestDataIterator::new();
+            it.init_data(
+                "arrow",
+                Box::new(RecordBatchChunkSource::new(batches.into_iter())),
+                true,
+            );
+
+            assert!(it.is_done());
+            assert!(it.next().is_none());
+        }
     }
 }

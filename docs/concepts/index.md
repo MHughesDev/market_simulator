@@ -1,6 +1,6 @@
 # Concepts
 
-These guides explain the core components, architecture, and design of NautilusTrader.
+These guides explain the core components, architecture, and design of Market Simulator.
 
 ## Overview
 

@@ -13,12 +13,12 @@ This is the Rust-backed adapter with Python bindings.
 
 :::note
 No additional installation extras are required. The adapter is implemented in Rust and
-compiled into the core `nautilus_trader` package automatically during the build.
+compiled into the core `market_simulator` package automatically during the build.
 :::
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/dydx/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/dydx/).
 
 ## Overview
 
@@ -649,7 +649,7 @@ export DYDX_TESTNET_PRIVATE_KEY="0x..."  # hex-encoded, 0x prefix optional
 Set `environment=DydxNetwork.TESTNET` on both data and execution clients:
 
 ```python
-from nautilus_trader.adapters.dydx import DydxNetwork
+from market_simulator.adapters.dydx import DydxNetwork
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -741,12 +741,12 @@ wallet credentials.
 Configure a live `TradingNode` to include dYdX data and execution clients:
 
 ```python
-from nautilus_trader.adapters.dydx import DydxDataClientConfig
-from nautilus_trader.adapters.dydx import DydxExecClientConfig
-from nautilus_trader.adapters.dydx import DydxNetwork
-from nautilus_trader.adapters.dydx.constants import DYDX
-from nautilus_trader.config import InstrumentProviderConfig
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.adapters.dydx import DydxDataClientConfig
+from market_simulator.adapters.dydx import DydxExecClientConfig
+from market_simulator.adapters.dydx import DydxNetwork
+from market_simulator.adapters.dydx.constants import DYDX
+from market_simulator.config import InstrumentProviderConfig
+from market_simulator.config import TradingNodeConfig
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -772,10 +772,10 @@ config = TradingNodeConfig(
 Then, create a `TradingNode` and register the client factories:
 
 ```python
-from nautilus_trader.adapters.dydx import DydxLiveDataClientFactory
-from nautilus_trader.adapters.dydx import DydxLiveExecClientFactory
-from nautilus_trader.adapters.dydx.constants import DYDX
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.dydx import DydxLiveDataClientFactory
+from market_simulator.adapters.dydx import DydxLiveExecClientFactory
+from market_simulator.adapters.dydx.constants import DYDX
+from market_simulator.live.node import TradingNode
 
 node = TradingNode(config=config)
 
@@ -866,5 +866,5 @@ Only L2 (MBP) book type is supported.
 
 :::info
 For additional features or to contribute to the dYdX adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

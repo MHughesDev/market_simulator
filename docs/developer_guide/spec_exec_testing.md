@@ -2,7 +2,7 @@
 
 This section defines a rigorous test matrix for validating adapter execution
 functionality using the `ExecTester` strategy. Both Python
-(`nautilus_trader.test_kit.strategies.tester_exec`) and Rust
+(`market_simulator.test_kit.strategies.tester_exec`) and Rust
 (`nautilus_testkit::testers`) provide the `ExecTester`. Each test case is
 identified by a prefixed ID (e.g. TC-E01) and grouped by functionality.
 
@@ -34,14 +34,14 @@ Before running execution tests:
 
 **Python node setup**:
 
-Legacy examples still use `nautilus_trader.live.node.TradingNode`, but new Rust-backed
-PyO3 adapters should prefer `nautilus_trader.live.LiveNode`. Use `LiveNode.builder(...)`
+Legacy examples still use `market_simulator.live.node.TradingNode`, but new Rust-backed
+PyO3 adapters should prefer `market_simulator.live.LiveNode`. Use `LiveNode.builder(...)`
 when you need to register adapter client factories before the node is built.
 
 ```python
-from nautilus_trader.common import Environment
-from nautilus_trader.live import LiveExecEngineConfig, LiveNode, LiveRiskEngineConfig
-from nautilus_trader.model import TraderId
+from market_simulator.common import Environment
+from market_simulator.live import LiveExecEngineConfig, LiveNode, LiveRiskEngineConfig
+from market_simulator.model import TraderId
 
 node = (
     LiveNode.builder("TESTER-001", TraderId("TESTER-001"), Environment.SANDBOX)

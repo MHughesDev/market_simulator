@@ -19,7 +19,7 @@ Use this template only for issues that fit the **Bug** definition.
 
 - Submitting this issue automatically applies the `bug` label.
 - `bug`-labeled issues are triaged with higher priority because they require corrective implementation work.
-- **Expectation mismatches** and design-level concerns should be opened as [Discussions](https://github.com/nautechsystems/nautilus_trader/discussions), or RFCs instead, where they can be validated and discussed to consensus before any work is scheduled.
+- **Expectation mismatches** and design-level concerns should be opened as [Discussions](https://github.com/market-simulator-team/market_simulator/discussions), or RFCs instead, where they can be validated and discussed to consensus before any work is scheduled.
 - The absence of a feature is typically not an expectation mismatch, and should be filed as an enhancement request.
 
 ## Confirmation
@@ -35,10 +35,10 @@ Checking a recent development wheel can save time because the issue may already 
 You can install a development wheel by running:
 
 ```bash
-pip install -U nautilus_trader --pre --index-url https://packages.nautechsystems.io/simple
+pip install -U market_simulator --pre --index-url https://packages.market-simulator-team.io/simple
 ```
 
-See the [development-wheels](https://github.com/nautechsystems/nautilus_trader#development-wheels) section for more details.
+See the [development-wheels](https://github.com/market-simulator-team/market_simulator#development-wheels) section for more details.
 
 ### Expected Behavior
 
@@ -59,10 +59,10 @@ Add here...
 <!-- If applicable, provide relevant code snippets, error logs, or stack traces. Use code blocks for clarity. -->
 
 <!-- Consider starting from our Minimal Reproducible Example template: -->
-<!-- https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/other/minimal_reproducible_example -->
+<!-- https://github.com/market-simulator-team/market_simulator/tree/develop/examples/other/minimal_reproducible_example -->
 
 ### Specifications
 
 - OS platform:
 - Python version:
-- `nautilus_trader` version:
+- `market_simulator` version:

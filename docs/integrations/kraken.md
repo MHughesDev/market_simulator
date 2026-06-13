@@ -36,7 +36,7 @@ won't need to work directly with these lower-level components.
 
 You can find live example scripts in the [examples/live/kraken] directory.
 
-[examples/live/kraken]: https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/kraken/
+[examples/live/kraken]: https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/kraken/
 
 ## Kraken documentation
 
@@ -46,7 +46,7 @@ Kraken provides detailed documentation for users:
 - [Kraken Spot REST API](https://docs.kraken.com/api/docs/guides/spot-rest-intro)
 - [Kraken Futures REST API](https://docs.kraken.com/api/docs/futures-api)
 
-Refer to the Kraken documentation in conjunction with this NautilusTrader
+Refer to the Kraken documentation in conjunction with this Market Simulator
 integration guide.
 
 ## Products
@@ -144,7 +144,7 @@ currency (e.g., `ETH/XBT` to `ETH/BTC`). Futures retain Kraken's native `XBT` fo
 
 ### Spot markets
 
-NautilusTrader uses ISO 4217-A3 format for Kraken Spot instrument symbols,
+Market Simulator uses ISO 4217-A3 format for Kraken Spot instrument symbols,
 which provides a standardized representation across exchanges. The adapter
 handles translation to Kraken's native format internally.
 
@@ -205,7 +205,7 @@ InstrumentId.from_str("PF_XBTUSD.KRAKEN")  # Perpetual fixed-margin BTC
 Kraken exposes Spot per-order book data via the WebSocket v2 `level3` channel at
 `wss://ws-l3.kraken.com/v2`. This gives venue order IDs, per-order quantities,
 and true incremental events (`add`, `modify`, `delete`). The adapter hashes each
-venue order ID into the `u64` `BookOrder.order_id` field used by NautilusTrader.
+venue order ID into the `u64` `BookOrder.order_id` field used by Market Simulator.
 
 ### Prerequisites
 
@@ -214,7 +214,7 @@ is authenticated. Set them in `KrakenDataClientConfig` or via
 `KRAKEN_SPOT_API_KEY` and `KRAKEN_SPOT_API_SECRET`:
 
 ```python
-from nautilus_trader.adapters.kraken.config import KrakenDataClientConfig
+from market_simulator.adapters.kraken.config import KrakenDataClientConfig
 
 config = KrakenDataClientConfig(
     api_key="YOUR_KEY",
@@ -225,7 +225,7 @@ config = KrakenDataClientConfig(
 Then subscribe with `book_type=BookType.L3_MBO`:
 
 ```python
-from nautilus_trader.model.enums import BookType
+from market_simulator.model.enums import BookType
 
 await client.subscribe_book_deltas(
     instrument_id=instrument_id,
@@ -368,7 +368,7 @@ live `KrakenExecutionClient` currently routes all orders via REST regardless
 of the knobs below; WebSocket trade routing is only active when the Rust
 execution client (`KrakenSpotExecutionClient`) is in use, either via the
 Rust factory or by constructing the pyo3-exposed
-`nautilus_trader.core.nautilus_pyo3.kraken.KrakenExecClientConfig` directly.
+`market_simulator.core.nautilus_pyo3.kraken.KrakenExecClientConfig` directly.
 
 ### Order shapes routed via REST
 
@@ -537,8 +537,8 @@ order submission. Margin trading is enabled per-execution-client via
 ### Configuration
 
 ```python
-from nautilus_trader.adapters.kraken import KrakenExecClientConfig
-from nautilus_trader.model.enums import AccountType
+from market_simulator.adapters.kraken import KrakenExecClientConfig
+from market_simulator.model.enums import AccountType
 
 exec_clients = {
     KRAKEN: KrakenExecClientConfig(
@@ -738,9 +738,9 @@ To test with Kraken Futures demo (paper trading):
    `product_types=(KrakenProductType.FUTURES,)`.
 
 ```python
-from nautilus_trader.adapters.kraken import KRAKEN
-from nautilus_trader.adapters.kraken import KrakenEnvironment
-from nautilus_trader.adapters.kraken import KrakenProductType
+from market_simulator.adapters.kraken import KRAKEN
+from market_simulator.adapters.kraken import KrakenEnvironment
+from market_simulator.adapters.kraken import KrakenProductType
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -766,10 +766,10 @@ data and execution clients. Add a `KRAKEN` section to your client
 configuration(s):
 
 ```python
-from nautilus_trader.adapters.kraken import KRAKEN
-from nautilus_trader.adapters.kraken import KrakenEnvironment
-from nautilus_trader.adapters.kraken import KrakenProductType
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.kraken import KRAKEN
+from market_simulator.adapters.kraken import KrakenEnvironment
+from market_simulator.adapters.kraken import KrakenProductType
+from market_simulator.live.node import TradingNode
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -813,10 +813,10 @@ config = TradingNodeConfig(
 Then, create a `TradingNode` and add the client factories:
 
 ```python
-from nautilus_trader.adapters.kraken import KRAKEN
-from nautilus_trader.adapters.kraken import KrakenLiveDataClientFactory
-from nautilus_trader.adapters.kraken import KrakenLiveExecClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.kraken import KRAKEN
+from market_simulator.adapters.kraken import KrakenLiveDataClientFactory
+from market_simulator.adapters.kraken import KrakenLiveExecClientFactory
+from market_simulator.live.node import TradingNode
 
 # Instantiate the live trading node with a configuration
 node = TradingNode(config=config)
@@ -861,5 +861,5 @@ your credentials are valid and have trading permissions.
 
 :::info
 For additional features or to contribute to the Kraken adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

@@ -1,11 +1,11 @@
 # Serialization
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.serialization
+.. automodule:: market_simulator.serialization
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.serialization.serializer
+.. automodule:: market_simulator.serialization.serializer
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.serialization.base
+.. automodule:: market_simulator.serialization.base
    :show-inheritance:
    :inherited-members:
    :members:

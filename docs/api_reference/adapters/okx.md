@@ -1,7 +1,7 @@
 # OKX
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx
+.. automodule:: market_simulator.adapters.okx
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx.config
+.. automodule:: market_simulator.adapters.okx.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx.factories
+.. automodule:: market_simulator.adapters.okx.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx.providers
+.. automodule:: market_simulator.adapters.okx.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx.data
+.. automodule:: market_simulator.adapters.okx.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.okx.execution
+.. automodule:: market_simulator.adapters.okx.execution
    :show-inheritance:
    :inherited-members:
    :members:

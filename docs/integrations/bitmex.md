@@ -12,7 +12,7 @@ It does not require external BitMEX client libraries; the core components are co
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/bitmex/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/bitmex/).
 
 ## Components
 
@@ -46,7 +46,7 @@ BitMEX provides extensive documentation for users:
 - [Futures Contracts Guide](https://www.bitmex.com/app/futuresGuide) - Traditional futures information.
 
 It's recommended you refer to the BitMEX documentation in conjunction with this
-NautilusTrader integration guide.
+Market Simulator integration guide.
 
 ## Product support
 
@@ -136,13 +136,13 @@ Futures contracts use standard futures month codes:
 
 Followed by the year (e.g., `24` for 2024, `25` for 2025).
 
-### NautilusTrader instrument IDs
+### Market Simulator instrument IDs
 
-Within NautilusTrader, BitMEX instruments are identified using the native BitMEX symbol
+Within Market Simulator, BitMEX instruments are identified using the native BitMEX symbol
 directly, combined with the venue identifier:
 
 ```python
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import InstrumentId
 
 # Spot pairs (note: no slash in the symbol)
 spot_id = InstrumentId.from_str("XBTUSDT.BITMEX")  # XBT/USDT spot
@@ -160,7 +160,7 @@ prediction_id = InstrumentId.from_str("P_XBTETFV23.BITMEX")  # Bitcoin ETF SEC a
 ```
 
 :::note
-BitMEX spot symbols in NautilusTrader don't include the slash (/) that appears in the
+BitMEX spot symbols in Market Simulator don't include the slash (/) that appears in the
 BitMEX UI. Use `XBTUSDT` instead of `XBT/USDT`.
 :::
 
@@ -232,7 +232,7 @@ Choose the trigger type that matches your strategy and/or risk preferences.
 **Example**:
 
 ```python
-from nautilus_trader.model.enums import TriggerType
+from market_simulator.model.enums import TriggerType
 
 order = self.order_factory.stop_market(
     instrument_id=instrument_id,
@@ -261,7 +261,7 @@ favorably. The adapter maps `TRAILING_STOP_MARKET` orders to BitMEX's pegged ord
 **Example**:
 
 ```python
-from nautilus_trader.model.enums import TrailingOffsetType
+from market_simulator.model.enums import TrailingOffsetType
 
 order = self.order_factory.trailing_stop_market(
     instrument_id=instrument_id,
@@ -577,7 +577,7 @@ The submit broadcaster is configured via the execution client configuration:
 **Example configuration**:
 
 ```python
-from nautilus_trader.adapters.bitmex.config import BitmexExecClientConfig
+from market_simulator.adapters.bitmex.config import BitmexExecClientConfig
 
 exec_config = BitmexExecClientConfig(
     api_key="YOUR_API_KEY",
@@ -645,7 +645,7 @@ The cancel broadcaster is configured via the execution client configuration:
 **Example configuration**:
 
 ```python
-from nautilus_trader.adapters.bitmex.config import BitmexExecClientConfig
+from market_simulator.adapters.bitmex.config import BitmexExecClientConfig
 
 exec_config = BitmexExecClientConfig(
     api_key="YOUR_API_KEY",
@@ -719,7 +719,7 @@ Enable the dead man's switch by setting `deadmans_switch_timeout_secs` on the ex
 client config:
 
 ```python
-from nautilus_trader.adapters.bitmex.config import BitmexExecClientConfig
+from market_simulator.adapters.bitmex.config import BitmexExecClientConfig
 
 exec_config = BitmexExecClientConfig(
     api_key="YOUR_API_KEY",
@@ -835,9 +835,9 @@ The BitMEX execution client provides the following configuration options:
 A typical BitMEX configuration for live trading includes both testnet and mainnet options:
 
 ```python
-from nautilus_trader.adapters.bitmex.config import BitmexDataClientConfig
-from nautilus_trader.adapters.bitmex.config import BitmexExecClientConfig
-from nautilus_trader.core.nautilus_pyo3 import BitmexEnvironment
+from market_simulator.adapters.bitmex.config import BitmexDataClientConfig
+from market_simulator.adapters.bitmex.config import BitmexExecClientConfig
+from market_simulator.core.nautilus_pyo3 import BitmexEnvironment
 
 # Using environment variables (recommended)
 testnet_data_config = BitmexDataClientConfig(
@@ -904,5 +904,5 @@ handles the required BitMEX wiring automatically.
 
 :::info
 For additional features or to contribute to the BitMEX adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

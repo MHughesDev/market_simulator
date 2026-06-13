@@ -1,11 +1,11 @@
 # Events
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.events
+.. automodule:: market_simulator.model.events
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.events.account
+.. automodule:: market_simulator.model.events.account
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.events.order
+.. automodule:: market_simulator.model.events.order
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.events.position
+.. automodule:: market_simulator.model.events.position
    :show-inheritance:
    :inherited-members:
    :members:

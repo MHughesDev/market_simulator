@@ -1,6 +1,6 @@
 # Python
 
-The [Python](https://www.python.org/) programming language is used for the majority of user-facing code in NautilusTrader.
+The [Python](https://www.python.org/) programming language is used for the majority of user-facing code in Market Simulator.
 Python provides a rich ecosystem of libraries and frameworks, making it ideal for strategy development, data analysis, and system integration.
 
 ## Code style

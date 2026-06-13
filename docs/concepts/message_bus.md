@@ -77,10 +77,10 @@ self.msgbus.publish("MyTopic", "MyMessage")
 
 ## Messaging styles
 
-NautilusTrader is an **event-driven** framework where components communicate by sending and receiving messages.
+Market Simulator is an **event-driven** framework where components communicate by sending and receiving messages.
 Understanding the different messaging styles helps when building trading systems.
 
-This guide explains the three primary messaging patterns available in NautilusTrader:
+This guide explains the three primary messaging patterns available in Market Simulator:
 
 | **Messaging Style**                          | **Purpose**                                 | **Best For**                                          |
 |:---------------------------------------------|:--------------------------------------------|:------------------------------------------------------|
@@ -94,7 +94,7 @@ Each approach serves different purposes. This section helps you decide which pat
 
 #### Concept
 
-The `MessageBus` is the central hub for all messages in NautilusTrader. It enables a **publish/subscribe** pattern
+The `MessageBus` is the central hub for all messages in Market Simulator. It enables a **publish/subscribe** pattern
 where components can publish events to **named topics**, and other components can subscribe to receive those messages.
 This decouples components, allowing them to interact indirectly via the message bus.
 
@@ -117,7 +117,7 @@ The message bus approach is ideal when you need:
 #### Quick overview code
 
 ```python
-from nautilus_trader.core.message import Event
+from market_simulator.core.message import Event
 
 # Define a custom event
 class Each10thBarEvent(Event):
@@ -139,7 +139,7 @@ def on_each_10th_bar(self, event: Each10thBarEvent):
 
 #### Full example
 
-[MessageBus Example](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/example_09_messaging_with_msgbus)
+[MessageBus Example](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/example_09_messaging_with_msgbus)
 
 ### Actor-based publish/subscribe data
 
@@ -155,7 +155,7 @@ The Data publish/subscribe approach works well when you need:
 
 - **Exchange of structured trading data** like market data, indicators, custom metrics, or option greeks.
 - **Proper event ordering** via built-in timestamps (`ts_event`, `ts_init`) crucial for backtest accuracy.
-- **Data persistence and serialization** through the `@customdataclass` decorator, integrating with NautilusTrader's data catalog system.
+- **Data persistence and serialization** through the `@customdataclass` decorator, integrating with Market Simulator's data catalog system.
 - **Standardized trading data exchange** between system components.
 
 #### Considerations
@@ -177,8 +177,8 @@ The Data publish/subscribe approach works well when you need:
 #### Quick overview code
 
 ```python
-from nautilus_trader.core.data import Data
-from nautilus_trader.model.custom import customdataclass
+from market_simulator.core.data import Data
+from market_simulator.model.custom import customdataclass
 
 @customdataclass
 class GreeksData(Data):
@@ -200,7 +200,7 @@ def on_data(self, data: Data):
 
 #### Full example
 
-[Actor-Based Data Example](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/example_10_messaging_with_actor_data)
+[Actor-Based Data Example](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/example_10_messaging_with_actor_data)
 
 ### Actor-based publish/subscribe signal
 
@@ -230,8 +230,8 @@ The Signal messaging approach works well when you need:
 ```python
 # Define signal constants for better organization (optional but recommended)
 import types
-from nautilus_trader.core.datetime import unix_nanos_to_dt
-from nautilus_trader.common.enums import LogColor
+from market_simulator.core.datetime import unix_nanos_to_dt
+from market_simulator.common.enums import LogColor
 
 signals = types.SimpleNamespace()
 signals.NEW_HIGHEST_PRICE = "NewHighestPriceReached"
@@ -270,7 +270,7 @@ def on_signal(self, signal):
 
 #### Full example
 
-[Actor-Based Signal Example](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/example_11_messaging_with_actor_signals)
+[Actor-Based Signal Example](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/example_11_messaging_with_actor_signals)
 
 ### Summary and decision guide
 
@@ -419,9 +419,9 @@ To enable this filtering mechanism, pass a list of `type` objects to the `types_
 specifying which types of messages should be excluded from external publication.
 
 ```python
-from nautilus_trader.config import MessageBusConfig
-from nautilus_trader.model.data import QuoteTick
-from nautilus_trader.model.data import TradeTick
+from market_simulator.config import MessageBusConfig
+from market_simulator.model.data import QuoteTick
+from market_simulator.model.data import TradeTick
 
 # Create a MessageBusConfig instance with types filtering
 message_bus = MessageBusConfig(

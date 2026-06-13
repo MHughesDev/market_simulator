@@ -111,7 +111,7 @@ cargo run -p nautilus-backtest --features examples --example engine-ema-cross
 ```
 
 Source:
-[`crates/backtest/examples/engine_ema_cross.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/backtest/examples/engine_ema_cross.rs)
+[`crates/backtest/examples/engine_ema_cross.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/backtest/examples/engine_ema_cross.rs)
 
 ## BacktestNode (high-level API)
 
@@ -241,4 +241,4 @@ cargo run -p nautilus-backtest --features examples,streaming --example node-ema-
 ```
 
 Source:
-[`crates/backtest/examples/node_ema_cross.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/backtest/examples/node_ema_cross.rs)
+[`crates/backtest/examples/node_ema_cross.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/backtest/examples/node_ema_cross.rs)

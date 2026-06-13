@@ -1,11 +1,11 @@
 # Tick Scheme
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.tick_scheme
+.. automodule:: market_simulator.model.tick_scheme
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.tick_scheme.implementations.fixed
+.. automodule:: market_simulator.model.tick_scheme.implementations.fixed
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.tick_scheme.implementations.tiered
+.. automodule:: market_simulator.model.tick_scheme.implementations.tiered
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.tick_scheme.base
+.. automodule:: market_simulator.model.tick_scheme.base
    :show-inheritance:
    :inherited-members:
    :members:

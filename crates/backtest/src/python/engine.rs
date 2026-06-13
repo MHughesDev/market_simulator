@@ -72,6 +72,7 @@ use rust_decimal::Decimal;
 use super::node::create_config_instance;
 use crate::{
     config::{BacktestEngineConfig, SimulatedVenueConfig},
+    data_iterator::DataChunkSource,
     engine::BacktestEngine,
     modules::{FXRolloverInterestModule, SimulationModuleAny},
     result::BacktestResult,
@@ -328,6 +329,49 @@ impl PyBacktestEngine {
         self.0
             .add_data(rust_data, client_id, validate, sort)
             .map_err(to_pyruntime_err)
+    }
+
+    /// Adds a lazily-pulled data stream to the engine from a Python generator/iterable
+    /// yielding `list[Data]` chunks (parity with the legacy Cython engine's
+    /// `add_data_iterator`). Chunks are pulled on demand as the previous one is
+    /// exhausted, bounding peak memory regardless of total series length.
+    #[pyo3(
+        name = "add_data_iterator",
+        signature = (name, generator, client_id=None, append_data=true)
+    )]
+    fn py_add_data_iterator(
+        &mut self,
+        name: String,
+        generator: Py<PyAny>,
+        client_id: Option<ClientId>,
+        append_data: bool,
+    ) -> PyResult<()> {
+        let source = PyDataChunkSource { generator };
+        self.0
+            .add_data_source(&name, Box::new(source), client_id, append_data);
+        Ok(())
+    }
+
+    /// Adds a lazily-pulled data stream to the engine from a Python generator/iterable
+    /// yielding `(pyarrow.RecordBatch, dict[str, str])` chunks, decoded into `Data`
+    /// on demand via the Arrow C Data Interface — a near zero-copy hand-off for orgs
+    /// whose data already lives in Arrow/Parquet form.
+    #[cfg(feature = "streaming")]
+    #[pyo3(
+        name = "add_record_batch_iterator",
+        signature = (name, generator, client_id=None, append_data=true)
+    )]
+    fn py_add_record_batch_iterator(
+        &mut self,
+        name: String,
+        generator: Py<PyAny>,
+        client_id: Option<ClientId>,
+        append_data: bool,
+    ) -> PyResult<()> {
+        let source = PyRecordBatchChunkSource { generator };
+        self.0
+            .add_data_source(&name, Box::new(source), client_id, append_data);
+        Ok(())
     }
 
     /// Adds an instrument to the engine.
@@ -1236,4 +1280,147 @@ fn pyobject_to_data(_py: Python, obj: &Bound<'_, PyAny>) -> PyResult<Data> {
 
     let type_name = obj.get_type().name()?;
     Err(to_pytype_err(format!("Cannot convert {type_name} to Data")))
+}
+
+/// Wraps a Python generator/iterable yielding `list[Data]` chunks as a
+/// [`DataChunkSource`], giving Python-side orgs the same memory-bounded
+/// streaming the legacy Cython engine documents via `add_data_iterator`/
+/// `init_data` — chunks are pulled and converted only as the previous one
+/// is exhausted, bounding peak memory regardless of total series length.
+#[derive(Debug)]
+struct PyDataChunkSource {
+    generator: Py<PyAny>,
+}
+
+impl DataChunkSource for PyDataChunkSource {
+    fn next_chunk(&mut self) -> Option<Vec<Data>> {
+        Python::attach(|py| {
+            let chunk_obj = match self.generator.bind(py).call_method0("__next__") {
+                Ok(obj) => obj,
+                Err(e) if e.is_instance_of::<pyo3::exceptions::PyStopIteration>(py) => return None,
+                Err(e) => {
+                    log::error!("Python data generator raised an error: {e}");
+                    return None;
+                }
+            };
+
+            let items = match chunk_obj.try_iter() {
+                Ok(iter) => iter,
+                Err(e) => {
+                    log::error!("Python data chunk is not iterable: {e}");
+                    return None;
+                }
+            };
+
+            let data: PyResult<Vec<Data>> = items
+                .map(|item| item.and_then(|obj| pyobject_to_data(py, &obj)))
+                .collect();
+
+            match data {
+                Ok(data) => Some(data),
+                Err(e) => {
+                    log::error!("Failed to convert Python data chunk: {e}");
+                    None
+                }
+            }
+        })
+    }
+}
+
+/// Imports a `pyarrow.RecordBatch` as an arrow-rs [`arrow::record_batch::RecordBatch`]
+/// via the Arrow C Data Interface (`_export_to_c`), reusing the same FFI hand-off
+/// pattern as [`nautilus_model::python::data::py_encode_custom_data_to_record_batch`]
+/// — near zero-copy, no intermediate serialization.
+#[cfg(feature = "streaming")]
+#[allow(unsafe_code)]
+fn pyarrow_record_batch_to_arrow(
+    batch: &Bound<'_, PyAny>,
+) -> PyResult<arrow::record_batch::RecordBatch> {
+    let mut ffi_array = arrow::ffi::FFI_ArrowArray::empty();
+    let mut ffi_schema = arrow::ffi::FFI_ArrowSchema::empty();
+
+    batch.call_method1(
+        "_export_to_c",
+        (
+            (&raw mut ffi_array as usize),
+            (&raw mut ffi_schema as usize),
+        ),
+    )?;
+
+    let schema = std::sync::Arc::new(
+        arrow::datatypes::Schema::try_from(&ffi_schema)
+            .map_err(|e| to_pyvalue_err(format!("Failed to import pyarrow schema: {e}")))?,
+    );
+    let struct_array_data = unsafe {
+        arrow::ffi::from_ffi_and_data_type(
+            ffi_array,
+            arrow::datatypes::DataType::Struct(schema.fields().clone()),
+        )
+        .map_err(|e| to_pyvalue_err(format!("Failed to import pyarrow array data: {e}")))?
+    };
+
+    Ok(arrow::record_batch::RecordBatch::from(
+        &arrow::array::StructArray::from(struct_array_data),
+    ))
+}
+
+/// Wraps a Python generator/iterable yielding `(pyarrow.RecordBatch, dict[str, str])`
+/// chunks — `(batch, decode_metadata)` pairs — as a [`DataChunkSource`].
+///
+/// Each batch is imported via the Arrow C Data Interface and decoded into
+/// [`Data`] lazily, one batch at a time, through the same
+/// [`decode_batch_to_data`](nautilus_persistence::backend::custom::decode_batch_to_data)
+/// dispatcher the catalog uses — giving an org whose data already lives in
+/// Arrow/Parquet form a near zero-copy hand-off, without requiring the SDK's
+/// bundled catalog/Parquet persistence.
+#[cfg(feature = "streaming")]
+#[derive(Debug)]
+struct PyRecordBatchChunkSource {
+    generator: Py<PyAny>,
+}
+
+#[cfg(feature = "streaming")]
+impl DataChunkSource for PyRecordBatchChunkSource {
+    fn next_chunk(&mut self) -> Option<Vec<Data>> {
+        Python::attach(|py| {
+            let item = match self.generator.bind(py).call_method0("__next__") {
+                Ok(obj) => obj,
+                Err(e) if e.is_instance_of::<pyo3::exceptions::PyStopIteration>(py) => return None,
+                Err(e) => {
+                    log::error!("Python record batch generator raised an error: {e}");
+                    return None;
+                }
+            };
+
+            let (py_batch, metadata): (Bound<'_, PyAny>, HashMap<String, String>) =
+                match item.extract() {
+                    Ok(pair) => pair,
+                    Err(e) => {
+                        log::error!(
+                            "Expected a (RecordBatch, dict[str, str]) tuple from generator: {e}"
+                        );
+                        return None;
+                    }
+                };
+
+            let batch = match pyarrow_record_batch_to_arrow(&py_batch) {
+                Ok(batch) => batch,
+                Err(e) => {
+                    log::error!(
+                        "Failed to import pyarrow RecordBatch via Arrow C Data Interface: {e}"
+                    );
+                    return None;
+                }
+            };
+
+            match nautilus_persistence::backend::custom::decode_batch_to_data(&metadata, batch, false)
+            {
+                Ok(data) => Some(data),
+                Err(e) => {
+                    log::error!("Failed to decode Arrow record batch into chunk data: {e}");
+                    None
+                }
+            }
+        })
+    }
 }

@@ -1,12 +1,12 @@
 # nautilus-backtest
 
-[![build](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/nautechsystems/nautilus_trader/actions/workflows/build.yml)
+[![build](https://github.com/market-simulator-team/market_simulator/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/market-simulator-team/market_simulator/actions/workflows/build.yml)
 [![Documentation](https://img.shields.io/docsrs/nautilus-backtest)](https://docs.rs/nautilus-backtest/latest/nautilus-backtest/)
 [![crates.io version](https://img.shields.io/crates/v/nautilus-backtest.svg)](https://crates.io/crates/nautilus-backtest)
-![license](https://img.shields.io/github/license/nautechsystems/nautilus_trader?color=blue)
-[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/NautilusTrader)
+![license](https://img.shields.io/github/license/market-simulator-team/market_simulator?color=blue)
+[![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?logo=discord&logoColor=white)](https://discord.gg/Market Simulator)
 
-Backtest engine for [NautilusTrader](https://nautilustrader.io).
+Backtest engine for [Market Simulator](https://market-simulator).
 
 The `nautilus-backtest` crate provides an event-driven backtesting framework that allows
 quantitative traders to test and validate trading strategies on historical data with high
@@ -18,9 +18,9 @@ fidelity market simulation. The system replicates real market conditions includi
 - Multi-venue and multi-asset backtesting capabilities.
 - Configuration and state management.
 
-## NautilusTrader
+## Market Simulator
 
-[NautilusTrader](https://nautilustrader.io) is an open-source, production-grade, Rust-native
+[Market Simulator](https://market-simulator) is an open-source, production-grade, Rust-native
 engine for multi-asset, multi-venue trading systems.
 
 The system spans research, deterministic simulation, and live execution within a single
@@ -42,16 +42,16 @@ See [the docs](https://docs.rs/nautilus-backtest) for more detailed usage.
 
 ## License
 
-The source code for NautilusTrader is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
+The source code for Market Simulator is available on GitHub under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.en.html).
 
 ---
 
-NautilusTrader™ is developed and maintained by Nautech Systems, a technology
+Market Simulator™ is developed and maintained by Nautech Systems, a technology
 company specializing in the development of high-performance trading systems.
-For more information, visit <https://nautilustrader.io>.
+For more information, visit <https://market-simulator>.
 
-Use of this software is subject to the [Disclaimer](https://nautilustrader.io/legal/disclaimer/).
+Use of this software is subject to the [Disclaimer](https://market-simulator/legal/disclaimer/).
 
-<img src="https://github.com/nautechsystems/nautilus_trader/raw/develop/assets/nautilus-logo-white.png" alt="logo" width="300" height="auto"/>
+<img src="https://github.com/market-simulator-team/market_simulator/raw/develop/assets/nautilus-logo-white.png" alt="logo" width="300" height="auto"/>
 
 © 2015-2026 Nautech Systems Pty Ltd. All rights reserved.

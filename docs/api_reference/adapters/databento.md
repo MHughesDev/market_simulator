@@ -1,7 +1,7 @@
 # Databento
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento
+.. automodule:: market_simulator.adapters.databento
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.config
+.. automodule:: market_simulator.adapters.databento.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.factories
+.. automodule:: market_simulator.adapters.databento.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.enums
+.. automodule:: market_simulator.adapters.databento.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Types
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.types
+.. automodule:: market_simulator.adapters.databento.types
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Loaders
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.loaders
+.. automodule:: market_simulator.adapters.databento.loaders
    :show-inheritance:
    :inherited-members:
    :members:
@@ -61,7 +61,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.providers
+.. automodule:: market_simulator.adapters.databento.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -71,7 +71,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.databento.data
+.. automodule:: market_simulator.adapters.databento.data
    :show-inheritance:
    :inherited-members:
    :members:

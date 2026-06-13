@@ -1,7 +1,7 @@
 # Tardis
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis
+.. automodule:: market_simulator.adapters.tardis
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Loaders
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis.loaders
+.. automodule:: market_simulator.adapters.tardis.loaders
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis.config
+.. automodule:: market_simulator.adapters.tardis.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis.providers
+.. automodule:: market_simulator.adapters.tardis.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis.factories
+.. automodule:: market_simulator.adapters.tardis.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.tardis.data
+.. automodule:: market_simulator.adapters.tardis.data
    :show-inheritance:
    :inherited-members:
    :members:

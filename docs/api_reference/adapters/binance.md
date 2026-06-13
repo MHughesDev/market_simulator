@@ -1,7 +1,7 @@
 # Binance
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance
+.. automodule:: market_simulator.adapters.binance
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.config
+.. automodule:: market_simulator.adapters.binance.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.factories
+.. automodule:: market_simulator.adapters.binance.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.common.enums
+.. automodule:: market_simulator.adapters.binance.common.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Types
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.common.types
+.. automodule:: market_simulator.adapters.binance.common.types
    :show-inheritance:
    :inherited-members:
    :members:
@@ -53,7 +53,7 @@
 ### Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.futures.data
+.. automodule:: market_simulator.adapters.binance.futures.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -63,7 +63,7 @@
 ### Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.futures.enums
+.. automodule:: market_simulator.adapters.binance.futures.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -73,7 +73,7 @@
 ### Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.futures.execution
+.. automodule:: market_simulator.adapters.binance.futures.execution
    :show-inheritance:
    :inherited-members:
    :members:
@@ -83,7 +83,7 @@
 ### Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.futures.providers
+.. automodule:: market_simulator.adapters.binance.futures.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -93,7 +93,7 @@
 ### Types
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.futures.types
+.. automodule:: market_simulator.adapters.binance.futures.types
    :show-inheritance:
    :inherited-members:
    :members:
@@ -105,7 +105,7 @@
 ### Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.spot.data
+.. automodule:: market_simulator.adapters.binance.spot.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -115,7 +115,7 @@
 ### Enums
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.spot.enums
+.. automodule:: market_simulator.adapters.binance.spot.enums
    :show-inheritance:
    :inherited-members:
    :members:
@@ -125,7 +125,7 @@
 ### Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.spot.execution
+.. automodule:: market_simulator.adapters.binance.spot.execution
    :show-inheritance:
    :inherited-members:
    :members:
@@ -135,7 +135,7 @@
 ### Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.binance.spot.providers
+.. automodule:: market_simulator.adapters.binance.spot.providers
    :show-inheritance:
    :inherited-members:
    :members:

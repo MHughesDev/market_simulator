@@ -12,7 +12,7 @@ The strategy combines two indicators on 1-minute mid bars:
   20-bar mean and a +/-2sd envelope. The bands flag price as overextended
   relative to recent volatility.
 - **Relative Strength Index** (`RSI(14)`): a 14-bar momentum oscillator.
-  NautilusTrader RSI is on `[0, 1]`, so the conventional 30/70 thresholds
+  Market Simulator RSI is on `[0, 1]`, so the conventional 30/70 thresholds
   become `0.30` / `0.70`.
 
 Entry needs both signals at once: a touch of the lower band with `RSI < 0.30`
@@ -78,7 +78,7 @@ for AX EURUSD-PERP backtests.
 ## Prerequisites
 
 - Python 3.12+
-- [NautilusTrader](https://pypi.org/project/nautilus_trader/) installed.
+- [Market Simulator](https://pypi.org/project/market_simulator/) installed.
 - A free TrueFX account, used to download a monthly tick archive.
 
 ## Data preparation
@@ -97,7 +97,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from nautilus_trader.persistence.wranglers import QuoteTickDataWrangler
+from market_simulator.persistence.wranglers import QuoteTickDataWrangler
 
 df = pd.read_csv(
     Path("EURUSD-2025-12.csv"),
@@ -123,13 +123,13 @@ gives one contract a notional of 1,000 EUR.
 ```python
 from decimal import Decimal
 
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import PerpetualContract
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import PerpetualContract
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 instrument_id = InstrumentId.from_str("EURUSD-PERP.AX")
 
@@ -167,29 +167,29 @@ rates.
 | `bb_period`          | `20`   | Rolling window for the BB mean and the standard deviation. |
 | `bb_std`             | `2.0`  | Band width in standard deviations.                   |
 | `rsi_period`         | `14`   | RSI lookback in bars.                                |
-| `rsi_buy_threshold`  | `0.30` | Long entry confirmation (NautilusTrader RSI is `[0, 1]`). |
+| `rsi_buy_threshold`  | `0.30` | Long entry confirmation (Market Simulator RSI is `[0, 1]`). |
 | `rsi_sell_threshold` | `0.70` | Short entry confirmation.                            |
 | `trade_size`         | `1`    | One contract per trade (1,000 EUR notional).         |
 
 :::tip
-NautilusTrader RSI returns values in `[0.0, 1.0]`, not `[0, 100]`. The
+Market Simulator RSI returns values in `[0.0, 1.0]`, not `[0, 100]`. The
 `0.30` / `0.70` thresholds correspond to the textbook 30 / 70 levels.
 :::
 
 ## Backtest setup
 
 ```python
-from nautilus_trader.backtest.config import BacktestEngineConfig
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.examples.strategies.bb_mean_reversion import BBMeanReversion
-from nautilus_trader.examples.strategies.bb_mean_reversion import BBMeanReversionConfig
-from nautilus_trader.model.data import BarType
-from nautilus_trader.model.enums import AccountType
-from nautilus_trader.model.enums import OmsType
-from nautilus_trader.model.identifiers import TraderId
-from nautilus_trader.model.identifiers import Venue
-from nautilus_trader.model.objects import Money
+from market_simulator.backtest.config import BacktestEngineConfig
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.config import LoggingConfig
+from market_simulator.examples.strategies.bb_mean_reversion import BBMeanReversion
+from market_simulator.examples.strategies.bb_mean_reversion import BBMeanReversionConfig
+from market_simulator.model.data import BarType
+from market_simulator.model.enums import AccountType
+from market_simulator.model.enums import OmsType
+from market_simulator.model.identifiers import TraderId
+from market_simulator.model.identifiers import Venue
+from market_simulator.model.objects import Money
 
 engine = BacktestEngine(
     BacktestEngineConfig(
@@ -238,7 +238,7 @@ engine.dispose()
 ```
 
 The runnable example is at
-[`architect_ax_mean_reversion.py`](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/architect_ax_mean_reversion.py).
+[`architect_ax_mean_reversion.py`](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/architect_ax_mean_reversion.py).
 
 ## What the run produces
 
@@ -309,13 +309,13 @@ Set `TRUEFX_CSV` to wherever you saved the EUR/USD archive.
 The same `BBMeanReversion` strategy runs live against AX Exchange. The
 launch script swaps the `BacktestEngine` for a `TradingNode` with the AX
 data and execution clients configured. See the live example:
-[`ax_mean_reversion.py`](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/architect_ax/ax_mean_reversion.py).
+[`ax_mean_reversion.py`](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/architect_ax/ax_mean_reversion.py).
 
 For connection setup and API key configuration, see the
 [AX Exchange integration guide](../integrations/architect_ax.md).
 
 ## Further reading
 
-- [`BBMeanReversion` strategy source](https://github.com/nautechsystems/nautilus_trader/tree/develop/nautilus_trader/examples/strategies/bb_mean_reversion.py)
+- [`BBMeanReversion` strategy source](https://github.com/market-simulator-team/market_simulator/tree/develop/market_simulator/examples/strategies/bb_mean_reversion.py)
 - [Gold perpetual book imbalance tutorial](gold_book_imbalance_ax.md)
 - [Architect Exchange documentation](https://docs.architect.exchange/)

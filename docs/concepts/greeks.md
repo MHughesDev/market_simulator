@@ -103,7 +103,7 @@ The core Rust implementation lives in `crates/model/src/data/greeks.rs`:
 Low-level pricing functions exposed to Python from `crates/model/src/data/greeks.rs`:
 
 ```python
-from nautilus_trader.model import (
+from market_simulator.model import (
     black_scholes_greeks,
     imply_vol,
     imply_vol_and_greeks,
@@ -135,13 +135,13 @@ The `BlackScholesGreeksResult` returned by these functions contains: `price`, `v
 
 ### GreeksCalculator
 
-The legacy Cython `GreeksCalculator` class in `nautilus_trader/model/greeks.pyx` computes
+The legacy Cython `GreeksCalculator` class in `market_simulator/model/greeks.pyx` computes
 Black-Scholes Greeks from cached market data. A PyO3 calculator is also exposed from
-`nautilus_trader.common.GreeksCalculator` for the v2 surface. Both use the cache and clock
+`market_simulator.common.GreeksCalculator` for the v2 surface. Both use the cache and clock
 and are accessible from actors or strategies.
 
 ```python
-from nautilus_trader.model.greeks import GreeksCalculator
+from market_simulator.model.greeks import GreeksCalculator
 
 # Typically created in on_start()
 calculator = GreeksCalculator(cache=self.cache, clock=self.clock)
@@ -298,7 +298,7 @@ looks up curves from the cache by currency code (for interest rates) or by under
 instrument ID (for dividend yields).
 
 ```python
-from nautilus_trader.model.greeks_data import YieldCurveData
+from market_simulator.model.greeks_data import YieldCurveData
 import numpy as np
 
 curve = YieldCurveData(

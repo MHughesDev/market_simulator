@@ -1,11 +1,11 @@
 # Live
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live
+.. automodule:: market_simulator.live
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.data_client
+.. automodule:: market_simulator.live.data_client
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.data_engine
+.. automodule:: market_simulator.live.data_engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.execution_client
+.. automodule:: market_simulator.live.execution_client
    :show-inheritance:
    :inherited-members:
    :members:
@@ -29,7 +29,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.execution_engine
+.. automodule:: market_simulator.live.execution_engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -37,7 +37,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.risk_engine
+.. automodule:: market_simulator.live.risk_engine
    :show-inheritance:
    :inherited-members:
    :members:
@@ -45,7 +45,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.node
+.. automodule:: market_simulator.live.node
    :show-inheritance:
    :inherited-members:
    :members:
@@ -53,7 +53,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.node_builder
+.. automodule:: market_simulator.live.node_builder
    :show-inheritance:
    :inherited-members:
    :members:

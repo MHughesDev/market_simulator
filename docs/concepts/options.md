@@ -45,7 +45,7 @@ Nautilus provides two subscription levels:
 Subscribe to venue-provided Greeks for a single option contract from an actor or strategy:
 
 ```python
-from nautilus_trader.model.identifiers import ClientId
+from market_simulator.model.identifiers import ClientId
 
 client_id = ClientId("DERIBIT")
 self.subscribe_option_greeks(instrument_id, client_id=client_id)
@@ -77,7 +77,7 @@ option series into `OptionChainSlice` snapshots. The `DataEngine` creates one Ru
 incoming data, running snapshot timers, and draining wire subscription changes.
 
 ```python
-from nautilus_trader.core import nautilus_pyo3
+from market_simulator.core import nautilus_pyo3
 
 series_id = nautilus_pyo3.OptionSeriesId(...)  # identifies the series (venue, underlying, expiry)
 
@@ -214,8 +214,8 @@ from the venue name:
 ```python
 from decimal import Decimal
 
-from nautilus_trader.execution import CappedOptionFeeModel
-from nautilus_trader.execution import TieredNotionalOptionFeeModel
+from market_simulator.execution import CappedOptionFeeModel
+from market_simulator.execution import TieredNotionalOptionFeeModel
 
 deribit_like = CappedOptionFeeModel(
     maker_rate=Decimal("0.0003"),

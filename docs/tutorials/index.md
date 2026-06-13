@@ -4,22 +4,22 @@ Step-by-step walkthroughs demonstrating specific features and workflows.
 
 :::info
 Each tutorial is a Jupytext percent-format Python file in the docs
-[tutorials directory](https://github.com/nautechsystems/nautilus_trader/tree/develop/docs/tutorials).
+[tutorials directory](https://github.com/market-simulator-team/market_simulator/tree/develop/docs/tutorials).
 You can run them directly as scripts or open them as notebooks with Jupytext.
 :::
 
 :::tip
 
 - **Latest**: docs built from the `master` branch for stable releases.
-  See <https://nautilustrader.io/docs/latest/tutorials/>.
+  See <docs/tutorials/>.
 - **Nightly**: docs built from the `nightly` branch for experimental features.
-  See <https://nautilustrader.io/docs/nightly/tutorials/>.
+  See <https://market-simulator/docs/nightly/tutorials/>.
 
 :::
 
 ## Recommended order
 
-New to NautilusTrader? Work through these in sequence:
+New to Market Simulator? Work through these in sequence:
 
 1. [Quickstart](../getting_started/quickstart) - run your first backtest in five minutes
    with synthetic data
@@ -74,8 +74,8 @@ For task-oriented data recipes, see the [how-to guides](../how_to/):
 | [Book Imbalance Backtest (Betfair)](backtest_book_imbalance_betfair)                | Book imbalance actor on Betfair L2 data.             | User‑provided  |
 | [Hurst/VPIN Directional Strategy (Kraken Futures)](hurst_vpin_kraken)               | Regime‑filtered informed‑flow strategy on PF_XBTUSD. | Tardis.dev     |
 
-[backtest_fx_bars]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/tutorials/backtest_fx_bars.py
-[backtest_orderbook_binance]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/tutorials/backtest_orderbook_binance.py
-[backtest_orderbook_bybit]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/tutorials/backtest_orderbook_bybit.py
-[loading_external_data]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/how_to/loading_external_data.py
-[data_catalog_databento]: https://github.com/nautechsystems/nautilus_trader/blob/develop/docs/how_to/data_catalog_databento.py
+[backtest_fx_bars]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/tutorials/backtest_fx_bars.py
+[backtest_orderbook_binance]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/tutorials/backtest_orderbook_binance.py
+[backtest_orderbook_bybit]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/tutorials/backtest_orderbook_bybit.py
+[loading_external_data]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/how_to/loading_external_data.py
+[data_catalog_databento]: https://github.com/market-simulator-team/market_simulator/blob/develop/docs/how_to/data_catalog_databento.py

@@ -67,7 +67,7 @@ flowchart LR
 ## Prerequisites
 
 - A working Rust toolchain ([rustup.rs](https://rustup.rs)).
-- The NautilusTrader repository cloned and building.
+- The Market Simulator repository cloned and building.
 - A Betfair historical `.gz` file containing MCM (Market Change Message)
   data. Source it from
   [Betfair historic data](https://historicdata.betfair.com/), a third-party
@@ -157,7 +157,7 @@ status routing to the engine.
 
 ## The actor
 
-NautilusTrader ships `BookImbalanceActor` in the trading crate's examples
+Market Simulator ships `BookImbalanceActor` in the trading crate's examples
 module. The example wires it up with a per-runner instrument list and a
 log interval:
 
@@ -174,7 +174,7 @@ environment, so set it to a smaller value (`200`) when you want to capture
 finer-grained data for the panels at the end of this tutorial.
 
 The full source is at
-[`crates/trading/src/examples/actors/imbalance/actor.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/trading/src/examples/actors/imbalance/actor.rs).
+[`crates/trading/src/examples/actors/imbalance/actor.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/trading/src/examples/actors/imbalance/actor.rs).
 
 ### How it works
 
@@ -330,7 +330,7 @@ cargo run -p nautilus-betfair --features examples --release --example betfair-ba
 ## Complete source
 
 The complete example is at
-[`crates/adapters/betfair/examples/betfair_backtest.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/betfair/examples/betfair_backtest.rs).
+[`crates/adapters/betfair/examples/betfair_backtest.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/betfair/examples/betfair_backtest.rs).
 
 ## Next steps
 

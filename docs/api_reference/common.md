@@ -1,11 +1,11 @@
 # Common
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common
+.. automodule:: market_simulator.common
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.actor
+.. automodule:: market_simulator.common.actor
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.factories
+.. automodule:: market_simulator.common.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -23,7 +23,7 @@
 ## Component
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.component
+.. automodule:: market_simulator.common.component
    :show-inheritance:
    :inherited-members:
    :members:
@@ -33,7 +33,7 @@
 ## Executor
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.executor
+.. automodule:: market_simulator.common.executor
    :show-inheritance:
    :inherited-members:
    :members:
@@ -43,7 +43,7 @@
 ## Generators
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.generators
+.. automodule:: market_simulator.common.generators
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ```
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.providers
+.. automodule:: market_simulator.common.providers
    :show-inheritance:
    :inherited-members:
    :members:

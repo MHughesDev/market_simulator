@@ -75,7 +75,7 @@ seconds.
 
 ## Prerequisites
 
-- [NautilusTrader](https://pypi.org/project/nautilus_trader/) installed.
+- [Market Simulator](https://pypi.org/project/market_simulator/) installed.
 - A Rust toolchain (`cargo`) for the live example. Install from
   [rustup.rs](https://rustup.rs/).
 - A BitMEX account: sign up at [bitmex.com](https://www.bitmex.com/) and
@@ -128,8 +128,8 @@ for bulk fetches.
 `TardisCSVDataLoader` parses the `.csv.gz` files directly:
 
 ```python
-from nautilus_trader.adapters.tardis.loaders import TardisCSVDataLoader
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.adapters.tardis.loaders import TardisCSVDataLoader
+from market_simulator.model.identifiers import InstrumentId
 
 instrument_id = InstrumentId.from_str("XBTUSD.BITMEX")
 
@@ -150,13 +150,13 @@ notional exposure.
 ```python
 from decimal import Decimal
 
-from nautilus_trader.model.currencies import BTC
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import PerpetualContract
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import BTC
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import PerpetualContract
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 XBTUSD = PerpetualContract(
     instrument_id=instrument_id,
@@ -190,14 +190,14 @@ Fee rates are explicit backtest assumptions. Check
 XBTUSD is BTC-margined, so the starting balance is in BTC:
 
 ```python
-from nautilus_trader.backtest.config import BacktestEngineConfig
-from nautilus_trader.backtest.engine import BacktestEngine
-from nautilus_trader.config import LoggingConfig
-from nautilus_trader.model.enums import AccountType
-from nautilus_trader.model.enums import OmsType
-from nautilus_trader.model.identifiers import TraderId
-from nautilus_trader.model.identifiers import Venue
-from nautilus_trader.model.objects import Money
+from market_simulator.backtest.config import BacktestEngineConfig
+from market_simulator.backtest.engine import BacktestEngine
+from market_simulator.config import LoggingConfig
+from market_simulator.model.enums import AccountType
+from market_simulator.model.enums import OmsType
+from market_simulator.model.identifiers import TraderId
+from market_simulator.model.identifiers import Venue
+from market_simulator.model.objects import Money
 
 engine = BacktestEngine(
     BacktestEngineConfig(
@@ -222,8 +222,8 @@ engine.add_data(quotes + trades)
 ### Strategy configuration
 
 ```python
-from nautilus_trader.examples.strategies.grid_market_maker import GridMarketMaker
-from nautilus_trader.examples.strategies.grid_market_maker import GridMarketMakerConfig
+from market_simulator.examples.strategies.grid_market_maker import GridMarketMaker
+from market_simulator.examples.strategies.grid_market_maker import GridMarketMakerConfig
 
 strategy = GridMarketMaker(
     GridMarketMakerConfig(
@@ -256,7 +256,7 @@ engine.dispose()
 ```
 
 The complete backtest script is at
-[`bitmex_grid_market_maker.py`](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/backtest/bitmex_grid_market_maker.py).
+[`bitmex_grid_market_maker.py`](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/backtest/bitmex_grid_market_maker.py).
 
 ### What the run produces
 
@@ -327,7 +327,7 @@ Or place them in a `.env` file at the project root.
 ### Code walkthrough
 
 The complete `main()` function is at
-[`node_grid_mm.rs`](https://github.com/nautechsystems/nautilus_trader/tree/develop/crates/adapters/bitmex/examples/node_grid_mm.rs):
+[`node_grid_mm.rs`](https://github.com/market-simulator-team/market_simulator/tree/develop/crates/adapters/bitmex/examples/node_grid_mm.rs):
 
 ```rust
 #[tokio::main]

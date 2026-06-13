@@ -1,7 +1,7 @@
 # Model
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model
+.. automodule:: market_simulator.model
 ```
 
 ```{eval-rst}

@@ -1,6 +1,6 @@
 # Bar aggregation example
 
-This example demonstrates how to use NautilusTrader's **bar aggregation** features to create higher timeframe bars
+This example demonstrates how to use Market Simulator's **bar aggregation** features to create higher timeframe bars
 from lower timeframe data.
 
 The strategy shows how to:
@@ -9,5 +9,5 @@ The strategy shows how to:
 - Create 5-minute bars from 1-minute data using internal aggregation.
 - Handle both timeframes independently in the same strategy.
 
-This helps you understand how bar aggregation works in NautilusTrader and how to handle multiple timeframes
+This helps you understand how bar aggregation works in Market Simulator and how to handle multiple timeframes
 in your strategies.

@@ -83,8 +83,8 @@ When adding new build targets or modifying existing ones, maintain alignment wit
 
 ### Generated FFI bindings and precision mode
 
-The `nautilus-model` build script regenerates `nautilus_trader/core/includes/model.h` and
-`nautilus_trader/core/rust/model.pxd` when the `ffi` feature is enabled. Those files encode
+The `nautilus-model` build script regenerates `market_simulator/core/includes/model.h` and
+`market_simulator/core/rust/model.pxd` when the `ffi` feature is enabled. Those files encode
 whether the generated C/Cython bindings use high precision. The committed generated files use
 high precision. Local cargo commands that compile `nautilus-model` with `ffi` should either
 include the `high-precision` feature or set `HIGH_PRECISION=true`.
@@ -103,7 +103,7 @@ env HIGH_PRECISION=true cargo check -p nautilus-model --features ffi,python
 Before committing FFI-related work, verify those generated files did not drift:
 
 ```fish
-git diff -- nautilus_trader/core/includes/model.h nautilus_trader/core/rust/model.pxd
+git diff -- market_simulator/core/includes/model.h market_simulator/core/rust/model.pxd
 ```
 
 If they changed only because a command ran without high precision, rerun the cargo command
@@ -125,7 +125,7 @@ All Rust files must include the standardized copyright header:
 ```rust
 // -------------------------------------------------------------------------------------------------
 //  Copyright (C) 2015-2026 Nautech Systems Pty Ltd. All rights reserved.
-//  https://nautechsystems.io
+//  https://market-simulator-team.io
 //
 //  Licensed under the GNU Lesser General Public License Version 3.0 (the "License");
 //  You may not use this file except in compliance with the License.
@@ -337,11 +337,11 @@ Consistent attribute usage and ordering:
 #[derive(Clone, Copy, Debug, Hash, PartialEq, Eq, PartialOrd, Ord)]
 #[cfg_attr(
     feature = "python",
-    pyo3::pyclass(module = "nautilus_trader.model")
+    pyo3::pyclass(module = "market_simulator.model")
 )]
 #[cfg_attr(
     feature = "python",
-    pyo3_stub_gen::derive::gen_stub_pyclass(module = "nautilus_trader.model")
+    pyo3_stub_gen::derive::gen_stub_pyclass(module = "market_simulator.model")
 )]
 pub struct Symbol(Ustr);
 ```
@@ -373,14 +373,14 @@ For enums with extensive derive attributes:
         frozen,
         eq,
         eq_int,
-        module = "nautilus_trader.model",
+        module = "market_simulator.model",
         from_py_object,
         rename_all = "SCREAMING_SNAKE_CASE",
     )
 )]
 #[cfg_attr(
     feature = "python",
-    pyo3_stub_gen::derive::gen_stub_pyclass_enum(module = "nautilus_trader.model")
+    pyo3_stub_gen::derive::gen_stub_pyclass_enum(module = "market_simulator.model")
 )]
 pub enum AccountType {
     /// An account with unleveraged cash assets only.
@@ -417,7 +417,7 @@ with the bindings.
 
 ```rust
 /// Converts a list of `Bar` into Arrow IPC bytes.
-#[pyo3_stub_gen::derive::gen_stub_pyfunction(module = "nautilus_trader.serialization")]
+#[pyo3_stub_gen::derive::gen_stub_pyfunction(module = "market_simulator.serialization")]
 #[pyfunction(name = "bars_to_arrow")]
 pub fn py_bars_to_arrow(data: Vec<Bar>) -> PyResult<Py<PyBytes>> {
     // ...
@@ -436,10 +436,10 @@ impl AccountState {
 }
 ```
 
-**Module parameter:** set `module = "nautilus_trader.<package>"` to match the Python
+**Module parameter:** set `module = "market_simulator.<package>"` to match the Python
 package where the type is imported. For example, model types use
-`nautilus_trader.model` and serialization functions use
-`nautilus_trader.serialization`.
+`market_simulator.model` and serialization functions use
+`market_simulator.serialization`.
 
 **Cargo.toml:** add `pyo3-stub-gen` as an optional dependency and include it in the
 `python` feature list:
@@ -965,7 +965,7 @@ impl Send for MessageBus {
 
 ## Python bindings
 
-Python bindings are provided via [PyO3](https://pyo3.rs), allowing users to import NautilusTrader crates directly in Python without a Rust toolchain.
+Python bindings are provided via [PyO3](https://pyo3.rs), allowing users to import Market Simulator crates directly in Python without a Rust toolchain.
 
 ### PyO3 naming conventions
 

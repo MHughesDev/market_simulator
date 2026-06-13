@@ -1,7 +1,7 @@
 # Position
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.model.position
+.. automodule:: market_simulator.model.position
    :show-inheritance:
    :inherited-members:
    :members:

@@ -13,7 +13,7 @@ a static library and linked automatically during the build.
 ## Examples
 
 Live example scripts are available in
-[examples/live/okx](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/okx/).
+[examples/live/okx](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/okx/).
 
 ### Product support
 
@@ -854,7 +854,7 @@ export OKX_API_PASSPHRASE="your_demo_passphrase"
 Set `environment=OKXEnvironment.DEMO` in your client configuration:
 
 ```python
-from nautilus_trader.core.nautilus_pyo3 import OKXEnvironment
+from market_simulator.core.nautilus_pyo3 import OKXEnvironment
 
 config = TradingNodeConfig(
     data_clients={
@@ -1061,15 +1061,15 @@ the execution client before trading them.
 Below is an example configuration for a live trading node using OKX data and execution clients:
 
 ```python
-from nautilus_trader.adapters.okx import OKX
-from nautilus_trader.adapters.okx import OKXDataClientConfig, OKXExecClientConfig
-from nautilus_trader.adapters.okx.factories import OKXLiveDataClientFactory, OKXLiveExecClientFactory
-from nautilus_trader.config import InstrumentProviderConfig, TradingNodeConfig
-from nautilus_trader.core.nautilus_pyo3 import OKXContractType
-from nautilus_trader.core.nautilus_pyo3 import OKXEnvironment
-from nautilus_trader.core.nautilus_pyo3 import OKXInstrumentType
-from nautilus_trader.core.nautilus_pyo3 import OKXMarginMode
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.okx import OKX
+from market_simulator.adapters.okx import OKXDataClientConfig, OKXExecClientConfig
+from market_simulator.adapters.okx.factories import OKXLiveDataClientFactory, OKXLiveExecClientFactory
+from market_simulator.config import InstrumentProviderConfig, TradingNodeConfig
+from market_simulator.core.nautilus_pyo3 import OKXContractType
+from market_simulator.core.nautilus_pyo3 import OKXEnvironment
+from market_simulator.core.nautilus_pyo3 import OKXInstrumentType
+from market_simulator.core.nautilus_pyo3 import OKXMarginMode
+from market_simulator.live.node import TradingNode
 
 config = TradingNodeConfig(
     ...,
@@ -1109,5 +1109,5 @@ node.build()
 
 :::info
 For additional features or to contribute to the OKX adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

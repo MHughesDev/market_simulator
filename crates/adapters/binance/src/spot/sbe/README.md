@@ -12,7 +12,7 @@
 - The `generated/` codecs are generated using the Apache-2.0 licensed Real Logic
   SBE tool; see `../../../licenses/Apache-2.0-RealLogic-SBE.txt` and the entry in
   `../../../licenses/THIRD_PARTY_LICENSES.md`.
-- The hand-written `stream/` code is covered by the NautilusTrader project license.
+- The hand-written `stream/` code is covered by the Market Simulator project license.
 
 ## Modifications
 

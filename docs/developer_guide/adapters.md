@@ -2,13 +2,13 @@
 
 ## Introduction
 
-This developer guide provides specifications for how to build an integration adapter for the NautilusTrader platform.
+This developer guide provides specifications for how to build an integration adapter for the Market Simulator platform.
 
 Adapters connect to trading venues and data providers, translating their native APIs into the platform’s unified interface and normalized domain model.
 
 ## Structure of an adapter
 
-NautilusTrader adapters follow a layered architecture pattern with:
+Market Simulator adapters follow a layered architecture pattern with:
 
 - **Rust core** for networking clients and performance-sensitive operations.
 - **Python layer** for integrating Rust clients into the platform's data and execution engines.
@@ -71,7 +71,7 @@ crates/adapters/your_adapter/
 └── test_data/               # Canonical venue payloads
 ```
 
-### Python layer (`nautilus_trader/adapters/your_adapter`)
+### Python layer (`market_simulator/adapters/your_adapter`)
 
 The Python layer provides the integration interface through these components:
 
@@ -84,7 +84,7 @@ The Python layer provides the integration interface through these components:
 Typical Python structure:
 
 ```
-nautilus_trader/adapters/your_adapter/
+market_simulator/adapters/your_adapter/
 ├── config.py     # Configuration classes
 ├── constants.py  # Adapter constants
 ├── data.py       # LiveDataClient/LiveMarketDataClient
@@ -2240,8 +2240,8 @@ The `InstrumentProvider` loads instrument definitions from the venue: all instru
 instruments by ID, or a filtered subset.
 
 ```python
-from nautilus_trader.common.providers import InstrumentProvider
-from nautilus_trader.model import InstrumentId
+from market_simulator.common.providers import InstrumentProvider
+from market_simulator.model import InstrumentId
 
 
 class TemplateInstrumentProvider(InstrumentProvider):
@@ -2269,11 +2269,11 @@ The `LiveDataClient` handles data feeds that are not market data: news feeds, cu
 or other non-market sources.
 
 ```python
-from nautilus_trader.data.messages import RequestData
-from nautilus_trader.data.messages import SubscribeData
-from nautilus_trader.data.messages import UnsubscribeData
-from nautilus_trader.live.data_client import LiveDataClient
-from nautilus_trader.model import DataType
+from market_simulator.data.messages import RequestData
+from market_simulator.data.messages import SubscribeData
+from market_simulator.data.messages import UnsubscribeData
+from market_simulator.live.data_client import LiveDataClient
+from market_simulator.model import DataType
 
 
 class TemplateLiveDataClient(LiveDataClient):
@@ -2309,40 +2309,40 @@ The `MarketDataClient` handles market-specific data: order books, top-of-book qu
 instrument status updates, and historical data requests.
 
 ```python
-from nautilus_trader.data.messages import RequestBars
-from nautilus_trader.data.messages import RequestData
-from nautilus_trader.data.messages import RequestInstrument
-from nautilus_trader.data.messages import RequestInstruments
-from nautilus_trader.data.messages import RequestOrderBookDeltas
-from nautilus_trader.data.messages import RequestOrderBookDepth
-from nautilus_trader.data.messages import RequestOrderBookSnapshot
-from nautilus_trader.data.messages import RequestQuoteTicks
-from nautilus_trader.data.messages import RequestTradeTicks
-from nautilus_trader.data.messages import SubscribeBars
-from nautilus_trader.data.messages import SubscribeData
-from nautilus_trader.data.messages import SubscribeFundingRates
-from nautilus_trader.data.messages import SubscribeIndexPrices
-from nautilus_trader.data.messages import SubscribeInstrument
-from nautilus_trader.data.messages import SubscribeInstrumentClose
-from nautilus_trader.data.messages import SubscribeInstruments
-from nautilus_trader.data.messages import SubscribeInstrumentStatus
-from nautilus_trader.data.messages import SubscribeMarkPrices
-from nautilus_trader.data.messages import SubscribeOrderBook
-from nautilus_trader.data.messages import SubscribeQuoteTicks
-from nautilus_trader.data.messages import SubscribeTradeTicks
-from nautilus_trader.data.messages import UnsubscribeBars
-from nautilus_trader.data.messages import UnsubscribeData
-from nautilus_trader.data.messages import UnsubscribeFundingRates
-from nautilus_trader.data.messages import UnsubscribeIndexPrices
-from nautilus_trader.data.messages import UnsubscribeInstrument
-from nautilus_trader.data.messages import UnsubscribeInstrumentClose
-from nautilus_trader.data.messages import UnsubscribeInstruments
-from nautilus_trader.data.messages import UnsubscribeInstrumentStatus
-from nautilus_trader.data.messages import UnsubscribeMarkPrices
-from nautilus_trader.data.messages import UnsubscribeOrderBook
-from nautilus_trader.data.messages import UnsubscribeQuoteTicks
-from nautilus_trader.data.messages import UnsubscribeTradeTicks
-from nautilus_trader.live.data_client import LiveMarketDataClient
+from market_simulator.data.messages import RequestBars
+from market_simulator.data.messages import RequestData
+from market_simulator.data.messages import RequestInstrument
+from market_simulator.data.messages import RequestInstruments
+from market_simulator.data.messages import RequestOrderBookDeltas
+from market_simulator.data.messages import RequestOrderBookDepth
+from market_simulator.data.messages import RequestOrderBookSnapshot
+from market_simulator.data.messages import RequestQuoteTicks
+from market_simulator.data.messages import RequestTradeTicks
+from market_simulator.data.messages import SubscribeBars
+from market_simulator.data.messages import SubscribeData
+from market_simulator.data.messages import SubscribeFundingRates
+from market_simulator.data.messages import SubscribeIndexPrices
+from market_simulator.data.messages import SubscribeInstrument
+from market_simulator.data.messages import SubscribeInstrumentClose
+from market_simulator.data.messages import SubscribeInstruments
+from market_simulator.data.messages import SubscribeInstrumentStatus
+from market_simulator.data.messages import SubscribeMarkPrices
+from market_simulator.data.messages import SubscribeOrderBook
+from market_simulator.data.messages import SubscribeQuoteTicks
+from market_simulator.data.messages import SubscribeTradeTicks
+from market_simulator.data.messages import UnsubscribeBars
+from market_simulator.data.messages import UnsubscribeData
+from market_simulator.data.messages import UnsubscribeFundingRates
+from market_simulator.data.messages import UnsubscribeIndexPrices
+from market_simulator.data.messages import UnsubscribeInstrument
+from market_simulator.data.messages import UnsubscribeInstrumentClose
+from market_simulator.data.messages import UnsubscribeInstruments
+from market_simulator.data.messages import UnsubscribeInstrumentStatus
+from market_simulator.data.messages import UnsubscribeMarkPrices
+from market_simulator.data.messages import UnsubscribeOrderBook
+from market_simulator.data.messages import UnsubscribeQuoteTicks
+from market_simulator.data.messages import UnsubscribeTradeTicks
+from market_simulator.live.data_client import LiveMarketDataClient
 
 
 class TemplateLiveMarketDataClient(LiveMarketDataClient):
@@ -2533,7 +2533,7 @@ data, adapters **must** set `RecordFlag` flags correctly on each
   message, terminate each logical group with `F_LAST`.
 
 ```python
-from nautilus_trader.model.enums import RecordFlag
+from market_simulator.model.enums import RecordFlag
 
 # Incremental update (single event)
 delta = OrderBookDelta(
@@ -2575,21 +2575,21 @@ The `ExecutionClient` manages order submission, modification, and cancellation a
 trading system.
 
 ```python
-from nautilus_trader.execution.messages import BatchCancelOrders
-from nautilus_trader.execution.messages import CancelAllOrders
-from nautilus_trader.execution.messages import CancelOrder
-from nautilus_trader.execution.messages import GenerateFillReports
-from nautilus_trader.execution.messages import GenerateOrderStatusReport
-from nautilus_trader.execution.messages import GenerateOrderStatusReports
-from nautilus_trader.execution.messages import GeneratePositionStatusReports
-from nautilus_trader.execution.messages import ModifyOrder
-from nautilus_trader.execution.messages import SubmitOrder
-from nautilus_trader.execution.messages import SubmitOrderList
-from nautilus_trader.execution.reports import ExecutionMassStatus
-from nautilus_trader.execution.reports import FillReport
-from nautilus_trader.execution.reports import OrderStatusReport
-from nautilus_trader.execution.reports import PositionStatusReport
-from nautilus_trader.live.execution_client import LiveExecutionClient
+from market_simulator.execution.messages import BatchCancelOrders
+from market_simulator.execution.messages import CancelAllOrders
+from market_simulator.execution.messages import CancelOrder
+from market_simulator.execution.messages import GenerateFillReports
+from market_simulator.execution.messages import GenerateOrderStatusReport
+from market_simulator.execution.messages import GenerateOrderStatusReports
+from market_simulator.execution.messages import GeneratePositionStatusReports
+from market_simulator.execution.messages import ModifyOrder
+from market_simulator.execution.messages import SubmitOrder
+from market_simulator.execution.messages import SubmitOrderList
+from market_simulator.execution.reports import ExecutionMassStatus
+from market_simulator.execution.reports import FillReport
+from market_simulator.execution.reports import OrderStatusReport
+from market_simulator.execution.reports import PositionStatusReport
+from market_simulator.live.execution_client import LiveExecutionClient
 
 
 class TemplateLiveExecutionClient(LiveExecutionClient):
@@ -2671,8 +2671,8 @@ class TemplateLiveExecutionClient(LiveExecutionClient):
 Configuration classes hold adapter-specific settings like API keys and connection details.
 
 ```python
-from nautilus_trader.config import LiveDataClientConfig
-from nautilus_trader.config import LiveExecClientConfig
+from market_simulator.config import LiveDataClientConfig
+from market_simulator.config import LiveExecClientConfig
 
 
 class TemplateDataClientConfig(LiveDataClientConfig):

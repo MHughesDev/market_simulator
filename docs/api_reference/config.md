@@ -3,7 +3,7 @@
 ## Backtest
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.backtest.config
+.. automodule:: market_simulator.backtest.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -13,7 +13,7 @@
 ## Cache
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.cache.config
+.. automodule:: market_simulator.cache.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -23,7 +23,7 @@
 ## Common
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.common.config
+.. automodule:: market_simulator.common.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -33,7 +33,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.data.config
+.. automodule:: market_simulator.data.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -43,7 +43,7 @@
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.execution.config
+.. automodule:: market_simulator.execution.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -53,7 +53,7 @@
 ## Live
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.live.config
+.. automodule:: market_simulator.live.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -63,7 +63,7 @@
 ## Persistence
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.persistence.config
+.. automodule:: market_simulator.persistence.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -73,7 +73,7 @@
 ## Risk
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.risk.config
+.. automodule:: market_simulator.risk.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -83,7 +83,7 @@
 ## System
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.system.config
+.. automodule:: market_simulator.system.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -93,7 +93,7 @@
 ## Trading
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.trading.config
+.. automodule:: market_simulator.trading.config
    :show-inheritance:
    :inherited-members:
    :members:

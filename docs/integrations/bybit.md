@@ -7,7 +7,7 @@ execution with Bybit.
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/bybit/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/bybit/).
 
 ## Overview
 
@@ -31,7 +31,7 @@ and won't need to necessarily work with these lower level components directly.
 ## Bybit documentation
 
 Bybit provides extensive documentation for users which can be found in the [Bybit help center](https://www.bybit.com/en/help-center).
-It’s recommended you also refer to the Bybit documentation in conjunction with this NautilusTrader integration guide.
+It’s recommended you also refer to the Bybit documentation in conjunction with this Market Simulator integration guide.
 
 ## Products
 
@@ -82,9 +82,9 @@ Configure it to load instruments before strategies subscribe to market data or s
 orders. Subscriptions do not request missing instrument definitions.
 
 ```python
-from nautilus_trader.adapters.bybit import BybitProductType
-from nautilus_trader.adapters.bybit.config import BybitDataClientConfig
-from nautilus_trader.config import InstrumentProviderConfig
+from market_simulator.adapters.bybit import BybitProductType
+from market_simulator.adapters.bybit.config import BybitDataClientConfig
+from market_simulator.config import InstrumentProviderConfig
 
 BybitDataClientConfig(
     instrument_provider=InstrumentProviderConfig(load_all=True),
@@ -95,10 +95,10 @@ BybitDataClientConfig(
 Use `load_ids` when you only need a known set of instruments:
 
 ```python
-from nautilus_trader.adapters.bybit import BybitProductType
-from nautilus_trader.adapters.bybit.config import BybitDataClientConfig
-from nautilus_trader.config import InstrumentProviderConfig
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.adapters.bybit import BybitProductType
+from market_simulator.adapters.bybit.config import BybitDataClientConfig
+from market_simulator.config import InstrumentProviderConfig
+from market_simulator.model.identifiers import InstrumentId
 
 BybitDataClientConfig(
     instrument_provider=InstrumentProviderConfig(
@@ -126,7 +126,7 @@ environment with the `environment` enum on your client configuration.
 The default environment for live trading with real funds.
 
 ```python
-from nautilus_trader.adapters.bybit import BybitEnvironment
+from market_simulator.adapters.bybit import BybitEnvironment
 
 config = BybitExecClientConfig(
     api_key="YOUR_API_KEY",
@@ -144,7 +144,7 @@ Create demo API keys from the
 [Bybit demo trading page](https://www.bybit.com/en/demo-trading).
 
 ```python
-from nautilus_trader.adapters.bybit import BybitEnvironment
+from market_simulator.adapters.bybit import BybitEnvironment
 
 config = BybitExecClientConfig(
     api_key="YOUR_DEMO_API_KEY",
@@ -158,7 +158,7 @@ Environment variables: `BYBIT_DEMO_API_KEY`, `BYBIT_DEMO_API_SECRET`
 :::warning
 **Demo environment limitations:**
 
-- The WebSocket Trade API is **not supported** for demo trading. NautilusTrader automatically uses the HTTP REST API for order operations in demo mode.
+- The WebSocket Trade API is **not supported** for demo trading. Market Simulator automatically uses the HTTP REST API for order operations in demo mode.
 - Some advanced order features available via WebSocket (trigger orders, post-only with is_quote_quantity) are not available in demo mode.
 - Demo private streams use `wss://stream-demo.bybit.com`, but public market data uses Bybit's mainnet public stream `wss://stream.bybit.com`.
 
@@ -169,7 +169,7 @@ Environment variables: `BYBIT_DEMO_API_KEY`, `BYBIT_DEMO_API_SECRET`
 A separate test network for development and integration testing.
 
 ```python
-from nautilus_trader.adapters.bybit import BybitEnvironment
+from market_simulator.adapters.bybit import BybitEnvironment
 
 config = BybitExecClientConfig(
     api_key="YOUR_TESTNET_API_KEY",
@@ -289,7 +289,7 @@ types configure `MERGED_SINGLE` or omit them from `position_mode`. Configure
 per symbol:
 
 ```python
-from nautilus_trader.adapters.bybit import BybitPositionMode
+from market_simulator.adapters.bybit import BybitPositionMode
 
 config = BybitExecClientConfig(
     ...,
@@ -451,11 +451,11 @@ and do not borrow funds, even if you have auto-borrow enabled on your Bybit acco
 :::
 
 For a complete example of using order parameters including `is_leverage`, see the
-[bybit_exec_tester.py](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/bybit/bybit_exec_tester.py) example.
+[bybit_exec_tester.py](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/bybit/bybit_exec_tester.py) example.
 
 ## Spot margin borrowing and repayment
 
-NautilusTrader provides automated spot margin borrow repayment functionality to prevent interest accrual after closing short positions on Bybit.
+Market Simulator provides automated spot margin borrow repayment functionality to prevent interest accrual after closing short positions on Bybit.
 
 ### Background
 
@@ -465,7 +465,7 @@ This can result in significant interest costs if left unattended.
 
 ### Automatic repayment (recommended)
 
-NautilusTrader automatically repays spot margin borrows immediately after BUY orders fill on Spot instruments.
+Market Simulator automatically repays spot margin borrows immediately after BUY orders fill on Spot instruments.
 This feature is **enabled by default** via the `auto_repay_spot_borrows` configuration flag.
 
 **How it works:**
@@ -478,7 +478,7 @@ This feature is **enabled by default** via the `auto_repay_spot_borrows` configu
 **Example:**
 
 ```python
-from nautilus_trader.adapters.bybit import BybitExecClientConfig
+from market_simulator.adapters.bybit import BybitExecClientConfig
 
 config = BybitExecClientConfig(
     api_key="YOUR_API_KEY",
@@ -543,11 +543,11 @@ during strategy initialization via the config.
 Results are published as custom data on the message bus. Subscribe in your strategy to receive them:
 
 ```python
-from nautilus_trader.adapters.bybit import BybitMarginAction
-from nautilus_trader.adapters.bybit import BybitMarginBorrowResult
-from nautilus_trader.adapters.bybit import BybitMarginRepayResult
-from nautilus_trader.adapters.bybit import BybitMarginStatusResult
-from nautilus_trader.model.data import DataType
+from market_simulator.adapters.bybit import BybitMarginAction
+from market_simulator.adapters.bybit import BybitMarginBorrowResult
+from market_simulator.adapters.bybit import BybitMarginRepayResult
+from market_simulator.adapters.bybit import BybitMarginStatusResult
+from market_simulator.model.data import DataType
 
 
 class MyStrategy(Strategy):
@@ -573,7 +573,7 @@ class MyStrategy(Strategy):
 
 ### UTC blackout window
 
-Bybit blocks `no-convert-repay` operations daily during **04:00-05:30 UTC** for interest calculation processing. NautilusTrader automatically detects this window and skips repayment attempts, logging a warning instead.
+Bybit blocks `no-convert-repay` operations daily during **04:00-05:30 UTC** for interest calculation processing. Market Simulator automatically detects this window and skips repayment attempts, logging a warning instead.
 
 During the blackout window, any BUY order fills will trigger a warning like:
 
@@ -628,7 +628,7 @@ Subscribe to per-instrument Greeks or aggregate them into option chain
 snapshots with ATM-relative strike filtering. See the
 [options concept guide](../concepts/options.md) for subscription patterns and
 the [options data tutorial](../tutorials/options_data_bybit.md) for a
-step-by-step walkthrough. NautilusTrader builds the option chain view locally
+step-by-step walkthrough. Market Simulator builds the option chain view locally
 from Bybit's per-contract option market data.
 
 Bar (kline) data is not available for options. Bybit does not provide kline
@@ -854,11 +854,11 @@ data and execution clients. To achieve this, add a `BYBIT` section to your clien
 configuration(s):
 
 ```python
-from nautilus_trader.adapters.bybit import BYBIT
-from nautilus_trader.adapters.bybit import BybitEnvironment
-from nautilus_trader.adapters.bybit import BybitProductType
-from nautilus_trader.live.node import TradingNode
-from nautilus_trader.live.node import TradingNodeConfig
+from market_simulator.adapters.bybit import BYBIT
+from market_simulator.adapters.bybit import BybitEnvironment
+from market_simulator.adapters.bybit import BybitProductType
+from market_simulator.live.node import TradingNode
+from market_simulator.live.node import TradingNodeConfig
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -886,10 +886,10 @@ config = TradingNodeConfig(
 Then, create a `TradingNode` and add the client factories:
 
 ```python
-from nautilus_trader.adapters.bybit import BYBIT
-from nautilus_trader.adapters.bybit import BybitLiveDataClientFactory
-from nautilus_trader.adapters.bybit import BybitLiveExecClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.bybit import BYBIT
+from market_simulator.adapters.bybit import BybitLiveDataClientFactory
+from market_simulator.adapters.bybit import BybitLiveExecClientFactory
+from market_simulator.live.node import TradingNode
 
 # Instantiate the live trading node with a configuration
 node = TradingNode(config=config)
@@ -934,5 +934,5 @@ credentials are valid and have trading permissions.
 
 :::info
 For additional features or to contribute to the Bybit adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

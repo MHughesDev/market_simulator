@@ -2,7 +2,7 @@
 
 ## Introduction
 
-NautilusTrader is an open-source, production-grade, Rust-native engine for multi-asset,
+Market Simulator is an open-source, production-grade, Rust-native engine for multi-asset,
 multi-venue trading systems.
 
 The system spans research, deterministic simulation, and live execution within a single
@@ -18,7 +18,7 @@ live systems. Strategies deploy from research to production with no code changes
 providing research-to-live parity and reducing the divergence that typically introduces
 deployment risk.
 
-NautilusTrader is asset-class-agnostic. Any venue with a REST API or WebSocket feed can be
+Market Simulator is asset-class-agnostic. Any venue with a REST API or WebSocket feed can be
 integrated through modular adapters. Current integrations span crypto exchanges (CEX and
 DEX), traditional markets (FX, equities, futures, options), and betting exchanges.
 
@@ -35,13 +35,13 @@ DEX), traditional markets (FX, equities, futures, options), and betting exchange
 - **Multi-venue**: Run market-making and cross-venue strategies across multiple venues simultaneously.
 - **AI training**: Engine fast enough to train AI trading agents (RL/ES).
 
-## Why NautilusTrader?
+## Why Market Simulator?
 
 Trading strategy research typically happens in Python using vectorized approaches, while
 production trading systems are built separately using event-driven architectures in
 compiled languages.
 
-NautilusTrader removes this separation.
+Market Simulator removes this separation.
 
 A Rust-native core provides a deterministic event-driven runtime for both research and live
 execution, while Python serves as the control plane. The same architecture, execution

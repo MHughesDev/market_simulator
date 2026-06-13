@@ -43,11 +43,11 @@ let order = self.core.order_factory().market(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import MarketOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model import InstrumentId
+from market_simulator.model import Quantity
+from market_simulator.model.orders import MarketOrder
 
 order: MarketOrder = self.order_factory.market(
     instrument_id=InstrumentId.from_str("AUD/USD.IDEALPRO"),
@@ -59,7 +59,7 @@ order: MarketOrder = self.order_factory.market(
 )
 ```
 
-See the [`MarketOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.market.MarketOrder) for further details.
+See the [`MarketOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.market.MarketOrder) for further details.
 
 ## Related guides
 

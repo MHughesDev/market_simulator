@@ -10,7 +10,7 @@ This integration supports live market data ingest and order execution with AX Ex
 
 ## Examples
 
-You can find live example scripts [here](https://github.com/nautechsystems/nautilus_trader/tree/develop/examples/live/architect_ax/).
+You can find live example scripts [here](https://github.com/market-simulator-team/market_simulator/tree/develop/examples/live/architect_ax/).
 
 ## Overview
 
@@ -37,7 +37,7 @@ and won't need to necessarily work with these lower level components directly.
 AX Exchange provides documentation for users which can be found at the
 [Architect documentation site](https://docs.architect.exchange/).
 It's recommended you also refer to the AX Exchange documentation in conjunction with this
-NautilusTrader integration guide.
+Market Simulator integration guide.
 
 ## Products
 
@@ -69,7 +69,7 @@ Characteristics of AX perpetual contracts:
 - **Whole contracts only**: Fractional quantities are not supported.
 - **Margin**: Initial margin is required to open a position; maintenance margin to keep it open.
 
-In NautilusTrader, all AX instruments are represented as `PerpetualContract`, an asset-class
+In Market Simulator, all AX instruments are represented as `PerpetualContract`, an asset-class
 agnostic perpetual swap type. The asset class (FX, commodity, equity, etc.) is inferred
 automatically from the underlying. The adapter uses `MARGIN` account type and `NETTING` order
 management.
@@ -91,7 +91,7 @@ identified by the `-PERP` suffix appended to the underlying asset symbol.
 The venue identifier is `AX`. To construct a Nautilus `InstrumentId`:
 
 ```python
-from nautilus_trader.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import InstrumentId
 
 instrument_id = InstrumentId.from_str("GBPUSD-PERP.AX")
 ```
@@ -335,12 +335,12 @@ data and execution clients. To achieve this, add an `AX` section to your client
 configuration(s):
 
 ```python
-from nautilus_trader.adapters.architect_ax import AX
-from nautilus_trader.adapters.architect_ax import AxDataClientConfig
-from nautilus_trader.adapters.architect_ax import AxEnvironment
-from nautilus_trader.adapters.architect_ax import AxExecClientConfig
-from nautilus_trader.config import InstrumentProviderConfig
-from nautilus_trader.config import TradingNodeConfig
+from market_simulator.adapters.architect_ax import AX
+from market_simulator.adapters.architect_ax import AxDataClientConfig
+from market_simulator.adapters.architect_ax import AxEnvironment
+from market_simulator.adapters.architect_ax import AxExecClientConfig
+from market_simulator.config import InstrumentProviderConfig
+from market_simulator.config import TradingNodeConfig
 
 config = TradingNodeConfig(
     ...,  # Omitted
@@ -362,10 +362,10 @@ config = TradingNodeConfig(
 Then, create a `TradingNode` and add the client factories:
 
 ```python
-from nautilus_trader.adapters.architect_ax import AX
-from nautilus_trader.adapters.architect_ax import AxLiveDataClientFactory
-from nautilus_trader.adapters.architect_ax import AxLiveExecClientFactory
-from nautilus_trader.live.node import TradingNode
+from market_simulator.adapters.architect_ax import AX
+from market_simulator.adapters.architect_ax import AxLiveDataClientFactory
+from market_simulator.adapters.architect_ax import AxLiveExecClientFactory
+from market_simulator.live.node import TradingNode
 
 # Instantiate the live trading node with a configuration
 node = TradingNode(config=config)
@@ -415,5 +415,5 @@ credentials are valid and have trading permissions.
 
 :::info
 For additional features or to contribute to the AX Exchange adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

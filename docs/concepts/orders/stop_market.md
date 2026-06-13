@@ -47,13 +47,13 @@ let order = self.core.order_factory().stop_market(
 ```
 
 ```python tab="Python"
-from nautilus_trader.model.enums import OrderSide
-from nautilus_trader.model.enums import TimeInForce
-from nautilus_trader.model.enums import TriggerType
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Price
-from nautilus_trader.model import Quantity
-from nautilus_trader.model.orders import StopMarketOrder
+from market_simulator.model.enums import OrderSide
+from market_simulator.model.enums import TimeInForce
+from market_simulator.model.enums import TriggerType
+from market_simulator.model import InstrumentId
+from market_simulator.model import Price
+from market_simulator.model import Quantity
+from market_simulator.model.orders import StopMarketOrder
 
 order: StopMarketOrder = self.order_factory.stop_market(
     instrument_id=InstrumentId.from_str("BTCUSDT.BINANCE"),
@@ -68,7 +68,7 @@ order: StopMarketOrder = self.order_factory.stop_market(
 )
 ```
 
-See the [`StopMarketOrder` API Reference](/docs/python-api-latest/model/orders.html#nautilus_trader.model.orders.stop_market.StopMarketOrder) for further details.
+See the [`StopMarketOrder` API Reference](/docs/python-api-latest/model/orders.html#market_simulator.model.orders.stop_market.StopMarketOrder) for further details.
 
 ## Related guides
 

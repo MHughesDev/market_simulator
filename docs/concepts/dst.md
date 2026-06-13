@@ -1,12 +1,12 @@
 # DST
 
-**Deterministic simulation testing (DST)** runs NautilusTrader under a seed-controlled runtime so that
+**Deterministic simulation testing (DST)** runs Market Simulator under a seed-controlled runtime so that
 timing-sensitive execution behavior is bitwise reproducible from a single integer. This guide
-explains what DST is, how NautilusTrader supports it, what guarantees the support provides, and
+explains what DST is, how Market Simulator supports it, what guarantees the support provides, and
 where those guarantees stop.
 
 The goal is a published contract that external users and auditors can verify: the determinism
-NautilusTrader claims is backed by source-level evidence and enforced at commit time by a pre-
+Market Simulator claims is backed by source-level evidence and enforced at commit time by a pre-
 commit hook that runs in continuous integration.
 
 ## Introduction
@@ -35,7 +35,7 @@ exhaustively cover but a deterministic scheduler can explore systematically.
 
 ### What this guide covers
 
-NautilusTrader's DST support has two halves:
+Market Simulator's DST support has two halves:
 
 - **The contract**: what the runtime guarantees under seed-controlled execution, and under which
   conditions.
@@ -44,7 +44,7 @@ NautilusTrader's DST support has two halves:
 
 ## Goals
 
-- **Seed-reproducible execution** for the in-scope portion of the NautilusTrader runtime.
+- **Seed-reproducible execution** for the in-scope portion of the Market Simulator runtime.
 - **Honest scope**. The contract lists what is covered and what is not. No silent fallbacks to
   real wall-clock time or unseeded RNG; conditions that weaken the guarantee are enumerated.
 - **Enforcement in source**. A pre-commit hook fails commits that add banned patterns to the DST
@@ -193,7 +193,7 @@ the iteration order is observable on the DST path:
   (`execution_bar_types`, `execution_bar_deltas`, `account_ids`, `cached_filled_qty`,
   `bid_consumption`, `ask_consumption`, `queue_ahead`, `queue_excess`, `queue_pending`).
   Iterated removes use `.shift_remove()`. Closes
-  [#3914](https://github.com/nautechsystems/nautilus_trader/issues/3914).
+  [#3914](https://github.com/market-simulator-team/market_simulator/issues/3914).
 - **Reconciliation manager** (`crates/live/src/manager.rs`): hook-enforced, plus
   `ReconciliationResult.orders` and `ReconciliationResult.fills`.
 - **Account trait** (`crates/model/src/accounts/`): `balances`, `balances_total`,
@@ -312,7 +312,7 @@ The contract is deliberately narrow. The following weakenings are explicit, not 
 
 DST runs under a native Rust test harness. No Python interpreter starts during a DST run. The
 PyO3 bindings under `crates/*/src/python/`, the `ffi/` directories, and the Python packages
-under `nautilus_trader/` are excluded from the contract as a policy, not as a weakness. Any
+under `market_simulator/` are excluded from the contract as a policy, not as a weakness. Any
 code reachable only from Python call paths is out of scope; any Rust path reachable from the
 native DST harness must satisfy the contract even if the same type is also exported to Python.
 

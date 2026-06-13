@@ -1,7 +1,7 @@
 # Betfair
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair
+.. automodule:: market_simulator.adapters.betfair
    :show-inheritance:
    :inherited-members:
    :members:
@@ -11,7 +11,7 @@
 ## Client
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.client
+.. automodule:: market_simulator.adapters.betfair.client
    :show-inheritance:
    :inherited-members:
    :members:
@@ -21,7 +21,7 @@
 ## Common
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.common
+.. automodule:: market_simulator.adapters.betfair.common
    :show-inheritance:
    :inherited-members:
    :members:
@@ -31,7 +31,7 @@
 ## Config
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.config
+.. automodule:: market_simulator.adapters.betfair.config
    :show-inheritance:
    :inherited-members:
    :members:
@@ -41,7 +41,7 @@
 ## Data
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.data
+.. automodule:: market_simulator.adapters.betfair.data
    :show-inheritance:
    :inherited-members:
    :members:
@@ -51,7 +51,7 @@
 ## Data Types
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.data_types
+.. automodule:: market_simulator.adapters.betfair.data_types
    :show-inheritance:
    :inherited-members:
    :members:
@@ -61,7 +61,7 @@
 ## Execution
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.execution
+.. automodule:: market_simulator.adapters.betfair.execution
    :show-inheritance:
    :inherited-members:
    :members:
@@ -71,7 +71,7 @@
 ## Factories
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.factories
+.. automodule:: market_simulator.adapters.betfair.factories
    :show-inheritance:
    :inherited-members:
    :members:
@@ -81,7 +81,7 @@
 ## OrderBook
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.orderbook
+.. automodule:: market_simulator.adapters.betfair.orderbook
    :show-inheritance:
    :inherited-members:
    :members:
@@ -91,7 +91,7 @@
 ## Providers
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.providers
+.. automodule:: market_simulator.adapters.betfair.providers
    :show-inheritance:
    :inherited-members:
    :members:
@@ -101,7 +101,7 @@
 ## Sockets
 
 ```{eval-rst}
-.. automodule:: nautilus_trader.adapters.betfair.sockets
+.. automodule:: market_simulator.adapters.betfair.sockets
    :show-inheritance:
    :inherited-members:
    :members:

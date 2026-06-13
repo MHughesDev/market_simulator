@@ -4,7 +4,7 @@
 perpetual futures. The venue settles through an Ethereum zero-knowledge rollup, while matching and
 sequencing run off-chain.
 
-The NautilusTrader Lighter adapter is implemented by the `nautilus-lighter` crate. It provides
+The Market Simulator Lighter adapter is implemented by the `nautilus-lighter` crate. It provides
 Rust data and execution clients, typed REST and WebSocket models, and an in-tree L2 transaction
 signer for the venue's Schnorr / ECgFp5 signing flow.
 
@@ -28,7 +28,7 @@ consumed through the Rust trait surface.
 ## Examples
 
 The adapter includes Python v2 and Rust live-node examples. The Python examples live in
-[`python/examples/lighter/`](https://github.com/nautechsystems/nautilus_trader/tree/develop/python/examples/lighter/)
+[`python/examples/lighter/`](https://github.com/market-simulator-team/market_simulator/tree/develop/python/examples/lighter/)
 and default to a dry build: they build the node, register the tester, and exit unless `--run` is
 passed.
 
@@ -121,7 +121,7 @@ configuration. URL overrides are available for private gateways or local test fi
 
 ## Integrator attribution
 
-Submitted create and modify order transactions carry the NautilusTrader integrator account index in
+Submitted create and modify order transactions carry the Market Simulator integrator account index in
 Lighter's `L2TxAttributes`. This helps us gauge real usage of the integration and prioritize
 ongoing maintenance. Maker and taker integrator fees are set to zero, so attribution adds no trading
 cost.
@@ -145,12 +145,12 @@ cargo run -p nautilus-lighter --bin lighter-integrator-revoke testnet   # testne
 ```
 
 Script source:
-[`crates/adapters/lighter/bin/integrator_revoke.rs`](https://github.com/nautechsystems/nautilus_trader/blob/develop/crates/adapters/lighter/bin/integrator_revoke.rs).
+[`crates/adapters/lighter/bin/integrator_revoke.rs`](https://github.com/market-simulator-team/market_simulator/blob/develop/crates/adapters/lighter/bin/integrator_revoke.rs).
 
 ```python
 # Python (PyO3 binding) - reads the same env vars as the Rust bin
-from nautilus_trader.core.nautilus_pyo3 import revoke_lighter_integrator
-from nautilus_trader.core.nautilus_pyo3 import LighterEnvironment
+from market_simulator.core.nautilus_pyo3 import revoke_lighter_integrator
+from market_simulator.core.nautilus_pyo3 import LighterEnvironment
 
 await revoke_lighter_integrator()                            # mainnet (default)
 await revoke_lighter_integrator(LighterEnvironment.TESTNET)  # testnet
@@ -574,7 +574,7 @@ same values when all three are available.
 
 | Option                      | Default   | Description                                                |
 |-----------------------------|-----------|------------------------------------------------------------|
-| `trader_id`                 | Required  | Nautilus trader identifier.                                |
+| `trader_id`                 | Required  | Market simulator identifier.                                |
 | `account_id`                | Required  | Nautilus account identifier for the venue.                 |
 | `account_index`             | `None`    | Lighter account index.                                     |
 | `api_key_index`             | `None`    | Lighter API key slot.                                      |
@@ -629,5 +629,5 @@ cold-start reconciliation.
 
 :::info
 For additional features or to contribute to the Lighter adapter, please see our
-[contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+[contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

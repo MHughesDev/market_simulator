@@ -31,7 +31,7 @@ Components:
 - `CoinbaseExecutionClient`: Execution client (spot or CFM derivatives; REST orders + WS streams).
 - `CoinbaseExecutionClientFactory`: Execution client factory; spot vs CFM derivatives is selected by `account_type` on the config.
 
-PyO3 surface available from `nautilus_trader.core.nautilus_pyo3.coinbase`:
+PyO3 surface available from `market_simulator.core.nautilus_pyo3.coinbase`:
 
 - `CoinbaseDataClientConfig`, `CoinbaseExecClientConfig`
 - `CoinbaseEnvironment`, `CoinbaseMarginType`
@@ -47,7 +47,7 @@ Coinbase provides documentation for the Advanced Trade API:
 - [Rate limits](https://docs.cdp.coinbase.com/advanced-trade/docs/rate-limits)
 
 It's recommended you also refer to the Coinbase documentation in conjunction
-with this NautilusTrader integration guide.
+with this Market Simulator integration guide.
 
 :::info
 This adapter targets the Coinbase Advanced Trade API. The separate
@@ -717,9 +717,9 @@ fill deltas remain correct.
 Configurations are constructed from Python via the PyO3-exported types:
 
 ```python
-from nautilus_trader.core.nautilus_pyo3 import CoinbaseDataClientConfig
-from nautilus_trader.core.nautilus_pyo3 import CoinbaseExecClientConfig
-from nautilus_trader.core.nautilus_pyo3 import CoinbaseEnvironment
+from market_simulator.core.nautilus_pyo3 import CoinbaseDataClientConfig
+from market_simulator.core.nautilus_pyo3 import CoinbaseExecClientConfig
+from market_simulator.core.nautilus_pyo3 import CoinbaseEnvironment
 
 data_config = CoinbaseDataClientConfig(
     api_key="YOUR_COINBASE_API_KEY",
@@ -803,5 +803,5 @@ Both read `COINBASE_API_KEY` and `COINBASE_API_SECRET` from the environment.
 
 :::info
 For additional features or to contribute to the Coinbase adapter, please see
-our [contributing guide](https://github.com/nautechsystems/nautilus_trader/blob/develop/CONTRIBUTING.md).
+our [contributing guide](https://github.com/market-simulator-team/market_simulator/blob/develop/CONTRIBUTING.md).
 :::

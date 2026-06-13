@@ -1,6 +1,6 @@
 # Positions
 
-This guide explains how positions work in NautilusTrader, including their lifecycle, aggregation
+This guide explains how positions work in Market Simulator, including their lifecycle, aggregation
 from order fills, profit and loss calculations, and the important concept of position snapshotting
 for netting OMS configurations.
 
@@ -139,7 +139,7 @@ All adjustments are preserved in the position event history:
 
 ## OMS types and position management
 
-NautilusTrader supports two primary OMS types that fundamentally affect how positions are tracked
+Market Simulator supports two primary OMS types that fundamentally affect how positions are tracked
 and managed. An `OmsType.UNSPECIFIED` option also exists, which defaults to the component's
 context. For full details, see the [Execution guide](execution.md#order-management-system-oms).
 
@@ -239,7 +239,7 @@ incorrect reporting and analysis.
 
 ## PnL calculations
 
-NautilusTrader provides PnL calculations that account for instrument
+Market Simulator provides PnL calculations that account for instrument
 specifications and market conventions.
 
 ### Realized PnL
@@ -374,7 +374,7 @@ notional = position.notional_value(current_price)
 
 :::info
 For complete type information and detailed property documentation, see the Position
-[API Reference](/docs/python-api-latest/model/position.html#nautilus_trader.model.position.Position).
+[API Reference](/docs/python-api-latest/model/position.html#market_simulator.model.position.Position).
 :::
 
 ## Events and tracking

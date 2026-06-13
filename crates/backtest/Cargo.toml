@@ -26,7 +26,7 @@ examples = ["nautilus-trading/examples"]
 high-precision = ["nautilus-model/high-precision"]
 defi = ["nautilus-common/defi", "nautilus-data/defi", "nautilus-model/defi"]
 plugin = ["dep:nautilus-plugin"]
-streaming = ["nautilus-persistence", "nautilus-system/streaming"]
+streaming = ["dep:arrow", "nautilus-persistence", "nautilus-system/streaming"]
 extension-module = [
   "nautilus-common/extension-module",
   "nautilus-core/extension-module",
@@ -70,6 +70,7 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
+arrow = { workspace = true, optional = true }
 nautilus-analysis = { workspace = true }
 nautilus-common = { workspace = true }
 nautilus-core = { workspace = true }
@@ -102,6 +103,7 @@ serde_json = { workspace = true }
 [dev-dependencies]
 nautilus-indicators = { workspace = true }
 nautilus-persistence = { workspace = true }
+nautilus-serialization = { workspace = true, features = ["arrow"] }
 nautilus-testkit = { workspace = true }
 nautilus-trading = { workspace = true, features = ["examples"] }
 

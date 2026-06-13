@@ -1,6 +1,6 @@
 # Adapters and Integrations
 
-This document describes how NautilusTrader classifies adapters, the path between
+This document describes how Market Simulator classifies adapters, the path between
 tiers, and how community adapters can be listed.
 
 For naming rules, disclaimer requirements, and trademark guidance, see [TRADEMARK.md](./TRADEMARK.md).
@@ -9,13 +9,13 @@ For naming rules, disclaimer requirements, and trademark guidance, see [TRADEMAR
 
 ### Official
 
-Maintained in the [nautilus_trader](https://github.com/nautechsystems/nautilus_trader)
-repository or the [nautechsystems](https://github.com/nautechsystems) GitHub
+Maintained in the [market_simulator](https://github.com/market-simulator-team/market_simulator)
+repository or the [market-simulator-team](https://github.com/market-simulator-team) GitHub
 organization, and designated as official by project maintainers. Documented and
 supported by maintainers.
 
 **Requirements:** Strategic and technical fit, maintainability, demand, legal suitability,
-alignment with the NautilusTrader domain model and standard adapter patterns.
+alignment with the Market Simulator domain model and standard adapter patterns.
 
 ### Community
 
@@ -41,7 +41,7 @@ following the process in the
 [ROADMAP](./ROADMAP.md#community-contributed-integrations). Maintainers evaluate
 against the existing criteria: stability, demand, technical fit, bandwidth, and
 alignment with Rust adapter patterns. If approved, the adapter is brought into
-the core repository or the nautechsystems organization, re-licensed if needed,
+the core repository or the market-simulator-team organization, re-licensed if needed,
 and maintained to project standards.
 
 ### Demotion
@@ -65,13 +65,13 @@ framework applies going forward.
 
 ## Support
 
-NautilusTrader maintainers provide support for official adapters only. Issues
+Market Simulator maintainers provide support for official adapters only. Issues
 with community or external adapters should be directed to their respective
 maintainers.
 
-If you believe an issue originates in the NautilusTrader core rather than a
+If you believe an issue originates in the Market Simulator core rather than a
 third-party adapter, please file a minimal reproducible example against the
-[core repository](https://github.com/nautechsystems/nautilus_trader/issues).
+[core repository](https://github.com/market-simulator-team/market_simulator/issues).
 
 ## Official adapters
 
@@ -114,11 +114,11 @@ description. Maintainers review against the listing criteria above and decide
 whether to add the listing.
 
 Maintainers may update or remove a community listing if it no longer meets the
-listing criteria or misrepresents its relationship to NautilusTrader.
+listing criteria or misrepresents its relationship to Market Simulator.
 
 ### Community adapters
 
-Community adapters are externally maintained and are not supported by NautilusTrader maintainers.
+Community adapters are externally maintained and are not supported by Market Simulator maintainers.
 
 | Project                                                 | Description                                | Maintainer |
 |---------------------------------------------------------|--------------------------------------------|------------|

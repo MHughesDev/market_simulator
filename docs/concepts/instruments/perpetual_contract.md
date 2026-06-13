@@ -96,14 +96,14 @@ let eurusd_perp = PerpetualContract::new(
 ```python tab="Python"
 from decimal import Decimal
 
-from nautilus_trader.model.currencies import EUR
-from nautilus_trader.model.currencies import USD
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.instruments import PerpetualContract
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import EUR
+from market_simulator.model.currencies import USD
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.instruments import PerpetualContract
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 eurusd_perp = PerpetualContract(
     instrument_id=InstrumentId.from_str("EURUSD-PERP.AX"),

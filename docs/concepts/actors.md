@@ -16,10 +16,10 @@ with order management capabilities.
 Actors support configuration through a pattern similar to strategies.
 
 ```python
-from nautilus_trader.config import ActorConfig
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model import Bar, BarType
-from nautilus_trader.common.actor import Actor
+from market_simulator.config import ActorConfig
+from market_simulator.model import InstrumentId
+from market_simulator.model import Bar, BarType
+from market_simulator.common.actor import Actor
 
 
 class MyActorConfig(ActorConfig):
@@ -200,11 +200,11 @@ Different data operations map to these handlers:
 This example shows both historical and real-time data handling:
 
 ```python
-from nautilus_trader.common.actor import Actor
-from nautilus_trader.config import ActorConfig
-from nautilus_trader.core.data import Data
-from nautilus_trader.model import Bar, BarType
-from nautilus_trader.model import ClientId, InstrumentId
+from market_simulator.common.actor import Actor
+from market_simulator.config import ActorConfig
+from market_simulator.core.data import Data
+from market_simulator.model import Bar, BarType
+from market_simulator.model import ClientId, InstrumentId
 
 
 class MyActorConfig(ActorConfig):
@@ -271,10 +271,10 @@ regardless of which strategy or component generated the original order.
 ### Example
 
 ```python
-from nautilus_trader.common.actor import Actor
-from nautilus_trader.config import ActorConfig
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model.events import OrderFilled
+from market_simulator.common.actor import Actor
+from market_simulator.config import ActorConfig
+from market_simulator.model import InstrumentId
+from market_simulator.model.events import OrderFilled
 
 
 class MyActorConfig(ActorConfig):
@@ -322,10 +322,10 @@ regardless of which strategy or component generated the original order.
 ### Example
 
 ```python
-from nautilus_trader.common.actor import Actor
-from nautilus_trader.config import ActorConfig
-from nautilus_trader.model import InstrumentId
-from nautilus_trader.model.events import OrderCanceled
+from market_simulator.common.actor import Actor
+from market_simulator.config import ActorConfig
+from market_simulator.model import InstrumentId
+from market_simulator.model.events import OrderCanceled
 
 
 class MyActorConfig(ActorConfig):

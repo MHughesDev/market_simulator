@@ -100,14 +100,14 @@ from decimal import Decimal
 
 import pandas as pd
 
-from nautilus_trader.model.currencies import USDC
-from nautilus_trader.model.enums import AssetClass
-from nautilus_trader.model.identifiers import InstrumentId
-from nautilus_trader.model.identifiers import Symbol
-from nautilus_trader.model.identifiers import Venue
-from nautilus_trader.model.instruments import BinaryOption
-from nautilus_trader.model.objects import Price
-from nautilus_trader.model.objects import Quantity
+from market_simulator.model.currencies import USDC
+from market_simulator.model.enums import AssetClass
+from market_simulator.model.identifiers import InstrumentId
+from market_simulator.model.identifiers import Symbol
+from market_simulator.model.identifiers import Venue
+from market_simulator.model.instruments import BinaryOption
+from market_simulator.model.objects import Price
+from market_simulator.model.objects import Quantity
 
 raw_symbol = Symbol(
     "0x12a0cb60174abc437bf1178367c72d11f069e1a3add20b148fb0ab4279b772b2-92544998123698303655208967887569360731013655782348975589292031774495159624905",

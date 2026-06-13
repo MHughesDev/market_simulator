@@ -1,6 +1,6 @@
 # Order Book
 
-NautilusTrader provides a high-performance order book implemented in Rust, capable of
+Market Simulator provides a high-performance order book implemented in Rust, capable of
 maintaining full book state from L1 through L3 data. The `OrderBook` is the primary
 component for tracking public market depth, while the `OwnOrderBook` tracks your own
 orders separately, enabling filtered views that show true available liquidity.
@@ -8,7 +8,7 @@ orders separately, enabling filtered views that show true available liquidity.
 :::note
 This guide documents the Rust API. These types are also available from Python via
 PyO3 bindings (`nautilus_pyo3.OrderBook`, `nautilus_pyo3.OwnOrderBook`). The v1 legacy
-Cython `OrderBook` (`nautilus_trader.model.book.OrderBook`) returned by
+Cython `OrderBook` (`market_simulator.model.book.OrderBook`) returned by
 `cache.order_book()` has a similar but not identical interface. Refer to the
 API reference for differences.
 :::
